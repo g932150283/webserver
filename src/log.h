@@ -1,6 +1,7 @@
 #ifndef _WEBSERVER_LOG_H_
 #define _WEBSERVER_LOG_H_
 
+
 #include<string>
 #include<stdint.h>
 #include<memory>
@@ -10,75 +11,52 @@
 #include <sstream>
 #include<fstream>
 #include <vector>
+#include <map>
+#include"singleton.h"
+
 namespace webserver{
 
 // 使用流式方式将日志级别level的日志写入到logger
-#define WBESERVER_LOG_LEVEL(logger, level) \
+#define WEBSERVER_LOG_LEVEL(logger, level) \
     if(logger->getLevel() <= level) \
-        LogEvent::ptr(new LogEvent(__FILE__, __LINE__, 0, webserver::GetThreadId, \
-            webserver::GetFiberId(), time(0)))->getSS();
-
+        webserver::LogEventWrap(webserver::LogEvent::ptr(new webserver::LogEvent(logger, level, \
+                        __FILE__, __LINE__, 0, webserver::GetThreadId(),\
+                webserver::GetFiberId(), time(0)))).getSS()
 // 使用流式方式将日志级别debug的日志写入到logger
-#define WBESERVER_LOG_DEBUG WBESERVER_LOG_LEVEL(logger, webserver::LogLevel::DEBUG)
+#define WEBSERVER_LOG_DEBUG(logger) WEBSERVER_LOG_LEVEL(logger, webserver::LogLevel::DEBUG)
 // 使用流式方式将日志级别info的日志写入到logger
-#define WBESERVER_LOG_INFO WBESERVER_LOG_LEVEL(logger, webserver::LogLevel::INFO)
+#define WEBSERVER_LOG_INFO(logger) WEBSERVER_LOG_LEVEL(logger, webserver::LogLevel::INFO)
 // 使用流式方式将日志级别warn的日志写入到logger
-#define WBESERVER_LOG_WARN WBESERVER_LOG_LEVEL(logger, webserver::LogLevel::WARN)
+#define WEBSERVER_LOG_WARN(logger) WEBSERVER_LOG_LEVEL(logger, webserver::LogLevel::WARN)
 // 使用流式方式将日志级别error的日志写入到logger
-#define WBESERVER_LOG_ERROR WBESERVER_LOG_LEVEL(logger, webserver::LogLevel::ERROR)
+#define WEBSERVER_LOG_ERROR(logger) WEBSERVER_LOG_LEVEL(logger, webserver::LogLevel::ERROR)
 // 使用流式方式将日志级别fatal的日志写入到logger
-#define WBESERVER_LOG_FATAL WBESERVER_LOG_LEVEL(logger, webserver::LogLevel::FATAL)
+#define WEBSERVER_LOG_FATAL(logger) WEBSERVER_LOG_LEVEL(logger, webserver::LogLevel::FATAL)
+
+// 使用格式化方式将日志级别level的日志写入到logger
+#define WEBSERVER_LOG_FMT_LEVEL(logger, level, fmt, ...) \
+    if(logger->getLevel() <= level) \
+        webserver::LogEventWrap(webserver::LogEvent::ptr(new webserver::LogEvent(logger, level, \
+                        __FILE__, __LINE__, 0, webserver::GetThreadId(), webserver::GetFiberId(), \
+                        time(0)))).getEvent()->format(fmt, __VA_ARGS__)
+
+// 使用格式化方式将日志级别debug的日志写入到logger
+#define WEBSERVER_LOG_FMT_DEBUG(logger, fmt, ...) WEBSERVER_LOG_FMT_LEVEL(logger, webserver::LogLevel::DEBUG, fmt, __VA_ARGS__)
+
+// 使用格式化方式将日志级别info的日志写入到logger
+#define WEBSERVER_LOG_FMT_INFO(logger, fmt, ...)  WEBSERVER_LOG_FMT_LEVEL(logger, webserver::LogLevel::INFO, fmt, __VA_ARGS__)
+
+// 使用格式化方式将日志级别warn的日志写入到logger
+#define WEBSERVER_LOG_FMT_WARN(logger, fmt, ...)  WEBSERVER_LOG_FMT_LEVEL(logger, webserver::LogLevel::WARN, fmt, __VA_ARGS__)
+
+// 使用格式化方式将日志级别error的日志写入到logger
+#define WEBSERVER_LOG_FMT_ERROR(logger, fmt, ...) WEBSERVER_LOG_FMT_LEVEL(logger, webserver::LogLevel::ERROR, fmt, __VA_ARGS__)
+
+// 使用格式化方式将日志级别fatal的日志写入到logger
+#define WEBSERVER_LOG_FMT_FATAL(logger, fmt, ...) WEBSERVER_LOG_FMT_LEVEL(logger, webserver::LogLevel::FATAL, fmt, __VA_ARGS__)
+
 
 class Logger;
-
-// 日志事件
-// 每个日志生成时定义为一个LogEvent,字段属性都在其中
-class LogEvent{
-public:
-    typedef std::shared_ptr<LogEvent> ptr;
-    LogEvent(std::shared_ptr<Logger> logger, const char* file, int32_t line, uint32_t elapse
-            ,uint32_t thread_id, uint32_t fiber_id, uint64_t time);
-
-    // 返回文件名
-    const char* getFile() const { return m_file;}
-    // 返回行号
-    int32_t getLine() const { return m_line;}
-    // 返回耗时
-    uint32_t getElapse() const { return m_elapse;}
-    // 返回线程ID
-    uint32_t getThreadId() const { return m_threadId;}
-    // 返回协程ID
-    uint32_t getFiberId() const { return m_fiberId;}
-    // 返回时间
-    uint64_t getTime() const { return m_time;}
-    // 返回日志内容
-    std::string getContent() const { return m_ss.str();}
-    // 返回日志内容字符串流
-    std::stringstream& getSS() { return m_ss;}
-    // 返回日志器
-    std::shared_ptr<Logger>& getLogger() { return m_logger;}
-private:
-    const char* m_file = nullptr; // 文件名
-    int32_t m_line = 0;           // 行号
-    uint32_t m_elapse = 0;        // 程序启动开始到现在的毫秒数
-    uint32_t m_threadId = 0;      // 线程ID
-    uint32_t m_fiberId = 0;       // 协程ID
-    uint64_t m_time = 0;          // 时间戳
-    std::stringstream m_ss;       // 日志内容流
-
-    std::shared_ptr<Logger> m_logger; // 日志器
-};
-
-
-// 日志事件包装器
-class LogEventWarp{
-public:
-    LogEventWarp(LogEvent::ptr e);
-    ~LogEventWarp();
-    std::stringstream& getSS();
-private:
-    LogEvent::ptr m_event;
-};
 
 // 日志级别
 class LogLevel{
@@ -99,6 +77,68 @@ public:
     static LogLevel::Level FromString(const std::string& str);
 
 };
+
+
+// 日志事件
+// 每个日志生成时定义为一个LogEvent,字段属性都在其中
+class LogEvent{
+public:
+    typedef std::shared_ptr<LogEvent> ptr;
+    LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level, const char* file, int32_t line, uint32_t elapse
+            ,uint32_t thread_id, uint32_t fiber_id, uint64_t time);
+
+    // 返回文件名
+    const char* getFile() const { return m_file;}
+    // 返回行号
+    int32_t getLine() const { return m_line;}
+    // 返回耗时
+    uint32_t getElapse() const { return m_elapse;}
+    // 返回线程ID
+    uint32_t getThreadId() const { return m_threadId;}
+    // 返回协程ID
+    uint32_t getFiberId() const { return m_fiberId;}
+    // 返回时间
+    uint64_t getTime() const { return m_time;}
+    // 返回日志内容
+    std::string getContent() const { return m_ss.str();}
+    // 返回日志内容字符串流
+    std::stringstream& getSS() { return m_ss;}
+    // 返回日志器
+    std::shared_ptr<Logger>& getLogger() { return m_logger;}
+    // 返回日志级别
+    LogLevel::Level getLevel() { return m_level;}
+    // 格式化写入日志内容
+    void format(const char* fmt, ...);
+    // 格式化写入日志内容
+    void format(const char* fmt, va_list al);
+private:
+    const char* m_file = nullptr; // 文件名
+    int32_t m_line = 0;           // 行号
+    uint32_t m_elapse = 0;        // 程序启动开始到现在的毫秒数
+    uint32_t m_threadId = 0;      // 线程ID
+    uint32_t m_fiberId = 0;       // 协程ID
+    uint64_t m_time = 0;          // 时间戳
+    std::stringstream m_ss;       // 日志内容流
+
+    std::shared_ptr<Logger> m_logger; // 日志器
+    LogLevel::Level m_level;          // 日志级别
+};
+
+
+// 日志事件包装器
+class LogEventWrap{
+public:
+    LogEventWrap(LogEvent::ptr e);
+    ~LogEventWrap();
+    // 获取日志事件
+    LogEvent::ptr getEvent() const { return m_event;}
+    // 获取日志内容流
+    std::stringstream& getSS();
+private:
+    LogEvent::ptr m_event;
+};
+
+
 
 // 日志格式器
 // 每个目的地格式不一致
@@ -147,6 +187,12 @@ public:
 
     // 返回日志格式器
     LogFormatter::ptr getFormatter() const {return m_formatter;}  
+
+    // 设置日志等级
+    void setLevel(LogLevel::Level val) {m_level = val;} 
+
+    // 返回日志等级
+    LogLevel::Level getLevel() const {return m_level;}  
 protected:
     // 虚基类，用到父类属性，修改为protected
     LogLevel::Level m_level = LogLevel::DEBUG;
@@ -242,6 +288,21 @@ private:
     std::ofstream m_filestream;  
 
 };
+
+
+
+class LoggerManager{
+public:
+    LoggerManager();
+    Logger::ptr getLogger(const std::string& name);
+
+    void init();
+private:
+    std::map<std::string, Logger::ptr> m_loggers;
+    Logger::ptr m_root;
+};
+
+typedef webserver::Singleton<LoggerManager> loggerMgr;
 
 } // 命名空间
 #endif

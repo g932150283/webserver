@@ -4,6 +4,7 @@
 #include <functional>
 #include <time.h>
 #include <string.h>
+#include <cstdarg>
 namespace webserver{
 
 // 将日志级别转成文本输出
@@ -47,17 +48,37 @@ LogLevel::Level LogLevel::FromString(const std::string& str) {
 #undef XX
 }
 
-LogEventWarp::LogEventWarp(LogEvent::ptr e)
+LogEventWrap::LogEventWrap(LogEvent::ptr e)
     :m_event(e){
     
 }
 
-LogEventWarp::~LogEventWarp(){
-    m_event->getLogger()
+LogEventWrap::~LogEventWrap(){
+    // 把自己写进去
+    m_event->getLogger()->log(m_event->getLevel(), m_event);
 }
 
-std::stringstream& LogEventWarp::getSS(){
+
+std::stringstream& LogEventWrap::getSS(){
     return m_event->getSS();
+}
+
+// 格式化写入日志内容
+void LogEvent::format(const char* fmt, ...){
+    va_list al;
+    va_start(al, fmt);
+    format(fmt, al);
+    va_end(al);    
+}
+
+// 格式化写入日志内容
+void LogEvent::format(const char* fmt, va_list al){
+    char* buf = nullptr;
+    int len = vasprintf(&buf, fmt, al);
+    if(len != -1) {
+        m_ss << std::string(buf, len);
+        free(buf);
+    }
 }
 
 
@@ -178,7 +199,7 @@ private:
 };
 
 
-LogEvent::LogEvent(std::shared_ptr<Logger> logger, const char* file, int32_t line, uint32_t elapse
+LogEvent::LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level, const char* file, int32_t line, uint32_t elapse
             ,uint32_t thread_id, uint32_t fiber_id, uint64_t time)
     :m_file(file)
     ,m_line(line)
@@ -186,7 +207,8 @@ LogEvent::LogEvent(std::shared_ptr<Logger> logger, const char* file, int32_t lin
     ,m_threadId(thread_id)
     ,m_fiberId(fiber_id)
     ,m_time(time)
-    ,m_logger(logger){
+    ,m_logger(logger)
+    ,m_level(level){
                 
 }
 
@@ -261,7 +283,7 @@ void StdoutLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level leve
 }
 
 FileLogAppender::FileLogAppender(const std::string& filename) : m_filename(filename){
-    
+    reopen();
 }
 
 // 在成员函数声明或定义中，override 说明符确保该函数为虚函数并覆盖某个基类中的虚函数 
@@ -277,7 +299,7 @@ bool FileLogAppender::reopen(){
     if(m_filestream){
         m_filestream.close();
     }
-    m_filestream.open(m_filename);
+    m_filestream.open(m_filename, std::ios::app);  // 以追加模式打开文件
     return !!m_filestream;
 }
 
@@ -405,6 +427,15 @@ void LogFormatter::init(){
     //std::cout << m_items.size() << std::endl;
 }
 
+LoggerManager::LoggerManager(){
+    m_root.reset(new Logger); // 使用 reset 重新分配关联资源
+    m_root->addAppender(LogAppender::ptr(new StdoutLogAppender));
+}
+
+Logger::ptr LoggerManager::getLogger(const std::string& name){
+    auto it = m_loggers.find(name);
+    return it == m_loggers.end() ? m_root : it->second;
+}
 
 
 
