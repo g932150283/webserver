@@ -16,6 +16,10 @@
 
 namespace webserver{
 
+
+// 获取root日志器
+#define WEBSERVER_LOG_ROOT() webserver::LoggerMgr::GetInstance()->getRoot()
+
 // 使用流式方式将日志级别level的日志写入到logger
 #define WEBSERVER_LOG_LEVEL(logger, level) \
     if(logger->getLevel() <= level) \
@@ -297,6 +301,8 @@ public:
     Logger::ptr getLogger(const std::string& name);
 
     void init();
+    // 获取root日志器，等效于getLogger("root")
+    Logger::ptr getRoot() { return m_root; }
 private:
     std::map<std::string, Logger::ptr> m_loggers;
     Logger::ptr m_root;

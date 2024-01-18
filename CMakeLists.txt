@@ -6,38 +6,25 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # 指定编译器的行为
 set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
 # set(CMAKE_C_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
-
-
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 set(LIB_SRC
     src/log.cc
-    sylar/util.cc
+    src/util.cc
+    src/config.cc
     )
 
-add_library(sylar SHARED ${LIB_SRC})
-
-
-set(LIBS
-        sylar
-        dl
-        pthread
-        yaml-cpp
-        jsoncpp
-        ${ZLIB_LIBRARIES}
-        ${OPENSSL_LIBRARIES}
-        ${PROTOBUF_LIBRARIES}
-        event
-        hiredis_vip
-        mysqlclient_r
-        zookeeper_mt
-        sqlite3
-        tinyxml2
-        jemalloc
-        )
+add_library(webserver SHARED ${LIB_SRC})
 
 add_executable(test tests/test.cc)
-add_dependencies(test sylar)
-target_link_libraries(test sylar)
+add_dependencies(test webserver)
+target_link_libraries(test webserver)
+
+# add_executable(test_tuple tests/test_tuple.cc)
+
+add_executable(test_config tests/test_config.cc)
+add_dependencies(test_config webserver)
+target_link_libraries(test_config webserver)
 
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)

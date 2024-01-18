@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -I/home/user/wsl-code/webserver/src  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/log.cc.o -c /home/user/wsl-code/webserver/src/log.cc",
+  "file": "/home/user/wsl-code/webserver/src/log.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -I/home/user/wsl-code/webserver/src  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util.cc.o -c /home/user/wsl-code/webserver/src/util.cc",
+  "file": "/home/user/wsl-code/webserver/src/util.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -I/home/user/wsl-code/webserver/src  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/config.cc.o -c /home/user/wsl-code/webserver/src/config.cc",
+  "file": "/home/user/wsl-code/webserver/src/config.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -I/home/user/wsl-code/webserver/src  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test.dir/tests/test.cc.o -c /home/user/wsl-code/webserver/tests/test.cc",
+  "file": "/home/user/wsl-code/webserver/tests/test.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -I/home/user/wsl-code/webserver/src  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_config.dir/tests/test_config.cc.o -c /home/user/wsl-code/webserver/tests/test_config.cc",
+  "file": "/home/user/wsl-code/webserver/tests/test_config.cc"
+}
+]
