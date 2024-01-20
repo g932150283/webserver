@@ -14,7 +14,8 @@
 #include <map>
 #include"singleton.h"
 
-namespace webserver{
+#include"util.h"
+
 
 
 // 获取root日志器
@@ -59,6 +60,7 @@ namespace webserver{
 // 使用格式化方式将日志级别fatal的日志写入到logger
 #define WEBSERVER_LOG_FMT_FATAL(logger, fmt, ...) WEBSERVER_LOG_FMT_LEVEL(logger, webserver::LogLevel::FATAL, fmt, __VA_ARGS__)
 
+namespace webserver{
 
 class Logger;
 
@@ -308,7 +310,7 @@ private:
     Logger::ptr m_root;
 };
 
-typedef webserver::Singleton<LoggerManager> loggerMgr;
+typedef webserver::Singleton<LoggerManager> LoggerMgr;
 
 } // 命名空间
 #endif

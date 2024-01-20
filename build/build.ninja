@@ -126,6 +126,39 @@ build ../bin/test: CXX_EXECUTABLE_LINKER__test_Debug CMakeFiles/test.dir/tests/t
   TARGET_PDB = test.dbg
 
 # =============================================================================
+# Object build statements for EXECUTABLE target test_tuple
+
+
+#############################################
+# Order-only phony target for test_tuple
+
+build cmake_object_order_depends_target_test_tuple: phony || CMakeFiles/test_tuple.dir
+
+build CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o: CXX_COMPILER__test_tuple_Debug /home/user/wsl-code/webserver/tests/test_tuple.cc || cmake_object_order_depends_target_test_tuple
+  DEP_FILE = CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/src
+  OBJECT_DIR = CMakeFiles/test_tuple.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_tuple.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_tuple
+
+
+#############################################
+# Link the executable ../bin/test_tuple
+
+build ../bin/test_tuple: CXX_EXECUTABLE_LINKER__test_tuple_Debug CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  OBJECT_DIR = CMakeFiles/test_tuple.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_tuple
+  TARGET_PDB = test_tuple.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target test_config
 
 
@@ -191,6 +224,8 @@ build test: phony ../bin/test
 
 build test_config: phony ../bin/test_config
 
+build test_tuple: phony ../bin/test_tuple
+
 build webserver: phony ../lib/libwebserver.so
 
 # =============================================================================
@@ -201,7 +236,7 @@ build webserver: phony ../lib/libwebserver.so
 #############################################
 # Folder: /home/user/wsl-code/webserver/build
 
-build all: phony ../lib/libwebserver.so ../bin/test ../bin/test_config
+build all: phony ../lib/libwebserver.so ../bin/test ../bin/test_tuple ../bin/test_config
 
 # =============================================================================
 # Unknown Build Time Dependencies.

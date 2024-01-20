@@ -24,7 +24,7 @@ int main(){
     WEBSERVER_LOG_ERROR(logger) << "test macro error";
     WEBSERVER_LOG_FMT_ERROR(logger, "test macro fmt error %s", "aa");
 
-    auto l = webserver::loggerMgr::GetInstance()->getLogger("xx");
+    auto l = webserver::LoggerMgr::GetInstance()->getLogger("xx");
     WEBSERVER_LOG_INFO(l) << "xxx";
 
     return 0;

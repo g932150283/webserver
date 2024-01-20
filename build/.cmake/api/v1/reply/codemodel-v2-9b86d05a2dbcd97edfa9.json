@@ -17,7 +17,8 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -34,7 +35,8 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -52,6 +54,13 @@
 					"id" : "test_config::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-test_config-Debug-bbf4971f372956ce3a13.json",
 					"name" : "test_config",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_tuple::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_tuple-Debug-a47c4e9f7005ee1457e6.json",
+					"name" : "test_tuple",
 					"projectIndex" : 0
 				},
 				{

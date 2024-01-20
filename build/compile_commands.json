@@ -21,6 +21,11 @@
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -I/home/user/wsl-code/webserver/src  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -c /home/user/wsl-code/webserver/tests/test_tuple.cc",
+  "file": "/home/user/wsl-code/webserver/tests/test_tuple.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
   "command": "/usr/bin/g++ -I/home/user/wsl-code/webserver/src  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_config.dir/tests/test_config.cc.o -c /home/user/wsl-code/webserver/tests/test_config.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_config.cc"
 }

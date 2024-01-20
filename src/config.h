@@ -95,7 +95,7 @@ public:
      */
     bool fromString(const std::string &val) override {
         try {
-            setValue(FromStr()(val));
+            // setValue(FromStr()(val));
             m_val = boost::lexical_cast<T>(val);
         } catch (std::exception &e) {
             // SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "ConfigVar::fromString exception "
@@ -108,6 +108,11 @@ public:
         return false;
     }
 
+    /**
+     * @brief 获取当前参数的值
+     */
+    const T getValue() { return m_val;}
+
     // /**
     //  * @brief 获取当前参数的值
     //  */
@@ -115,6 +120,13 @@ public:
     //     RWMutexType::ReadLock lock(m_mutex);
     //     return m_val;
     // }
+
+
+    /**
+     * @brief 设置当前参数的值
+     * @details 如果参数的值有发生变化,则通知对应的注册回调函数
+     */
+    void setValue(const T &v) {m_val = v;}
 
     // /**
     //  * @brief 设置当前参数的值
@@ -208,7 +220,7 @@ public:
     template <class T>
     static typename ConfigVar<T>::ptr Lookup(const std::string &name,
         const T &default_value, const std::string &description = "") {
-        auto it = s_datas.find(name);
+        auto tmp = Lookup<T>(name);
         if (tmp) {
             WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "Lookup name=" << name << " exists";
             return tmp;
@@ -219,29 +231,32 @@ public:
             throw std::invalid_argument(name);
         }
 
-
-
-        if (it != s_datas.end()) {
-            auto tmp = std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
-            if (tmp) {
-                WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "Lookup name=" << name << " exists";
-                return tmp;
-            } else {
-                SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "Lookup name=" << name << " exists but type not "
-                                                  << TypeToName<T>() << " real_type=" << it->second->getTypeName()
-                                                  << " " << it->second->toString();
-                return nullptr;
-            }
-        }
-
-        if (name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678") != std::string::npos) {
-            SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "Lookup name invalid " << name;
-            throw std::invalid_argument(name);
-        }
-
         typename ConfigVar<T>::ptr v(new ConfigVar<T>(name, default_value, description));
-        GetDatas()[name] = v;
+        s_datas[name] = v;
         return v;
+
+
+        // if (it != s_datas.end()) {
+        //     auto tmp = std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
+        //     if (tmp) {
+        //         WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "Lookup name=" << name << " exists";
+        //         return tmp;
+        //     } else {
+        //         SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "Lookup name=" << name << " exists but type not "
+        //                                           << TypeToName<T>() << " real_type=" << it->second->getTypeName()
+        //                                           << " " << it->second->toString();
+        //         return nullptr;
+        //     }
+        // }
+
+        // if (name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678") != std::string::npos) {
+        //     SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) << "Lookup name invalid " << name;
+        //     throw std::invalid_argument(name);
+        // }
+
+        // typename ConfigVar<T>::ptr v(new ConfigVar<T>(name, default_value, description));
+        // GetDatas()[name] = v;
+        // return v;
     }
 
     /**
@@ -258,27 +273,27 @@ public:
         return std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
     }
 
-    /**
-     * @brief 使用YAML::Node初始化配置模块
-     */
-    static void LoadFromYaml(const YAML::Node &root);
+    // /**
+    //  * @brief 使用YAML::Node初始化配置模块
+    //  */
+    // static void LoadFromYaml(const YAML::Node &root);
 
-    /**
-     * @brief 加载path文件夹里面的配置文件
-     */
-    static void LoadFromConfDir(const std::string &path, bool force = false);
+    // /**
+    //  * @brief 加载path文件夹里面的配置文件
+    //  */
+    // static void LoadFromConfDir(const std::string &path, bool force = false);
 
-    /**
-     * @brief 查找配置参数,返回配置参数的基类
-     * @param[in] name 配置参数名称
-     */
-    static ConfigVarBase::ptr LookupBase(const std::string &name);
+    // /**
+    //  * @brief 查找配置参数,返回配置参数的基类
+    //  * @param[in] name 配置参数名称
+    //  */
+    // static ConfigVarBase::ptr LookupBase(const std::string &name);
 
-    /**
-     * @brief 遍历配置模块里面所有配置项
-     * @param[in] cb 配置项回调函数
-     */
-    static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
+    // /**
+    //  * @brief 遍历配置模块里面所有配置项
+    //  * @param[in] cb 配置项回调函数
+    //  */
+    // static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
 
 private:
 

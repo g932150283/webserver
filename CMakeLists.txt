@@ -20,7 +20,7 @@ add_executable(test tests/test.cc)
 add_dependencies(test webserver)
 target_link_libraries(test webserver)
 
-# add_executable(test_tuple tests/test_tuple.cc)
+add_executable(test_tuple tests/test_tuple.cc)
 
 add_executable(test_config tests/test_config.cc)
 add_dependencies(test_config webserver)
