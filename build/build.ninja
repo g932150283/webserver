@@ -53,7 +53,7 @@ build CMakeFiles/webserver.dir/src/log.cc.o: CXX_COMPILER__webserver_Debug /home
   DEFINES = -Dwebserver_EXPORTS
   DEP_FILE = CMakeFiles/webserver.dir/src/log.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
-  INCLUDES = -I/home/user/wsl-code/webserver/src
+  INCLUDES = -I/home/user/wsl-code/webserver/.
   OBJECT_DIR = CMakeFiles/webserver.dir
   OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
 
@@ -61,7 +61,7 @@ build CMakeFiles/webserver.dir/src/util.cc.o: CXX_COMPILER__webserver_Debug /hom
   DEFINES = -Dwebserver_EXPORTS
   DEP_FILE = CMakeFiles/webserver.dir/src/util.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
-  INCLUDES = -I/home/user/wsl-code/webserver/src
+  INCLUDES = -I/home/user/wsl-code/webserver/.
   OBJECT_DIR = CMakeFiles/webserver.dir
   OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
 
@@ -69,7 +69,7 @@ build CMakeFiles/webserver.dir/src/config.cc.o: CXX_COMPILER__webserver_Debug /h
   DEFINES = -Dwebserver_EXPORTS
   DEP_FILE = CMakeFiles/webserver.dir/src/config.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
-  INCLUDES = -I/home/user/wsl-code/webserver/src
+  INCLUDES = -I/home/user/wsl-code/webserver/.
   OBJECT_DIR = CMakeFiles/webserver.dir
   OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
 
@@ -83,6 +83,7 @@ build CMakeFiles/webserver.dir/src/config.cc.o: CXX_COMPILER__webserver_Debug /h
 
 build ../lib/libwebserver.so: CXX_SHARED_LIBRARY_LINKER__webserver_Debug CMakeFiles/webserver.dir/src/log.cc.o CMakeFiles/webserver.dir/src/util.cc.o CMakeFiles/webserver.dir/src/config.cc.o
   LANGUAGE_COMPILE_FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/webserver.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -103,7 +104,7 @@ build cmake_object_order_depends_target_test: phony || cmake_object_order_depend
 build CMakeFiles/test.dir/tests/test.cc.o: CXX_COMPILER__test_Debug /home/user/wsl-code/webserver/tests/test.cc || cmake_object_order_depends_target_test
   DEP_FILE = CMakeFiles/test.dir/tests/test.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
-  INCLUDES = -I/home/user/wsl-code/webserver/src
+  INCLUDES = -I/home/user/wsl-code/webserver/.
   OBJECT_DIR = CMakeFiles/test.dir
   OBJECT_FILE_DIR = CMakeFiles/test.dir/tests
 
@@ -118,7 +119,8 @@ build CMakeFiles/test.dir/tests/test.cc.o: CXX_COMPILER__test_Debug /home/user/w
 build ../bin/test: CXX_EXECUTABLE_LINKER__test_Debug CMakeFiles/test.dir/tests/test.cc.o | ../lib/libwebserver.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so
+  LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -137,7 +139,7 @@ build cmake_object_order_depends_target_test_tuple: phony || CMakeFiles/test_tup
 build CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o: CXX_COMPILER__test_tuple_Debug /home/user/wsl-code/webserver/tests/test_tuple.cc || cmake_object_order_depends_target_test_tuple
   DEP_FILE = CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
-  INCLUDES = -I/home/user/wsl-code/webserver/src
+  INCLUDES = -I/home/user/wsl-code/webserver/.
   OBJECT_DIR = CMakeFiles/test_tuple.dir
   OBJECT_FILE_DIR = CMakeFiles/test_tuple.dir/tests
 
@@ -152,6 +154,7 @@ build CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o: CXX_COMPILER__test_tuple_
 build ../bin/test_tuple: CXX_EXECUTABLE_LINKER__test_tuple_Debug CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
+  LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_tuple.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -170,7 +173,7 @@ build cmake_object_order_depends_target_test_config: phony || cmake_object_order
 build CMakeFiles/test_config.dir/tests/test_config.cc.o: CXX_COMPILER__test_config_Debug /home/user/wsl-code/webserver/tests/test_config.cc || cmake_object_order_depends_target_test_config
   DEP_FILE = CMakeFiles/test_config.dir/tests/test_config.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
-  INCLUDES = -I/home/user/wsl-code/webserver/src
+  INCLUDES = -I/home/user/wsl-code/webserver/.
   OBJECT_DIR = CMakeFiles/test_config.dir
   OBJECT_FILE_DIR = CMakeFiles/test_config.dir/tests
 
@@ -185,7 +188,8 @@ build CMakeFiles/test_config.dir/tests/test_config.cc.o: CXX_COMPILER__test_conf
 build ../bin/test_config: CXX_EXECUTABLE_LINKER__test_config_Debug CMakeFiles/test_config.dir/tests/test_config.cc.o | ../lib/libwebserver.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lyaml-cpp
+  LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_config.dir
   POST_BUILD = :
   PRE_LINK = :

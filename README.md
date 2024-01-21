@@ -40,8 +40,19 @@ tests -- 测试代码
 
 Config --> Yaml
 
+yamp-cpp
 
+'''cpp
+YAML::Node node = YAML::LoadFile(filename)
+node.IsMap()
+for(auto it = node.begin();
+        it != node.end(); it++){
+            it->first, it->seconde
+        }
 
+node.IsMap()
+
+'''
 
 ## 协程库封装
 

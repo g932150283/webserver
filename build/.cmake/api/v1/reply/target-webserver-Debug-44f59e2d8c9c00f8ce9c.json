@@ -11,6 +11,7 @@
 		"commands" : 
 		[
 			"add_library",
+			"link_directories",
 			"include_directories"
 		],
 		"files" : 
@@ -25,13 +26,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 17,
+				"line" : 23,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 9,
+				"line" : 13,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 10,
 				"parent" : 0
 			}
 		]
@@ -54,8 +61,8 @@
 			"includes" : 
 			[
 				{
-					"backtrace" : 2,
-					"path" : "/home/user/wsl-code/webserver/src"
+					"backtrace" : 3,
+					"path" : "/home/user/wsl-code/webserver/."
 				}
 			],
 			"language" : "CXX",
@@ -75,6 +82,11 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-L/usr/local/lib",
+				"role" : "libraryPath"
 			}
 		],
 		"language" : "CXX"

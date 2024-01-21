@@ -11,6 +11,7 @@
 		"commands" : 
 		[
 			"add_executable",
+			"link_directories",
 			"target_link_libraries",
 			"add_dependencies",
 			"include_directories"
@@ -27,25 +28,31 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 19,
+				"line" : 25,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 21,
+				"line" : 13,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 20,
+				"line" : 27,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 9,
+				"line" : 26,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 10,
 				"parent" : 0
 			}
 		]
@@ -62,8 +69,8 @@
 			"includes" : 
 			[
 				{
-					"backtrace" : 4,
-					"path" : "/home/user/wsl-code/webserver/src"
+					"backtrace" : 5,
+					"path" : "/home/user/wsl-code/webserver/."
 				}
 			],
 			"language" : "CXX",
@@ -76,7 +83,7 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 3,
+			"backtrace" : 4,
 			"id" : "webserver::@6890427a1f51a3e7e1df"
 		}
 	],
@@ -94,11 +101,16 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/home/user/wsl-code/webserver/lib",
+				"backtrace" : 2,
+				"fragment" : "-L/usr/local/lib",
+				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 2,
+				"backtrace" : 3,
 				"fragment" : "../lib/libwebserver.so",
 				"role" : "libraries"
 			}
