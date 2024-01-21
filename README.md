@@ -42,7 +42,7 @@ Config --> Yaml
 
 yamp-cpp
 
-'''cpp
+```cpp
 YAML::Node node = YAML::LoadFile(filename)
 node.IsMap()
 for(auto it = node.begin();
@@ -51,8 +51,7 @@ for(auto it = node.begin();
         }
 
 node.IsMap()
-
-'''
+```
 
 ## 协程库封装
 
