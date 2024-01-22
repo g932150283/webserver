@@ -113,6 +113,11 @@
 				"backtrace" : 3,
 				"fragment" : "../lib/libwebserver.so",
 				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lyaml-cpp",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"

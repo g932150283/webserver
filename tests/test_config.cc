@@ -40,11 +40,31 @@ void test_yaml(){
 
 }
 
+void test_config() {
+    WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "before: " << g_int_value_config->getValue();
+    WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "before: " << g_float_value_config->toString();
+
+    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/log.yml");
+    webserver::Config::LoadFromYaml(root);
+
+
+    WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "after: " << g_int_value_config->getValue();
+    WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "after: " << g_float_value_config->toString();
+
+}
+
 
 int main(){
 
     WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << g_int_value_config->getValue();
     WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << g_float_value_config->toString();
     test_yaml();
+    test_config();
+    /*
+    2024-01-22 09:27:20     10639           0       [INFO]  [root]  /home/user/wsl-code/webserver/tests/test_config.cc:44   before: 8080
+    2024-01-22 09:27:20     10639           0       [INFO]  [root]  /home/user/wsl-code/webserver/tests/test_config.cc:45   before: 8080.08008
+    2024-01-22 09:27:20     10639           0       [INFO]  [root]  /home/user/wsl-code/webserver/tests/test_config.cc:51   after: 9900
+    2024-01-22 09:27:20     10639           0       [INFO]  [root]  /home/user/wsl-code/webserver/tests/test_config.cc:52   after: 15
+    */
     return 0;
 }

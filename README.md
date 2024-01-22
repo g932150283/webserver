@@ -50,8 +50,10 @@ for(auto it = node.begin();
             it->first, it->seconde
         }
 
-node.IsMap()
+node.IsSequence()
 ```
+
+配置系统原则：约定优于配置
 
 ## 协程库封装
 

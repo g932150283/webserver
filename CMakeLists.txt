@@ -24,7 +24,7 @@ add_library(webserver SHARED ${LIB_SRC})
 
 add_executable(test tests/test.cc)
 add_dependencies(test webserver)
-target_link_libraries(test webserver)
+target_link_libraries(test webserver yaml-cpp)
 
 add_executable(test_tuple tests/test_tuple.cc)
 

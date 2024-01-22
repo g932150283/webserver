@@ -14,3 +14,6 @@ logs:
             file: log.txt
           - type: StdoutLogAppender
 # - 数组类型
+system:
+    port: 9900
+    value: 15

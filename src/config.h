@@ -7,6 +7,7 @@
 // 类型转换
 #include <boost/lexical_cast.hpp>
 #include"log.h"
+#include<yaml-cpp/yaml.h>
 namespace webserver{
 
 /**
@@ -21,6 +22,8 @@ public:
     ConfigVarBase(const std::string& name, const std::string& description = "")
         :m_name(name)
         ,m_description(description){
+        // 转换为小写
+        std::transform(m_name.begin(), m_name.end(), m_name.begin(), ::tolower);
     }
 
     virtual ~ConfigVarBase(){}
@@ -273,21 +276,21 @@ public:
         return std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
     }
 
-    // /**
-    //  * @brief 使用YAML::Node初始化配置模块
-    //  */
-    // static void LoadFromYaml(const YAML::Node &root);
+    /**
+     * @brief 使用YAML::Node初始化配置模块
+     */
+    static void LoadFromYaml(const YAML::Node& root);
 
     // /**
     //  * @brief 加载path文件夹里面的配置文件
     //  */
     // static void LoadFromConfDir(const std::string &path, bool force = false);
 
-    // /**
-    //  * @brief 查找配置参数,返回配置参数的基类
-    //  * @param[in] name 配置参数名称
-    //  */
-    // static ConfigVarBase::ptr LookupBase(const std::string &name);
+    /**
+     * @brief 查找配置参数,返回配置参数的基类
+     * @param[in] name 配置参数名称
+     */
+    static ConfigVarBase::ptr LookupBase(const std::string &name);
 
     // /**
     //  * @brief 遍历配置模块里面所有配置项

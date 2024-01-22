@@ -119,7 +119,7 @@ build CMakeFiles/test.dir/tests/test.cc.o: CXX_COMPILER__test_Debug /home/user/w
 build ../bin/test: CXX_EXECUTABLE_LINKER__test_Debug CMakeFiles/test.dir/tests/test.cc.o | ../lib/libwebserver.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lyaml-cpp
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test.dir
   POST_BUILD = :
