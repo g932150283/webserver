@@ -7,6 +7,9 @@ webserver::ConfigVar<int>::ptr g_int_value_config =
 webserver::ConfigVar<float>::ptr g_float_value_config = 
     webserver::Config::Lookup("system.value", (float)8080.08, "system value");
 
+webserver::ConfigVar<std::vector<int> >::ptr g_int_vec_value_config =
+    webserver::Config::Lookup("system.int_vec", std::vector<int>{1,2}, "system int vec");
+
 
 void print_yaml(const YAML::Node& node, int level) {
     if(node.IsScalar()) {
