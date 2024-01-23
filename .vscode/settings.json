@@ -54,6 +54,7 @@
         "strstream": "cpp",
         "source_location": "cpp",
         "set": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "unordered_set": "cpp"
     }
 }

@@ -17,3 +17,51 @@ logs:
 system:
     port: 9900
     value: 15
+    # int_vec: [10, 20]
+    int_vec:
+        - 10
+        - 30
+    int_list:
+        - 100
+        - 300
+        - 700
+    int_set:
+        - 5
+        - 10
+        - 15
+    int_uset: [50, 100, 150]
+    str_int_map: 
+        k: 30
+        k2: 20
+        k3: 10
+    str_int_umap: {key1: 42, key2: 56, key3: 99}
+
+class:
+    person:
+        name: webserver
+        age: 24
+        sex: true
+    map:
+        webserver01:
+            name: webserver01
+            age: 42
+            sex: false
+        webserver02:
+            name: webserver02
+            age: 20
+            sex: true
+    vec_map:
+        k1:
+            - name: webserver_vec_map1
+              age: 11
+              sex: true
+            - name: webserver_vec_map2
+              age: 12
+              sex: false
+        k2:
+            - name: webserver_vec_map3
+              age: 13
+              sex: true
+            - name: webserver_vec_map4
+              age: 14
+              sex: false
