@@ -54,7 +54,7 @@ void print_yaml(const YAML::Node& node, int level) {
 
 
 void test_yaml(){
-    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/log.yml");
+    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/test.yml");
     print_yaml(root, 0);
 
     // WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << root;
@@ -91,7 +91,7 @@ void test_config() {
     XX_M(g_str_int_map_value_config, str_int_map, before);
     XX_M(g_str_int_umap_value_config, str_int_umap, before);
 
-    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/log.yml");
+    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/test.yml");
     webserver::Config::LoadFromYaml(root);
 
 
@@ -184,10 +184,15 @@ void test_class() {
         WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) <<  prefix << ": size=" << m.size(); \
     }
 
+    g_person->addListener(10, [](const Person& old_value, const Person& new_value){
+        WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "old_value = " << old_value.toString() 
+            << " new_value = " << new_value.toString();
+    });
+
     XX_PM(g_person_map, "class.map before");
     WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "before: " << g_person_vec_map->toString();
 
-    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/log.yml");
+    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/test.yml");
     webserver::Config::LoadFromYaml(root);
 
     WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "after: " << g_person->getValue().toString() 

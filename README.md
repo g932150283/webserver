@@ -92,6 +92,19 @@ LexicalCast<std::vector<T>, std::string>：
 配置的事件机制
 当一个配置项发生修改的时候，可以反向通知对应的代码，回调
 
+### 日志系统整合配置系统
+
+```yaml
+logs:
+    - name: root
+      level: (debug,,info, warn, error, fatal)
+      formatter: "%d%T%p%T%t%m%n" 
+      appender:
+            - type: (StdoutLogAppender, FileLogAppender)
+              level: (debug, ...)
+              file: /logs/xxx.log
+
+```
 ## 协程库封装
 
 将异步操作封装成同步

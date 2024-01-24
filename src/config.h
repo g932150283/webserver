@@ -14,6 +14,8 @@
 #include<set>
 #include<unordered_map>
 #include<unordered_set>
+#include<functional>
+
 
 namespace webserver{
 
@@ -439,57 +441,66 @@ public:
      * @brief 设置当前参数的值
      * @details 如果参数的值有发生变化,则通知对应的注册回调函数
      */
-    void setValue(const T &v) {m_val = v;}
+    void setValue(const T &v) {
+        if(m_val == v){
+            return;
+        }
+        for(auto& i : m_cbs){
+            i.second(m_val, v);
+        }
+        m_val = v;
+    
+    }
 
     /**
      * @brief 返回参数值的类型名称(typeinfo)
      */
     std::string getTypeName() const override { return typeid(T).name(); }
 
-    // /**
-    //  * @brief 添加变化回调函数
-    //  * @return 返回该回调函数对应的唯一id,用于删除回调
-    //  */
+    /**
+     * @brief 添加变化回调函数
+     * @return 返回该回调函数对应的唯一id,用于删除回调
+     */
     // uint64_t addListener(on_change_cb cb) {
     //     static uint64_t s_fun_id = 0;
-    //     RWMutexType::WriteLock lock(m_mutex);
     //     ++s_fun_id;
     //     m_cbs[s_fun_id] = cb;
     //     return s_fun_id;
     // }
 
-    // /**
-    //  * @brief 删除回调函数
-    //  * @param[in] key 回调函数的唯一id
-    //  */
-    // void delListener(uint64_t key) {
-    //     RWMutexType::WriteLock lock(m_mutex);
-    //     m_cbs.erase(key);
-    // }
+    void addListener(uint64_t key, on_change_cb cb) {
+        m_cbs[key] = cb;
+    }
 
-    // /**
-    //  * @brief 获取回调函数
-    //  * @param[in] key 回调函数的唯一id
-    //  * @return 如果存在返回对应的回调函数,否则返回nullptr
-    //  */
-    // on_change_cb getListener(uint64_t key) {
-    //     RWMutexType::ReadLock lock(m_mutex);
-    //     auto it = m_cbs.find(key);
-    //     return it == m_cbs.end() ? nullptr : it->second;
-    // }
+    /**
+     * @brief 删除回调函数
+     * @param[in] key 回调函数的唯一id
+     */
+    void delListener(uint64_t key) {
+        m_cbs.erase(key);
+    }
 
-    // /**
-    //  * @brief 清理所有的回调函数
-    //  */
-    // void clearListener() {
-    //     RWMutexType::WriteLock lock(m_mutex);
-    //     m_cbs.clear();
-    // }
+    /**
+     * @brief 获取回调函数
+     * @param[in] key 回调函数的唯一id
+     * @return 如果存在返回对应的回调函数,否则返回nullptr
+     */
+    on_change_cb getListener(uint64_t key) {
+        auto it = m_cbs.find(key);
+        return it == m_cbs.end() ? nullptr : it->second;
+    }
+
+    /**
+     * @brief 清理所有的回调函数
+     */
+    void clearListener() {
+        m_cbs.clear();
+    }
 
 private:
     T m_val;
     //变更回调函数组, uint64_t key,要求唯一，一般可以用hash
-    // std::map<uint64_t, on_change_cb> m_cbs;
+    std::map<uint64_t, on_change_cb> m_cbs;
 };
 
 /**
