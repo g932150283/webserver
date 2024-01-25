@@ -60,9 +60,13 @@
 // 使用格式化方式将日志级别fatal的日志写入到logger
 #define WEBSERVER_LOG_FMT_FATAL(logger, fmt, ...) WEBSERVER_LOG_FMT_LEVEL(logger, webserver::LogLevel::FATAL, fmt, __VA_ARGS__)
 
+// 获取name的日志器
+#define WEBSERVER_LOG_NAME(name) webserver::LoggerMgr::GetInstance()->getLogger(name)
+
 namespace webserver{
 
 class Logger;
+class LoggerManager;
 
 // 日志级别
 class LogLevel{
@@ -211,6 +215,7 @@ protected:
 // 日志器
 // 
 class Logger: public std::enable_shared_from_this<Logger>{
+friend class LoggerManager;
 public:
     // 智能指针方便内存管理
     typedef std::shared_ptr<Logger> ptr; 
@@ -259,6 +264,8 @@ private:
     std::list<LogAppender::ptr> m_appenders;  
     // 日志格式器
     LogFormatter::ptr m_formatter;
+    // 
+    Logger::ptr m_root;
 };
 
 // 输出到控制台的Appender

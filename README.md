@@ -105,6 +105,14 @@ logs:
               file: /logs/xxx.log
 
 ```
+
+```cpp
+
+webserver::Logger g_logger = webserver::LoggerMgr::GetInstance()->getLogger(name);
+WEBSERVER_LOG_INFO(g_logger) << "xxxx log";
+
+```
+
 ## 协程库封装
 
 将异步操作封装成同步
