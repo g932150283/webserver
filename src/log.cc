@@ -111,8 +111,8 @@ class NameFormatItem : public LogFormatter::FormatItem {
 public:
     NameFormatItem(const std::string& str = "") {}
     void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override {
-        // os << event->getLogger()->getName();
-        os << logger->getName();
+        os << event->getLogger()->getName();
+        // os << logger->getName();
     }
 };
 // 线程号
@@ -243,8 +243,12 @@ void Logger::delAppender(LogAppender::ptr appender){
 void Logger::log(LogLevel::Level level, const LogEvent::ptr event){
     if(level >= m_level){
         auto self = shared_from_this();
-        for(auto & i : m_appenders){
-            i->log(self, level, event);
+        if(!m_appenders.empty()) {
+            for(auto& i : m_appenders) {
+                i->log(self, level, event);
+            }
+        } else if(m_root) {
+            m_root->log(level, event);
         }
     }
 }
@@ -431,6 +435,8 @@ void LogFormatter::init(){
 LoggerManager::LoggerManager(){
     m_root.reset(new Logger); // 使用 reset 重新分配关联资源
     m_root->addAppender(LogAppender::ptr(new StdoutLogAppender));
+
+    init();
 }
 
 Logger::ptr LoggerManager::getLogger(const std::string& name){
@@ -443,6 +449,18 @@ Logger::ptr LoggerManager::getLogger(const std::string& name){
     logger->m_root = m_root;
     m_loggers[name] = logger;
     return logger;
+}
+
+
+
+struct LogDefine
+{
+    /* data */
+};
+
+
+void LoggerManager::init(){
+
 }
 
 
