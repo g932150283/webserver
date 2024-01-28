@@ -13,6 +13,6 @@ logs:
           - type: FileLogAppender
             file: log.txt
           - type: StdoutLogAppender
-
+# ...
 
           
