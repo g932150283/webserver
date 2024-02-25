@@ -5,6 +5,7 @@
 #include <time.h>
 #include <string.h>
 #include <cstdarg>
+#include"config.h"
 namespace webserver{
 
 // 将日志级别转成文本输出
@@ -452,15 +453,56 @@ Logger::ptr LoggerManager::getLogger(const std::string& name){
 }
 
 
+struct LogAppenderDefine{
+    int type = 0; //1 File, 2 Stdout
+    LogLevel::Level level = LogLevel::UNKNOW;
+    std::string formatter;
+    std::string file;
 
-struct LogDefine
-{
-    /* data */
+    bool operator==(const LogAppenderDefine& oth) const {
+        return type == oth.type
+            && level == oth.level
+            && formatter == oth.formatter
+            && file == oth.file;
+    }
 };
+
+struct LogDefine{
+    std::string name;
+    LogLevel::Level level = LogLevel::UNKNOW;
+    std::string formatter;
+    std::vector<LogAppenderDefine> appenders;
+
+    bool operator==(const LogDefine& oth) const {
+        return name == oth.name
+            && level == oth.level
+            && formatter == oth.formatter
+            && appenders == appenders;
+    }
+
+
+
+};
+
+/*
+webserver::ConfigVar 看起来是一个模板类，它接受一个模板参数。这种模板类通常用于创建可配置的变量或对象。
+
+在这种情况下，模板参数是 std::set<LogDefine>，这意味着 webserver::ConfigVar 被实例化为一个存储 std::set<LogDefine> 类型数据的类。
+
+<std::set<LogDefine>> 表示这是一个模板特化，即 webserver::ConfigVar 类被特化为存储 std::set<LogDefine> 类型数据的类。模板特化允许你为特定类型提供定制化的实现。
+
+g_log_defines 是一个指向 webserver::ConfigVar<std::set<LogDefine>> 类型对象的指针。
+
+webserver::Config::Lookup 看起来是一个静态函数，用于查找名为 "logs" 的配置项，并返回一个指向 webserver::ConfigVar<std::set<LogDefine>> 类型对象的指针。该函数可能会在内部使用单例模式或其他方法来确保只有一个实例被创建。
+
+综上所述，这段代码通过模板特化创建了一个存储 std::set<LogDefine> 类型数据的配置变量，并使用 webserver::Config::Lookup 函数来获取该配置变量的指针。
+*/
+webserver::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =
+    webserver::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
 
 
 void LoggerManager::init(){
-
+    
 }
 
 
