@@ -113,6 +113,13 @@ WEBSERVER_LOG_INFO(g_logger) << "xxxx log";
 
 ```
 
+```cpp
+// 保证log唯一性
+static Logger::ptr g_log = WEBSERVER_LOG_NAME("system");
+// m_root, m_system->m_root
+// 当logger的appenders为空，使用root写logger
+```
+
 ## 协程库封装
 
 将异步操作封装成同步

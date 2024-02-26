@@ -382,7 +382,10 @@ template <class T, class FromStr = LexicalCast<std::string, T>,
                     class ToStr = LexicalCast<T, std::string> >
 class ConfigVar : public ConfigVarBase {
 public:
+    // 定义一个指向 ConfigVar 类型对象的智能指针类型别名
     typedef std::shared_ptr<ConfigVar> ptr;
+    // 定义一个接受两个 const 引用参数（旧值和新值）的回调函数类型别名
+    //on_change_cb 是一个函数类型别名，表示一个接受两个 const T& 参数的回调函数。通常情况下，它用于表示当某个值发生改变时需要执行的操作。
     typedef std::function<void(const T &old_value, const T &new_value)> on_change_cb;
 
     /**

@@ -165,6 +165,7 @@ public:
     void init();
 
     // 日志解析子模块
+    // 日志内容项格式化
     class FormatItem{
     public:
         typedef std::shared_ptr<FormatItem> ptr;
@@ -172,12 +173,18 @@ public:
         // 格式化日志到流， 使用ostream做输出
         virtual void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
     };
+
+    // 是否有错误
+    bool isError() const { return m_error;}
+
 private:
     
     // 日志格式模板
     std::string m_pattern;
     // 日志格式解析后格式
     std::vector<FormatItem::ptr> m_items;
+    // 是否有错误
+    bool m_error = false;
 
 };
 
@@ -246,6 +253,9 @@ public:
     // 删除日志目标
     void delAppender(LogAppender::ptr appender); 
 
+    // 清空日志目标
+    void clearAppenders();
+
     // 返回日志级别
     LogLevel::Level getLevel() const {return m_level;}  
 
@@ -254,6 +264,16 @@ public:
 
     // 返回日志名称
     const std::string& getName() const { return m_name;}
+
+    // 设置日志格式器
+    void setFormatter(LogFormatter::ptr val);
+
+    // 设置日志格式模板
+    void setFormatter(const std::string& val);
+
+    // 获取日志格式器
+    LogFormatter::ptr getFormatter();
+
 
 private:
     // 日志名称

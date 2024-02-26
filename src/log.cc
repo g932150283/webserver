@@ -240,6 +240,34 @@ void Logger::delAppender(LogAppender::ptr appender){
     }
 }
 
+// 清空日志目标
+void Logger::clearAppenders() {
+    m_appenders.clear();
+}
+
+// 设置日志格式器
+void Logger::setFormatter(LogFormatter::ptr val) {
+    m_formatter = val;
+}
+
+// 设置日志格式模板
+void Logger::setFormatter(const std::string& val) {
+    webserver::LogFormatter::ptr new_val(new webserver::LogFormatter(val));
+    if(new_val->isError()) {
+        std::cout << "Logger setFormatter name=" << m_name
+                  << " value=" << val << " invalid formatter"
+                  << std::endl;
+        return;
+    }
+    //m_formatter = new_val;
+    setFormatter(new_val);
+}
+
+// 获取日志格式器
+LogFormatter::ptr Logger::getFormatter() {
+    return m_formatter;
+}
+
 // 写日志
 void Logger::log(LogLevel::Level level, const LogEvent::ptr event){
     if(level >= m_level){
@@ -389,7 +417,7 @@ void LogFormatter::init(){
             i = n - 1;
         } else if(fmt_status == 1) {
             std::cout << "pattern parse error: " << m_pattern << " - " << m_pattern.substr(i) << std::endl;
-            // m_error = true;
+            m_error = true;
             vec.push_back(std::make_tuple("<<pattern_error>>", fmt, 0));
         }
     }
@@ -422,7 +450,7 @@ void LogFormatter::init(){
             auto it = s_format_items.find(std::get<0>(i));
             if(it == s_format_items.end()) {
                 m_items.push_back(FormatItem::ptr(new StringFormatItem("<<error_format %" + std::get<0>(i) + ">>")));
-                // m_error = true;
+                m_error = true;
             } else {
                 m_items.push_back(it->second(std::get<1>(i)));
             }
@@ -486,21 +514,110 @@ struct LogDefine{
 
 /*
 webserver::ConfigVar 看起来是一个模板类，它接受一个模板参数。这种模板类通常用于创建可配置的变量或对象。
-
 在这种情况下，模板参数是 std::set<LogDefine>，这意味着 webserver::ConfigVar 被实例化为一个存储 std::set<LogDefine> 类型数据的类。
-
-<std::set<LogDefine>> 表示这是一个模板特化，即 webserver::ConfigVar 类被特化为存储 std::set<LogDefine> 类型数据的类。模板特化允许你为特定类型提供定制化的实现。
-
+<std::set<LogDefine>> 表示这是一个模板特化，即 webserver::ConfigVar 类被特化为存储 std::set<LogDefine> 类型数据的类。
+模板特化允许你为特定类型提供定制化的实现。
 g_log_defines 是一个指向 webserver::ConfigVar<std::set<LogDefine>> 类型对象的指针。
-
-webserver::Config::Lookup 看起来是一个静态函数，用于查找名为 "logs" 的配置项，并返回一个指向 webserver::ConfigVar<std::set<LogDefine>> 类型对象的指针。该函数可能会在内部使用单例模式或其他方法来确保只有一个实例被创建。
-
-综上所述，这段代码通过模板特化创建了一个存储 std::set<LogDefine> 类型数据的配置变量，并使用 webserver::Config::Lookup 函数来获取该配置变量的指针。
+webserver::Config::Lookup 看起来是一个静态函数，用于查找名为 "logs" 的配置项，
+并返回一个指向 webserver::ConfigVar<std::set<LogDefine>> 类型对象的指针。
+该函数可能会在内部使用单例模式或其他方法来确保只有一个实例被创建。
+综上所述，这段代码通过模板特化创建了一个存储 std::set<LogDefine> 类型数据的配置变量，
+并使用 webserver::Config::Lookup 函数来获取该配置变量的指针。
 */
 webserver::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =
     webserver::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
 
+struct LogIniter {
+    /**
+ * @brief 构造函数，用于初始化日志系统的配置
+ * 
+ * 此函数将添加一个监听器，以便在日志配置发生变化时进行相应的处理。
+ * 
+ * 监听器接受两个参数：旧的日志定义集合和新的日志定义集合，用于比较和处理配置变化。
+ * 
+ * 当有新的日志定义被添加或者已有的日志定义被修改时，将会根据变化进行相应的操作，包括：
+ * - 添加新的 logger
+ * - 修改已存在的 logger 的配置
+ * - 删除不再存在的 logger
+ * 
+ * 每个 logger 的配置信息包括：
+ * - 日志级别
+ * - 日志格式器
+ * - 日志输出目标（文件或控制台）
+ * 
+ * @note 此函数用于初始化日志系统的配置，应在日志系统启动之前调用。
+ */
+LogIniter() {
+    // 添加一个监听器，用于处理日志配置的变化
+    g_log_defines->addListener([](const std::set<LogDefine>& old_value,
+                const std::set<LogDefine>& new_value){
+        // 输出日志信息，表示日志配置发生了变化
+        WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "on_logger_conf_changed";
+        // 遍历新的日志定义集合，处理新增和修改的日志定义
+        for(auto& i : new_value) {
+            auto it = old_value.find(i);
+            webserver::Logger::ptr logger;
+            if(it == old_value.end()) {
+                // 新增 logger
+                logger = WEBSERVER_LOG_NAME(i.name);
+            } else {
+                if(!(i == *it)) {
+                    // 修改的 logger
+                    logger = WEBSERVER_LOG_NAME(i.name);
+                } else {
+                    continue;
+                }
+            }
+            logger->setLevel(i.level);
+            if(!i.formatter.empty()) {
+                logger->setFormatter(i.formatter);
+            }
 
+            logger->clearAppenders();
+            for(auto& a : i.appenders) {
+                webserver::LogAppender::ptr ap;
+                if(a.type == 1) {
+                    ap.reset(new FileLogAppender(a.file));
+                } else if(a.type == 2) {
+                    if(!webserver::EnvMgr::GetInstance()->has("d")) {
+                        ap.reset(new StdoutLogAppender);
+                    } else {
+                        continue;
+                    }
+                }
+                ap->setLevel(a.level);
+                if(!a.formatter.empty()) {
+                    LogFormatter::ptr fmt(new LogFormatter(a.formatter));
+                    if(!fmt->isError()) {
+                        ap->setFormatter(fmt);
+                    } else {
+                        std::cout << "log.name=" << i.name << " appender type=" << a.type
+                                  << " formatter=" << a.formatter << " is invalid" << std::endl;
+                    }
+                }
+                logger->addAppender(ap);
+            }
+        }
+
+        // 遍历旧的日志定义集合，处理已删除的日志定义
+        for(auto& i : old_value) {
+            auto it = new_value.find(i);
+            if(it == new_value.end()) {
+                // 删除 logger
+                auto logger = WEBSERVER_LOG_NAME(i.name);
+                logger->setLevel((LogLevel::Level)0);
+                logger->clearAppenders();
+            }
+        }
+    });
+}
+
+
+}
+
+
+//全局对象在main函数之前构造，所以一定触发构造事件
+static LogIniter __log_init;
 void LoggerManager::init(){
     
 }
