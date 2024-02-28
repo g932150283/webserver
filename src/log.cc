@@ -579,6 +579,7 @@ LogIniter() {
                 if(a.type == 1) {
                     ap.reset(new FileLogAppender(a.file));
                 } else if(a.type == 2) {
+                    // 0208 over
                     if(!webserver::EnvMgr::GetInstance()->has("d")) {
                         ap.reset(new StdoutLogAppender);
                     } else {
