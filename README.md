@@ -119,6 +119,10 @@ static Logger::ptr g_log = WEBSERVER_LOG_NAME("system");
 // m_root, m_system->m_root
 // 当logger的appenders为空，使用root写logger
 ```
+```cpp
+// 定义LogDefine LogAppenderDefine，偏特化 LexicalCast
+// 实现日志配置解析
+```
 
 ## 协程库封装
 
