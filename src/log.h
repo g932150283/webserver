@@ -177,6 +177,9 @@ public:
     // 是否有错误
     bool isError() const { return m_error;}
 
+    // 返回日志模板
+    const std::string getPattern() const { return m_pattern;}
+
 private:
     
     // 日志格式模板
@@ -198,6 +201,9 @@ public:
 
     // 纯虚函数，子类必须实现该方法
     virtual void log(std::shared_ptr<Logger> logger, LogLevel::Level Level, const LogEvent::ptr event) = 0; 
+
+    // 将日志输出目标的配置转成YAML String
+    virtual std::string toYamlString() = 0;
     
     // 设置日志格式器
     void setFormatter(LogFormatter::ptr val) {m_formatter = val;} 
@@ -274,6 +280,9 @@ public:
     // 获取日志格式器
     LogFormatter::ptr getFormatter();
 
+    // 将日志器的配置转成YAML String
+    std::string toYamlString();
+
 
 private:
     // 日志名称
@@ -297,6 +306,8 @@ public:
     // 在成员函数声明或定义中，override 说明符确保该函数为虚函数并覆盖某个基类中的虚函数
     // 纯虚函数，子类必须实现该方法
     void log(std::shared_ptr<Logger> logger, LogLevel::Level level, const LogEvent::ptr event) override; 
+    // 将日志输出目标的配置转成YAML String
+    std::string toYamlString() override;
 private:
     
 
@@ -311,6 +322,8 @@ public:
     // 在成员函数声明或定义中，override 说明符确保该函数为虚函数并覆盖某个基类中的虚函数
     // 纯虚函数，子类必须实现该方法
     void log(std::shared_ptr<Logger> logger, LogLevel::Level level, const LogEvent::ptr event) override; 
+    // 将日志输出目标的配置转成YAML String
+    std::string toYamlString() override;
     //重新打开日志文件，文件的打开成功返回true
     bool reopen(); 
 private:
@@ -332,6 +345,8 @@ public:
     void init();
     // 获取root日志器，等效于getLogger("root")
     Logger::ptr getRoot() { return m_root; }
+    // 将日志输出目标的配置转成YAML String
+    std::string toYamlString();
 private:
     std::map<std::string, Logger::ptr> m_loggers;
     Logger::ptr m_root;

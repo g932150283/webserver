@@ -1,6 +1,8 @@
 #include"src/log.h"
 #include"src/config.h"
 #include<yaml-cpp/yaml.h>
+#include <iostream>
+
 webserver::ConfigVar<int>::ptr g_int_value_config = 
     webserver::Config::Lookup("system.port", (int)8080, "system port");
 
@@ -184,10 +186,10 @@ void test_class() {
         WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) <<  prefix << ": size=" << m.size(); \
     }
 
-    g_person->addListener(10, [](const Person& old_value, const Person& new_value){
-        WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "old_value = " << old_value.toString() 
-            << " new_value = " << new_value.toString();
-    });
+    // g_person->addListener(10, [](const Person& old_value, const Person& new_value){
+    //     WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "old_value = " << old_value.toString() 
+    //         << " new_value = " << new_value.toString();
+    // });
 
     XX_PM(g_person_map, "class.map before");
     WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "before: " << g_person_vec_map->toString();
@@ -203,12 +205,29 @@ void test_class() {
 }
 
 
+void test_log() {
+    // static webserver::Logger::ptr system_log = WEBSERVER_LOG_NAME("system");
+    // WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
+    std::cout << webserver::LoggerMgr::GetInstance()->toYamlString() << std::endl;
+    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/log.yml"); ///home/user/wsl-code/webserver/bin/conf/log.yml
+    webserver::Config::LoadFromYaml(root);
+    std::cout << "=============" << std::endl;
+    std::cout << webserver::LoggerMgr::GetInstance()->toYamlString() << std::endl;
+    std::cout << "=============" << std::endl;
+    std::cout << root << std::endl;
+    // WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
+
+    // system_log->setFormatter("%d - %m%n");
+    // WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
+}
+
 int main(){
 
-    WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << g_int_value_config->getValue();
-    WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << g_float_value_config->toString();
+    // WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << g_int_value_config->getValue();
+    // WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << g_float_value_config->toString();
     // test_yaml();
     // test_config();
+    
     /*
     2024-01-22 09:27:20     10639           0       [INFO]  [root]  /home/user/wsl-code/webserver/tests/test_config.cc:44   before: 8080
     2024-01-22 09:27:20     10639           0       [INFO]  [root]  /home/user/wsl-code/webserver/tests/test_config.cc:45   before: 8080.08008
@@ -216,6 +235,7 @@ int main(){
     2024-01-22 09:27:20     10639           0       [INFO]  [root]  /home/user/wsl-code/webserver/tests/test_config.cc:52   after: 15
     */
 
-    test_class();
+    // test_class();
+    test_log();
     return 0;
 }

@@ -49,25 +49,6 @@ LogLevel::Level LogLevel::FromString(const std::string& str) {
 #undef XX
 }
 
-LogLevel::Level LogLevel::FromString(const std::string& str) {
-#define XX(level, v) \
-    if(str == #v) { \
-        return LogLevel::level; \
-    }
-    XX(DEBUG, debug);
-    XX(INFO, info);
-    XX(WARN, warn);
-    XX(ERROR, error);
-    XX(FATAL, fatal);
-
-    XX(DEBUG, DEBUG);
-    XX(INFO, INFO);
-    XX(WARN, WARN);
-    XX(ERROR, ERROR);
-    XX(FATAL, FATAL);
-    return LogLevel::UNKNOW;
-#undef XX
-}
 
 LogEventWrap::LogEventWrap(LogEvent::ptr e)
     :m_event(e){
@@ -244,7 +225,9 @@ Logger::Logger(const std::string & name)
 
 // 添加日志目标
 void Logger::addAppender(LogAppender::ptr appender){
+    // MutexType::Lock lock(m_mutex);
     if(!appender->getFormatter()){
+        // MutexType::Lock ll(appender->m_mutex);
         appender->setFormatter(m_formatter);
     }
     m_appenders.push_back(appender);
@@ -281,6 +264,25 @@ void Logger::setFormatter(const std::string& val) {
     }
     //m_formatter = new_val;
     setFormatter(new_val);
+}
+
+// 将日志输出目标的配置转成YAML String
+std::string Logger::toYamlString() {
+    YAML::Node node;
+    node["name"] = m_name;
+    if(m_level != LogLevel::UNKNOW) {
+        node["level"] = LogLevel::ToString(m_level);
+    }
+    if(m_formatter) {
+        node["formatter"] = m_formatter->getPattern();
+    }
+
+    for(auto& i : m_appenders) {
+        node["appenders"].push_back(YAML::Load(i->toYamlString()));
+    }
+    std::stringstream ss;
+    ss << node;
+    return ss.str();
 }
 
 // 获取日志格式器
@@ -336,6 +338,23 @@ void StdoutLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level leve
     }
 }
 
+// 将日志输出目标的配置转成YAML String
+std::string StdoutLogAppender::toYamlString() {
+    // MutexType::Lock lock(m_mutex);
+    YAML::Node node;
+    node["type"] = "StdoutLogAppender";
+    if(m_level != LogLevel::UNKNOW) {
+        node["level"] = LogLevel::ToString(m_level);
+    }
+    // if(m_hasFormatter && m_formatter) {
+    //     node["formatter"] = m_formatter->getPattern();
+    // }
+    std::stringstream ss;
+    ss << node;
+    return ss.str();
+}
+
+
 FileLogAppender::FileLogAppender(const std::string& filename) : m_filename(filename){
     reopen();
 }
@@ -346,6 +365,23 @@ void FileLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level,
     if(level >= m_level){
         m_filestream << m_formatter->format(logger, level, event);
     }
+}
+
+// 将日志输出目标的配置转成YAML String
+std::string FileLogAppender::toYamlString() {
+    // MutexType::Lock lock(m_mutex);
+    YAML::Node node;
+    node["type"] = "FileLogAppender";
+    node["file"] = m_filename;
+    if(m_level != LogLevel::UNKNOW) {
+        node["level"] = LogLevel::ToString(m_level);
+    }
+    // if(m_hasFormatter && m_formatter) {
+    //     node["formatter"] = m_formatter->getPattern();
+    // }
+    std::stringstream ss;
+    ss << node;
+    return ss.str();
 }
 
 // 重新打开日志文件，文件的打开成功返回true
@@ -485,6 +521,8 @@ LoggerManager::LoggerManager(){
     m_root.reset(new Logger); // 使用 reset 重新分配关联资源
     m_root->addAppender(LogAppender::ptr(new StdoutLogAppender));
 
+    m_loggers[m_root->m_name] = m_root;
+
     init();
 }
 
@@ -526,6 +564,10 @@ struct LogDefine{
             && level == oth.level
             && formatter == oth.formatter
             && appenders == appenders;
+    }
+
+    bool operator<(const LogDefine& oth) const {
+        return name < oth.name;
     }
 
 
@@ -663,7 +705,6 @@ struct LogIniter {
  * 
  * @note 此函数用于初始化日志系统的配置，应在日志系统启动之前调用。
  */
-struct LogIniter {
     LogIniter() {
         g_log_defines->addListener([](const std::set<LogDefine>& old_value,
                     const std::set<LogDefine>& new_value){
@@ -695,11 +736,12 @@ struct LogIniter {
                     if(a.type == 1) {
                         ap.reset(new FileLogAppender(a.file));
                     } else if(a.type == 2) {
-                        if(!webserver::EnvMgr::GetInstance()->has("d")) {
-                            ap.reset(new StdoutLogAppender);
-                        } else {
-                            continue;
-                        }
+                        ap.reset(new StdoutLogAppender);
+                        // if(!webserver::EnvMgr::GetInstance()->has("d")) {
+                        //     ap.reset(new StdoutLogAppender);
+                        // } else {
+                        //     continue;
+                        // }
                     }
                     ap->setLevel(a.level);
                     if(!a.formatter.empty()) {
@@ -732,6 +774,16 @@ struct LogIniter {
 //全局对象在main函数之前构造，所以一定触发构造事件
 static LogIniter __log_init;
 
+std::string LoggerManager::toYamlString() {
+    // MutexType::Lock lock(m_mutex);
+    YAML::Node node;
+    for(auto& i : m_loggers) {
+        node.push_back(YAML::Load(i.second->toYamlString()));
+    }
+    std::stringstream ss;
+    ss << node;
+    return ss.str();
+}
 
 
 void LoggerManager::init(){

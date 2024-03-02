@@ -68,7 +68,7 @@ LexicalCast;
 // Config::Lookup(key), key相同， 类型不同
 
 /*
-容器片特化（template specialization for containers）是C++模板编程中的一个概念。
+容器偏特化（template specialization for containers）是C++模板编程中的一个概念。
 它指的是对特定类型的模板进行特殊处理或定制，以满足特定的需求。
 代码中，存在两个类模板的片特化：
 
@@ -85,7 +85,7 @@ LexicalCast<std::vector<T>, std::string>：
 
 ```
 
-自定义类型，需要实现webserver::LexicalCast,片特化
+自定义类型，需要实现webserver::LexicalCast,偏特化
 实现后，可以支持Config解析自定义类型
 自定义类型可以和常规stl容器一起使用
 
@@ -122,6 +122,10 @@ static Logger::ptr g_log = WEBSERVER_LOG_NAME("system");
 ```cpp
 // 定义LogDefine LogAppenderDefine，偏特化 LexicalCast
 // 实现日志配置解析
+```
+
+```cpp
+
 ```
 
 ## 协程库封装

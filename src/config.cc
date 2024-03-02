@@ -2,7 +2,7 @@
 
 namespace webserver{
 
-Config::ConfigVarMap Config::s_datas;
+// Config::ConfigVarMap Config::s_datas;
 
 /**
  * @brief ConfigVarBase类指针的声明，命名为ptr
@@ -13,11 +13,11 @@ Config::ConfigVarMap Config::s_datas;
 ConfigVarBase::ptr Config::LookupBase(const std::string& name) {
 
     // 在映射中查找具有给定名称的ConfigVarBase
-    auto it = s_datas.find(name);
+    auto it = GetDatas().find(name);
 
     // 如果未找到ConfigVarBase，则返回nullptr
     // 否则返回找到的ConfigVarBase
-    return it == s_datas.end() ? nullptr : it->second;
+    return it == GetDatas().end() ? nullptr : it->second;
 }
 
 
