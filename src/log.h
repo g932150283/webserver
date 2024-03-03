@@ -193,6 +193,7 @@ private:
 
 // 日志输出地
 class LogAppender{
+friend class Logger;
 public:
     typedef std::shared_ptr<LogAppender> ptr;
 
@@ -206,7 +207,7 @@ public:
     virtual std::string toYamlString() = 0;
     
     // 设置日志格式器
-    void setFormatter(LogFormatter::ptr val) {m_formatter = val;} 
+    void setFormatter(LogFormatter::ptr val);
 
     // 返回日志格式器
     LogFormatter::ptr getFormatter() const {return m_formatter;}  
@@ -221,6 +222,8 @@ protected:
     LogLevel::Level m_level = LogLevel::DEBUG;
     // Appender中还需要Format对象，定义输出格式
     LogFormatter::ptr m_formatter;
+    /// 是否有自己的日志格式器
+    bool m_hasFormatter = false;
 };
 
 

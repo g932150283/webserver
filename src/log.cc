@@ -225,12 +225,20 @@ Logger::Logger(const std::string & name)
 
 // 添加日志目标
 void Logger::addAppender(LogAppender::ptr appender){
-    // MutexType::Lock lock(m_mutex);
+    // // MutexType::Lock lock(m_mutex);
+    // if(!appender->getFormatter()){
+    //     // MutexType::Lock ll(appender->m_mutex);
+    //     appender->setFormatter(m_formatter);
+    // }
+    // m_appenders.push_back(appender);
+
+    // ---
     if(!appender->getFormatter()){
         // MutexType::Lock ll(appender->m_mutex);
-        appender->setFormatter(m_formatter);
+        appender->m_formatter = m_formatter;
     }
     m_appenders.push_back(appender);
+    // ---
 }
 
 // 删除日志目标
@@ -251,6 +259,14 @@ void Logger::clearAppenders() {
 // 设置日志格式器
 void Logger::setFormatter(LogFormatter::ptr val) {
     m_formatter = val;
+
+    // ---
+    for(auto& i : m_appenders){
+        if(!i->m_hasFormatter){
+            i->m_formatter = m_formatter;
+        }
+    }
+    // ---
 }
 
 // 设置日志格式模板
@@ -329,6 +345,21 @@ void Logger::fatal(LogEvent::ptr event){
     log(LogLevel::FATAL, event);
 }
 
+// 设置日志格式器
+void LogAppender::setFormatter(LogFormatter::ptr val) {
+    // MutexType::Lock lock(m_mutex);
+
+    // ---
+    m_formatter = val;
+    if(m_formatter){
+        m_hasFormatter = true;
+    }else{
+        m_hasFormatter = false;
+    }    
+    // ---
+
+    // m_formatter = val;
+}
 
 // 在成员函数声明或定义中，override 说明符确保该函数为虚函数并覆盖某个基类中的虚函数
 // 纯虚函数，子类必须实现该方法
@@ -346,9 +377,9 @@ std::string StdoutLogAppender::toYamlString() {
     if(m_level != LogLevel::UNKNOW) {
         node["level"] = LogLevel::ToString(m_level);
     }
-    // if(m_hasFormatter && m_formatter) {
-    //     node["formatter"] = m_formatter->getPattern();
-    // }
+    if(m_hasFormatter && m_formatter) {
+        node["formatter"] = m_formatter->getPattern();
+    }
     std::stringstream ss;
     ss << node;
     return ss.str();
@@ -376,9 +407,9 @@ std::string FileLogAppender::toYamlString() {
     if(m_level != LogLevel::UNKNOW) {
         node["level"] = LogLevel::ToString(m_level);
     }
-    // if(m_hasFormatter && m_formatter) {
-    //     node["formatter"] = m_formatter->getPattern();
-    // }
+    if(m_hasFormatter && m_formatter) {
+        node["formatter"] = m_formatter->getPattern();
+    }
     std::stringstream ss;
     ss << node;
     return ss.str();

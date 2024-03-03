@@ -10,7 +10,6 @@ namespace webserver{
 
 // 返回当前线程的ID
 pid_t GetThreadId();
-
 // 返回当前协程的ID
 uint32_t GetFiberId();
 

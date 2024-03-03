@@ -130,6 +130,10 @@ static Logger::ptr g_log = WEBSERVER_LOG_NAME("system");
 
 ## 协程库封装
 
+线程 C++11
+互斥量 pthread线程库
+既能用到新特性，又可以兼顾性能
+
 将异步操作封装成同步
 
 ## socket函数库

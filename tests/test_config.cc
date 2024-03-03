@@ -206,8 +206,8 @@ void test_class() {
 
 
 void test_log() {
-    // static webserver::Logger::ptr system_log = WEBSERVER_LOG_NAME("system");
-    // WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
+    static webserver::Logger::ptr system_log = WEBSERVER_LOG_NAME("system");
+    WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
     std::cout << webserver::LoggerMgr::GetInstance()->toYamlString() << std::endl;
     YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/log.yml"); ///home/user/wsl-code/webserver/bin/conf/log.yml
     webserver::Config::LoadFromYaml(root);
@@ -215,10 +215,10 @@ void test_log() {
     std::cout << webserver::LoggerMgr::GetInstance()->toYamlString() << std::endl;
     std::cout << "=============" << std::endl;
     std::cout << root << std::endl;
-    // WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
+    WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
 
-    // system_log->setFormatter("%d - %m%n");
-    // WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
+    system_log->setFormatter("%d - %m%n");
+    WEBSERVER_LOG_INFO(system_log) << "hello system" << std::endl;
 }
 
 int main(){

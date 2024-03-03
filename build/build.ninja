@@ -50,7 +50,7 @@ cmake_ninja_workdir = /home/user/wsl-code/webserver/build/
 build cmake_object_order_depends_target_webserver: phony || CMakeFiles/webserver.dir
 
 build CMakeFiles/webserver.dir/src/log.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/log.cc || cmake_object_order_depends_target_webserver
-  DEFINES = -Dwebserver_EXPORTS
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/log.cc\"
   DEP_FILE = CMakeFiles/webserver.dir/src/log.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
   INCLUDES = -I/home/user/wsl-code/webserver/.
@@ -58,7 +58,7 @@ build CMakeFiles/webserver.dir/src/log.cc.o: CXX_COMPILER__webserver_Debug /home
   OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
 
 build CMakeFiles/webserver.dir/src/util.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/util.cc || cmake_object_order_depends_target_webserver
-  DEFINES = -Dwebserver_EXPORTS
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/util.cc\"
   DEP_FILE = CMakeFiles/webserver.dir/src/util.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
   INCLUDES = -I/home/user/wsl-code/webserver/.
@@ -66,8 +66,16 @@ build CMakeFiles/webserver.dir/src/util.cc.o: CXX_COMPILER__webserver_Debug /hom
   OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
 
 build CMakeFiles/webserver.dir/src/config.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/config.cc || cmake_object_order_depends_target_webserver
-  DEFINES = -Dwebserver_EXPORTS
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/config.cc\"
   DEP_FILE = CMakeFiles/webserver.dir/src/config.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/thread.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/thread.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/thread.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/thread.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
   INCLUDES = -I/home/user/wsl-code/webserver/.
   OBJECT_DIR = CMakeFiles/webserver.dir
@@ -81,7 +89,7 @@ build CMakeFiles/webserver.dir/src/config.cc.o: CXX_COMPILER__webserver_Debug /h
 #############################################
 # Link the shared library ../lib/libwebserver.so
 
-build ../lib/libwebserver.so: CXX_SHARED_LIBRARY_LINKER__webserver_Debug CMakeFiles/webserver.dir/src/log.cc.o CMakeFiles/webserver.dir/src/util.cc.o CMakeFiles/webserver.dir/src/config.cc.o
+build ../lib/libwebserver.so: CXX_SHARED_LIBRARY_LINKER__webserver_Debug CMakeFiles/webserver.dir/src/log.cc.o CMakeFiles/webserver.dir/src/util.cc.o CMakeFiles/webserver.dir/src/config.cc.o CMakeFiles/webserver.dir/src/thread.cc.o
   LANGUAGE_COMPILE_FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/webserver.dir
@@ -93,75 +101,6 @@ build ../lib/libwebserver.so: CXX_SHARED_LIBRARY_LINKER__webserver_Debug CMakeFi
   TARGET_PDB = webserver.so.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target test
-
-
-#############################################
-# Order-only phony target for test
-
-build cmake_object_order_depends_target_test: phony || cmake_object_order_depends_target_webserver
-
-build CMakeFiles/test.dir/tests/test.cc.o: CXX_COMPILER__test_Debug /home/user/wsl-code/webserver/tests/test.cc || cmake_object_order_depends_target_test
-  DEP_FILE = CMakeFiles/test.dir/tests/test.cc.o.d
-  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
-  INCLUDES = -I/home/user/wsl-code/webserver/.
-  OBJECT_DIR = CMakeFiles/test.dir
-  OBJECT_FILE_DIR = CMakeFiles/test.dir/tests
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target test
-
-
-#############################################
-# Link the executable ../bin/test
-
-build ../bin/test: CXX_EXECUTABLE_LINKER__test_Debug CMakeFiles/test.dir/tests/test.cc.o | ../lib/libwebserver.so || ../lib/libwebserver.so
-  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
-  LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lyaml-cpp
-  LINK_PATH = -L/usr/local/lib
-  OBJECT_DIR = CMakeFiles/test.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = ../bin/test
-  TARGET_PDB = test.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target test_tuple
-
-
-#############################################
-# Order-only phony target for test_tuple
-
-build cmake_object_order_depends_target_test_tuple: phony || CMakeFiles/test_tuple.dir
-
-build CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o: CXX_COMPILER__test_tuple_Debug /home/user/wsl-code/webserver/tests/test_tuple.cc || cmake_object_order_depends_target_test_tuple
-  DEP_FILE = CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o.d
-  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
-  INCLUDES = -I/home/user/wsl-code/webserver/.
-  OBJECT_DIR = CMakeFiles/test_tuple.dir
-  OBJECT_FILE_DIR = CMakeFiles/test_tuple.dir/tests
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target test_tuple
-
-
-#############################################
-# Link the executable ../bin/test_tuple
-
-build ../bin/test_tuple: CXX_EXECUTABLE_LINKER__test_tuple_Debug CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o
-  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
-  LINK_FLAGS = -rdynamic
-  LINK_PATH = -L/usr/local/lib
-  OBJECT_DIR = CMakeFiles/test_tuple.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = ../bin/test_tuple
-  TARGET_PDB = test_tuple.dbg
-
-# =============================================================================
 # Object build statements for EXECUTABLE target test_config
 
 
@@ -171,6 +110,7 @@ build ../bin/test_tuple: CXX_EXECUTABLE_LINKER__test_tuple_Debug CMakeFiles/test
 build cmake_object_order_depends_target_test_config: phony || cmake_object_order_depends_target_webserver
 
 build CMakeFiles/test_config.dir/tests/test_config.cc.o: CXX_COMPILER__test_config_Debug /home/user/wsl-code/webserver/tests/test_config.cc || cmake_object_order_depends_target_test_config
+  DEFINES = -D__FILE__=\"tests/test_config.cc\"
   DEP_FILE = CMakeFiles/test_config.dir/tests/test_config.cc.o.d
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   INCLUDES = -I/home/user/wsl-code/webserver/.
@@ -185,16 +125,50 @@ build CMakeFiles/test_config.dir/tests/test_config.cc.o: CXX_COMPILER__test_conf
 #############################################
 # Link the executable ../bin/test_config
 
-build ../bin/test_config: CXX_EXECUTABLE_LINKER__test_config_Debug CMakeFiles/test_config.dir/tests/test_config.cc.o | ../lib/libwebserver.so || ../lib/libwebserver.so
+build ../bin/test_config: CXX_EXECUTABLE_LINKER__test_config_Debug CMakeFiles/test_config.dir/tests/test_config.cc.o || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lyaml-cpp
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_config.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = ../bin/test_config
   TARGET_PDB = test_config.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_thread
+
+
+#############################################
+# Order-only phony target for test_thread
+
+build cmake_object_order_depends_target_test_thread: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_thread.dir/tests/test_thread.cc.o: CXX_COMPILER__test_thread_Debug /home/user/wsl-code/webserver/tests/test_thread.cc || cmake_object_order_depends_target_test_thread
+  DEFINES = -D__FILE__=\"tests/test_thread.cc\"
+  DEP_FILE = CMakeFiles/test_thread.dir/tests/test_thread.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_thread.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_thread.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_thread
+
+
+#############################################
+# Link the executable ../bin/test_thread
+
+build ../bin/test_thread: CXX_EXECUTABLE_LINKER__test_thread_Debug CMakeFiles/test_thread.dir/tests/test_thread.cc.o || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_thread.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_thread
+  TARGET_PDB = test_thread.dbg
 
 
 #############################################
@@ -224,11 +198,9 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build libwebserver.so: phony ../lib/libwebserver.so
 
-build test: phony ../bin/test
-
 build test_config: phony ../bin/test_config
 
-build test_tuple: phony ../bin/test_tuple
+build test_thread: phony ../bin/test_thread
 
 build webserver: phony ../lib/libwebserver.so
 
@@ -240,7 +212,7 @@ build webserver: phony ../lib/libwebserver.so
 #############################################
 # Folder: /home/user/wsl-code/webserver/build
 
-build all: phony ../lib/libwebserver.so ../bin/test ../bin/test_tuple ../bin/test_config
+build all: phony ../lib/libwebserver.so ../bin/test_config ../bin/test_thread
 
 # =============================================================================
 # Unknown Build Time Dependencies.
@@ -254,14 +226,14 @@ build all: phony ../lib/libwebserver.so ../bin/test ../bin/test_tuple ../bin/tes
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../cmake/utils.cmake /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../cmake/utils.cmake /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake: phony
 
 
 #############################################
