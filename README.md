@@ -128,7 +128,7 @@ static Logger::ptr g_log = WEBSERVER_LOG_NAME("system");
 
 ```
 
-## 协程库封装
+## 线程库封装
 
 线程 C++11
 互斥量 pthread线程库
@@ -140,6 +140,13 @@ pthread实现pthread_creatre
 C++11中的互斥量没有读写分离，高并发情况下，写少读多，将读写分离，提升性能
 
 信号量用在pthread生成线程中，在线程构造函数中，确保在出线程构造函数之前，要启动的线程就一定启动。
+
+与Log整合，Logger, Appender
+
+Spinlock替换Mutex
+写文件，周期性，reopen
+
+与Config整合
 
 ```bash
 ps uax | grep thread
@@ -154,6 +161,10 @@ top 命令用于显示系统中运行的进程和系统资源的使用情况。-
 ![alt text](pic/thread01-1.png)
 
 ![alt text](pic/thread01-2.png)
+
+
+
+## 协程库封装
 
 将异步操作封装成同步
 

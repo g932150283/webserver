@@ -16,7 +16,7 @@
 #include "src/log.h"
 // #include "macro.h"
 // #include "module.h"
-// #include "mutex.h"
+#include "mutex.h"
 // #include "noncopyable.h"
 // #include "protocol.h"
 // #include "scheduler.h"

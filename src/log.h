@@ -15,6 +15,7 @@
 #include"singleton.h"
 
 #include"util.h"
+#include "thread.h"
 
 
 
@@ -196,6 +197,7 @@ class LogAppender{
 friend class Logger;
 public:
     typedef std::shared_ptr<LogAppender> ptr;
+    typedef Spinlock MutexType;
 
     // 定义为虚函数，多个输出继承，如果不定义为虚函数，子类使用时可能会出问题
     virtual ~LogAppender() {} 
@@ -210,7 +212,7 @@ public:
     void setFormatter(LogFormatter::ptr val);
 
     // 返回日志格式器
-    LogFormatter::ptr getFormatter() const {return m_formatter;}  
+    LogFormatter::ptr getFormatter(); 
 
     // 设置日志等级
     void setLevel(LogLevel::Level val) {m_level = val;} 
@@ -224,6 +226,8 @@ protected:
     LogFormatter::ptr m_formatter;
     /// 是否有自己的日志格式器
     bool m_hasFormatter = false;
+    /// Mutex
+    MutexType m_mutex;
 };
 
 
@@ -235,6 +239,7 @@ friend class LoggerManager;
 public:
     // 智能指针方便内存管理
     typedef std::shared_ptr<Logger> ptr; 
+    typedef Spinlock MutexType;
     
     Logger(const std::string & name = "root");
 
@@ -296,8 +301,10 @@ private:
     std::list<LogAppender::ptr> m_appenders;  
     // 日志格式器
     LogFormatter::ptr m_formatter;
-    // 
+    // 主日志器
     Logger::ptr m_root;
+    /// Mutex
+    MutexType m_mutex;
 };
 
 // 输出到控制台的Appender
@@ -335,13 +342,16 @@ private:
     std::string m_filename;      
     // 文件流    
     std::ofstream m_filestream;  
-
+    /// 上次重新打开时间
+    uint64_t m_lastTime = 0;
 };
 
 
 
 class LoggerManager{
 public:
+    typedef Spinlock MutexType;
+
     LoggerManager();
     Logger::ptr getLogger(const std::string& name);
 
@@ -353,6 +363,8 @@ public:
 private:
     std::map<std::string, Logger::ptr> m_loggers;
     Logger::ptr m_root;
+    /// Mutex
+    MutexType m_mutex;
 };
 
 typedef webserver::Singleton<LoggerManager> LoggerMgr;
