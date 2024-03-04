@@ -1,4 +1,4 @@
-# sylar
+# webserver
 
 ## 项目路径
 
@@ -134,6 +134,27 @@ static Logger::ptr g_log = WEBSERVER_LOG_NAME("system");
 互斥量 pthread线程库
 既能用到新特性，又可以兼顾性能
 
+pthread实现pthread_creatre
+互斥量 mutex 
+信号量 semaphore
+C++11中的互斥量没有读写分离，高并发情况下，写少读多，将读写分离，提升性能
+
+信号量用在pthread生成线程中，在线程构造函数中，确保在出线程构造函数之前，要启动的线程就一定启动。
+
+```bash
+ps uax | grep thread
+```
+这个命令的意思是列出所有进程 (ps uax)，然后使用 grep 过滤输出，只显示包含单词 "thread" 的行。
+
+```bash
+top -H -p <进程ID>
+```
+top 命令用于显示系统中运行的进程和系统资源的使用情况。-H 选项表示显示线程信息，-p 选项用于指定要监视的进程 ID。如果你想要监视特定进程的线程，你需要提供一个有效的进程 ID。例如：
+
+![alt text](pic/thread01-1.png)
+
+![alt text](pic/thread01-2.png)
+
 将异步操作封装成同步
 
 ## socket函数库
@@ -147,3 +168,4 @@ static Logger::ptr g_log = WEBSERVER_LOG_NAME("system");
 业务功能、系统功能分开
 
 ## 推荐系统
+

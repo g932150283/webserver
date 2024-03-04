@@ -1,5 +1,5 @@
 #include "src/webserver.h"
-// #include <unistd.h>
+#include <unistd.h>
 
 webserver::Logger::ptr g_logger = WEBSERVER_LOG_ROOT();
 
@@ -12,7 +12,7 @@ void fun1() {
                              << " this.name: " << webserver::Thread::GetThis()->getName()
                              << " id: " << webserver::GetThreadId()
                              << " this.id: " << webserver::Thread::GetThis()->getId();
-
+    sleep(20);
     // for(int i = 0; i < 100000; ++i) {
     //     //sylar::RWMutex::WriteLock lock(s_mutex);
     //     // webserver::Mutex::Lock lock(s_mutex);

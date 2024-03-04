@@ -1,15 +1,18 @@
 # ninja log v5
-3	1397	1709471240776694300	CMakeFiles/test.dir/tests/test.cc.o	67c1fab304864ea9
-242	603	1709469334566694300	../bin/test_config	1f4b07ffc9674b7b
+1	778	1709523922142148800	CMakeFiles/test.dir/tests/test.cc.o	67c1fab304864ea9
+1	332	1709523921692148800	../bin/test_config	1f4b07ffc9674b7b
 4	686	1709453388326694300	CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o	4a52f0d117ec48b3
+778	1002	1709523922362148800	../bin/test	fb2462590710e80d
 687	890	1709453388526694300	../bin/test_tuple	fb89b9814964b873
 3	12500	1709471251866694300	CMakeFiles/test_config.dir/tests/test_config.cc.o	e2c1d64e1398b42d
 2	6821	1709471246196694300	CMakeFiles/webserver.dir/src/log.cc.o	4d10bdbfaeec484b
-3	2472	1709471241846694300	CMakeFiles/test_thread.dir/tests/test_thread.cc.o	f7c908df04cab31a
+13	1881	1709471691306694300	CMakeFiles/test_thread.dir/tests/test_thread.cc.o	f7c908df04cab31a
 6821	7085	1709471246456694300	../lib/libwebserver.so	9647b50f7609bd5a
 2	93	1709471239466694300	CMakeFiles/webserver.dir/src/util.cc.o	61111f74df57d167
 2	3447	1709471242816694300	CMakeFiles/webserver.dir/src/config.cc.o	ed5315f524735648
 2	1257	1709471240626694300	CMakeFiles/webserver.dir/src/thread.cc.o	c3605c5441cf79c7
-1	1899	1709471609826694300	CMakeFiles/test_thread.dir/tests/test_thread.cc.o	f7c908df04cab31a
-3	1663	1709471630096694300	CMakeFiles/test_thread.dir/tests/test_thread.cc.o	f7c908df04cab31a
-13	1881	1709471691306694300	CMakeFiles/test_thread.dir/tests/test_thread.cc.o	f7c908df04cab31a
+2	287	1709523918102148800	../bin/test_thread	fabc4c884447bbfe
+2	469	1709529373612148800	CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o	4a52f0d117ec48b3
+469	650	1709529373792148800	../bin/test_tuple	fb89b9814964b873
+1	1736	1709529544492148800	CMakeFiles/test_thread.dir/tests/test_thread.cc.o	f7c908df04cab31a
+1737	1998	1709529544752148800	../bin/test_thread	fabc4c884447bbfe

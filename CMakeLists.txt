@@ -23,7 +23,7 @@ set(LIB_SRC
 add_library(webserver SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(webserver) # __FILE__
 
-set(LIBDS
+set(LIBS
          webserver
          pthread
          yaml-cpp
@@ -31,14 +31,14 @@ set(LIBDS
 
 message("***", ${LIBS})
 
-# add_executable(test tests/test.cc)
-# add_dependencies(test webserver)
-# force_redefine_file_macro_for_sources(test)
-# target_link_libraries(test ${LIBS})
+add_executable(test tests/test.cc)
+add_dependencies(test webserver)
+force_redefine_file_macro_for_sources(test)
+target_link_libraries(test ${LIBS})
 
 
-# add_executable(test_tuple tests/test_tuple.cc)
-# force_redefine_file_macro_for_sources(test_tuple)
+add_executable(test_tuple tests/test_tuple.cc)
+force_redefine_file_macro_for_sources(test_tuple)
 
 add_executable(test_config tests/test_config.cc)
 add_dependencies(test_config webserver)
