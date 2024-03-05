@@ -481,10 +481,6 @@ public:
         return s_fun_id;
     }
 
-    // void addListener(uint64_t key, on_change_cb cb) {
-    //     m_cbs[key] = cb;
-    // }
-
     /**
      * @brief 删除回调函数
      * @param[in] key 回调函数的唯一id
@@ -610,10 +606,10 @@ public:
      */
     static void LoadFromYaml(const YAML::Node& root);
 
-    // /**
-    //  * @brief 加载path文件夹里面的配置文件
-    //  */
-    // static void LoadFromConfDir(const std::string &path, bool force = false);
+    /**
+     * @brief 加载path文件夹里面的配置文件
+     */
+    static void LoadFromConfDir(const std::string &path, bool force = false);
 
     /**
      * @brief 查找配置参数,返回配置参数的基类
@@ -621,11 +617,11 @@ public:
      */
     static ConfigVarBase::ptr LookupBase(const std::string &name);
 
-    // /**
-    //  * @brief 遍历配置模块里面所有配置项
-    //  * @param[in] cb 配置项回调函数
-    //  */
-    // static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
+    /**
+     * @brief 遍历配置模块里面所有配置项
+     * @param[in] cb 配置项回调函数
+     */
+    static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
 
 private:
     // config所有参数放在静态成员中，静态成员初始化顺序和lookup中的s_datas涉及到初始化顺序

@@ -18,7 +18,8 @@ set(LIB_SRC
     src/log.cc
     src/util.cc
     src/config.cc
-    src/thread.cc)
+    src/thread.cc
+    src/mutex.cc)
 
 add_library(webserver SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(webserver) # __FILE__
@@ -49,6 +50,11 @@ add_executable(test_thread tests/test_thread.cc)
 add_dependencies(test_thread webserver)
 force_redefine_file_macro_for_sources(test_thread)
 target_link_libraries(test_thread ${LIBS})
+
+add_executable(test_util tests/test_util.cc)
+add_dependencies(test_util webserver)
+force_redefine_file_macro_for_sources(test_util)
+target_link_libraries(test_util ${LIBS})
 
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)

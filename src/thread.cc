@@ -39,7 +39,7 @@ Thread::Thread(std::function<void()> cb, const std::string& name)
             << " name=" << name;
         throw std::logic_error("pthread_create error");
     }
-    // m_semaphore.wait();
+    m_semaphore.wait();
 }
 
 Thread::~Thread() {
@@ -70,7 +70,7 @@ void* Thread::run(void* arg) {
     std::function<void()> cb;
     cb.swap(thread->m_cb);
 
-    // thread->m_semaphore.notify();
+    thread->m_semaphore.notify();
 
     cb();
     return 0;

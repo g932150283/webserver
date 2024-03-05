@@ -9,12 +9,12 @@
 
 // 文件
 #include <sstream>
-#include<fstream>
+#include <fstream>
 #include <vector>
 #include <map>
-#include"singleton.h"
+#include "singleton.h"
 
-#include"util.h"
+#include "util.h"
 #include "thread.h"
 
 
