@@ -1,16 +1,18 @@
 #include "src/webserver.h"
 #include <assert.h>
 
-// webserver::Logger::ptr g_logger = WEBSERVER_LOG_ROOT();
+webserver::Logger::ptr g_logger = WEBSERVER_LOG_ROOT();
 
-// void test_assert() {
-//     WEBSERVER_LOG_INFO(g_logger) << webserver::BacktraceToString(10);
-//     //SYLAR_ASSERT2(0 == 1, "abcdef xx");
-// }
+void test_assert() {
+    // assert(0);
+    WEBSERVER_LOG_INFO(g_logger) << webserver::BacktraceToString(10);
+    // WEBSERVER_ASSERT(false);
+    WEBSERVER_ASSERT2(0 == 1, "abcdef xx");
+}
 
 int main(int argc, char** argv) {
-    // test_assert();  
-    assert(0);
+    test_assert();  
+    
 
     // int arr[] = {1,3,5,7,9,11};
 

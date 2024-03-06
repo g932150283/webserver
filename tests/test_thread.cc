@@ -13,9 +13,9 @@ void fun1() {
                              << " id: " << webserver::GetThreadId()
                              << " this.id: " << webserver::Thread::GetThis()->getId();
     // sleep(20);
-    for(int i = 0; i < 100000; ++i) {
+    for(int i = 0; i < 10000000; ++i) {
         //webserver::RWMutex::WriteLock lock(s_mutex);
-        webserver::Mutex::Lock lock(s_mutex);
+        // webserver::Mutex::Lock lock(s_mutex);
         ++count;
     }
 }
@@ -34,15 +34,15 @@ void fun3() {
 
 int main(int argc, char** argv) {
     WEBSERVER_LOG_INFO(g_logger) << "thread test begin";
-    YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/log2.yml");
-    webserver::Config::LoadFromYaml(root);
+    // YAML::Node root = YAML::LoadFile("/home/user/wsl-code/webserver/bin/conf/log2.yml");
+    // webserver::Config::LoadFromYaml(root);
 
     std::vector<webserver::Thread::ptr> thrs;
-    for(int i = 0; i < 2; ++i) {
+    for(int i = 0; i < 5; ++i) {
         webserver::Thread::ptr thr(new webserver::Thread(&fun1, "name_" + std::to_string(i * 2)));
-        webserver::Thread::ptr thr2(new webserver::Thread(&fun2, "name_" + std::to_string(i * 2 + 1)));
+        // webserver::Thread::ptr thr2(new webserver::Thread(&fun2, "name_" + std::to_string(i * 2 + 1)));
         thrs.push_back(thr);
-        thrs.push_back(thr2);
+        // thrs.push_back(thr2);
     }
 
     for(size_t i = 0; i < thrs.size(); ++i) {

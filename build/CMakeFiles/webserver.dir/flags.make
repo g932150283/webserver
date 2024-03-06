@@ -4,7 +4,17 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -Dwebserver_EXPORTS
 
-CXX_INCLUDES = -I/home/user/wsl-code/webserver/src
+CXX_INCLUDES = -I/home/user/wsl-code/webserver/.
 
 CXX_FLAGS =  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fPIC
+
+# Custom defines: CMakeFiles/webserver.dir/src/log.cc.o_DEFINES = __FILE__="src/log.cc"
+
+# Custom defines: CMakeFiles/webserver.dir/src/util.cc.o_DEFINES = __FILE__="src/util.cc"
+
+# Custom defines: CMakeFiles/webserver.dir/src/config.cc.o_DEFINES = __FILE__="src/config.cc"
+
+# Custom defines: CMakeFiles/webserver.dir/src/thread.cc.o_DEFINES = __FILE__="src/thread.cc"
+
+# Custom defines: CMakeFiles/webserver.dir/src/mutex.cc.o_DEFINES = __FILE__="src/mutex.cc"
 

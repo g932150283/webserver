@@ -76,15 +76,15 @@ CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o: CMakeFiles/test_tuple.dir/flags
 CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o: ../tests/test_tuple.cc
 CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o: CMakeFiles/test_tuple.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/wsl-code/webserver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -MF CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o.d -o CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -c /home/user/wsl-code/webserver/tests/test_tuple.cc
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"tests/test_tuple.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -MF CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o.d -o CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -c /home/user/wsl-code/webserver/tests/test_tuple.cc
 
 CMakeFiles/test_tuple.dir/tests/test_tuple.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_tuple.dir/tests/test_tuple.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/wsl-code/webserver/tests/test_tuple.cc > CMakeFiles/test_tuple.dir/tests/test_tuple.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"tests/test_tuple.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/wsl-code/webserver/tests/test_tuple.cc > CMakeFiles/test_tuple.dir/tests/test_tuple.cc.i
 
 CMakeFiles/test_tuple.dir/tests/test_tuple.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_tuple.dir/tests/test_tuple.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/wsl-code/webserver/tests/test_tuple.cc -o CMakeFiles/test_tuple.dir/tests/test_tuple.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"tests/test_tuple.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/wsl-code/webserver/tests/test_tuple.cc -o CMakeFiles/test_tuple.dir/tests/test_tuple.cc.s
 
 # Object files for target test_tuple
 test_tuple_OBJECTS = \

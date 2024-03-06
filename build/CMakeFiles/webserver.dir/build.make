@@ -76,27 +76,91 @@ CMakeFiles/webserver.dir/src/log.cc.o: CMakeFiles/webserver.dir/flags.make
 CMakeFiles/webserver.dir/src/log.cc.o: ../src/log.cc
 CMakeFiles/webserver.dir/src/log.cc.o: CMakeFiles/webserver.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/wsl-code/webserver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/webserver.dir/src/log.cc.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webserver.dir/src/log.cc.o -MF CMakeFiles/webserver.dir/src/log.cc.o.d -o CMakeFiles/webserver.dir/src/log.cc.o -c /home/user/wsl-code/webserver/src/log.cc
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/log.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webserver.dir/src/log.cc.o -MF CMakeFiles/webserver.dir/src/log.cc.o.d -o CMakeFiles/webserver.dir/src/log.cc.o -c /home/user/wsl-code/webserver/src/log.cc
 
 CMakeFiles/webserver.dir/src/log.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/webserver.dir/src/log.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/wsl-code/webserver/src/log.cc > CMakeFiles/webserver.dir/src/log.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/log.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/wsl-code/webserver/src/log.cc > CMakeFiles/webserver.dir/src/log.cc.i
 
 CMakeFiles/webserver.dir/src/log.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/webserver.dir/src/log.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/wsl-code/webserver/src/log.cc -o CMakeFiles/webserver.dir/src/log.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/log.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/wsl-code/webserver/src/log.cc -o CMakeFiles/webserver.dir/src/log.cc.s
+
+CMakeFiles/webserver.dir/src/util.cc.o: CMakeFiles/webserver.dir/flags.make
+CMakeFiles/webserver.dir/src/util.cc.o: ../src/util.cc
+CMakeFiles/webserver.dir/src/util.cc.o: CMakeFiles/webserver.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/wsl-code/webserver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/webserver.dir/src/util.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/util.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webserver.dir/src/util.cc.o -MF CMakeFiles/webserver.dir/src/util.cc.o.d -o CMakeFiles/webserver.dir/src/util.cc.o -c /home/user/wsl-code/webserver/src/util.cc
+
+CMakeFiles/webserver.dir/src/util.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/webserver.dir/src/util.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/util.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/wsl-code/webserver/src/util.cc > CMakeFiles/webserver.dir/src/util.cc.i
+
+CMakeFiles/webserver.dir/src/util.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/webserver.dir/src/util.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/util.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/wsl-code/webserver/src/util.cc -o CMakeFiles/webserver.dir/src/util.cc.s
+
+CMakeFiles/webserver.dir/src/config.cc.o: CMakeFiles/webserver.dir/flags.make
+CMakeFiles/webserver.dir/src/config.cc.o: ../src/config.cc
+CMakeFiles/webserver.dir/src/config.cc.o: CMakeFiles/webserver.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/wsl-code/webserver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/webserver.dir/src/config.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/config.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webserver.dir/src/config.cc.o -MF CMakeFiles/webserver.dir/src/config.cc.o.d -o CMakeFiles/webserver.dir/src/config.cc.o -c /home/user/wsl-code/webserver/src/config.cc
+
+CMakeFiles/webserver.dir/src/config.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/webserver.dir/src/config.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/config.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/wsl-code/webserver/src/config.cc > CMakeFiles/webserver.dir/src/config.cc.i
+
+CMakeFiles/webserver.dir/src/config.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/webserver.dir/src/config.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/config.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/wsl-code/webserver/src/config.cc -o CMakeFiles/webserver.dir/src/config.cc.s
+
+CMakeFiles/webserver.dir/src/thread.cc.o: CMakeFiles/webserver.dir/flags.make
+CMakeFiles/webserver.dir/src/thread.cc.o: ../src/thread.cc
+CMakeFiles/webserver.dir/src/thread.cc.o: CMakeFiles/webserver.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/wsl-code/webserver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/webserver.dir/src/thread.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/thread.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webserver.dir/src/thread.cc.o -MF CMakeFiles/webserver.dir/src/thread.cc.o.d -o CMakeFiles/webserver.dir/src/thread.cc.o -c /home/user/wsl-code/webserver/src/thread.cc
+
+CMakeFiles/webserver.dir/src/thread.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/webserver.dir/src/thread.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/thread.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/wsl-code/webserver/src/thread.cc > CMakeFiles/webserver.dir/src/thread.cc.i
+
+CMakeFiles/webserver.dir/src/thread.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/webserver.dir/src/thread.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/thread.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/wsl-code/webserver/src/thread.cc -o CMakeFiles/webserver.dir/src/thread.cc.s
+
+CMakeFiles/webserver.dir/src/mutex.cc.o: CMakeFiles/webserver.dir/flags.make
+CMakeFiles/webserver.dir/src/mutex.cc.o: ../src/mutex.cc
+CMakeFiles/webserver.dir/src/mutex.cc.o: CMakeFiles/webserver.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/wsl-code/webserver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/webserver.dir/src/mutex.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/mutex.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webserver.dir/src/mutex.cc.o -MF CMakeFiles/webserver.dir/src/mutex.cc.o.d -o CMakeFiles/webserver.dir/src/mutex.cc.o -c /home/user/wsl-code/webserver/src/mutex.cc
+
+CMakeFiles/webserver.dir/src/mutex.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/webserver.dir/src/mutex.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/mutex.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/wsl-code/webserver/src/mutex.cc > CMakeFiles/webserver.dir/src/mutex.cc.i
+
+CMakeFiles/webserver.dir/src/mutex.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/webserver.dir/src/mutex.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"src/mutex.cc\" $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/wsl-code/webserver/src/mutex.cc -o CMakeFiles/webserver.dir/src/mutex.cc.s
 
 # Object files for target webserver
 webserver_OBJECTS = \
-"CMakeFiles/webserver.dir/src/log.cc.o"
+"CMakeFiles/webserver.dir/src/log.cc.o" \
+"CMakeFiles/webserver.dir/src/util.cc.o" \
+"CMakeFiles/webserver.dir/src/config.cc.o" \
+"CMakeFiles/webserver.dir/src/thread.cc.o" \
+"CMakeFiles/webserver.dir/src/mutex.cc.o"
 
 # External object files for target webserver
 webserver_EXTERNAL_OBJECTS =
 
 ../lib/libwebserver.so: CMakeFiles/webserver.dir/src/log.cc.o
+../lib/libwebserver.so: CMakeFiles/webserver.dir/src/util.cc.o
+../lib/libwebserver.so: CMakeFiles/webserver.dir/src/config.cc.o
+../lib/libwebserver.so: CMakeFiles/webserver.dir/src/thread.cc.o
+../lib/libwebserver.so: CMakeFiles/webserver.dir/src/mutex.cc.o
 ../lib/libwebserver.so: CMakeFiles/webserver.dir/build.make
 ../lib/libwebserver.so: CMakeFiles/webserver.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/user/wsl-code/webserver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library ../lib/libwebserver.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/user/wsl-code/webserver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX shared library ../lib/libwebserver.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/webserver.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -19,7 +19,8 @@ set(LIB_SRC
     src/util.cc
     src/config.cc
     src/thread.cc
-    src/mutex.cc)
+    src/mutex.cc
+    )
 
 add_library(webserver SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(webserver) # __FILE__
@@ -32,10 +33,10 @@ set(LIBS
 
 message("***", ${LIBS})
 
-add_executable(test tests/test.cc)
-add_dependencies(test webserver)
-force_redefine_file_macro_for_sources(test)
-target_link_libraries(test ${LIBS})
+# add_executable(test tests/test.cc)
+# add_dependencies(test webserver)
+# force_redefine_file_macro_for_sources(test)
+# target_link_libraries(test ${LIBS})
 
 
 add_executable(test_tuple tests/test_tuple.cc)

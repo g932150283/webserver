@@ -1,5 +1,4 @@
 /home/user/wsl-code/webserver/build/CMakeFiles/webserver.dir
-/home/user/wsl-code/webserver/build/CMakeFiles/test.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_tuple.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_config.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_thread.dir

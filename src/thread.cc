@@ -9,6 +9,7 @@ static thread_local std::string t_thread_name = "UNKNOW";
 
 static webserver::Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
 
+
 Thread* Thread::GetThis() {
     return t_thread;
 }

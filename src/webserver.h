@@ -14,7 +14,7 @@
 // #include "iomanager.h"
 // #include "library.h"
 #include "log.h"
-// #include "macro.h"
+#include "macro.h"
 // #include "module.h"
 #include "mutex.h"
 // #include "noncopyable.h"
