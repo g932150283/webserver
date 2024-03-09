@@ -11,7 +11,7 @@
 #include <list>
 
 // #include "noncopyable.h"
-// #include "fiber.h"
+#include "fiber.h"
 
 namespace webserver {
 
@@ -431,26 +431,26 @@ private:
     volatile std::atomic_flag m_mutex;
 };
 
-// class Scheduler;
-// // class FiberSemaphore : Noncopyable {
-// class FiberSemaphore {
-// public:
-//     typedef Spinlock MutexType;
+class Scheduler;
+// class FiberSemaphore : Noncopyable {
+class FiberSemaphore {
+public:
+    typedef Spinlock MutexType;
 
-//     FiberSemaphore(size_t initial_concurrency = 0);
-//     ~FiberSemaphore();
+    FiberSemaphore(size_t initial_concurrency = 0);
+    ~FiberSemaphore();
 
-//     bool tryWait();
-//     void wait();
-//     void notify();
+    bool tryWait();
+    void wait();
+    void notify();
 
-//     size_t getConcurrency() const { return m_concurrency;}
-//     void reset() { m_concurrency = 0;}
-// private:
-//     MutexType m_mutex;
-//     std::list<std::pair<Scheduler*, Fiber::ptr> > m_waiters;
-//     size_t m_concurrency;
-// };
+    size_t getConcurrency() const { return m_concurrency;}
+    void reset() { m_concurrency = 0;}
+private:
+    MutexType m_mutex;
+    std::list<std::pair<Scheduler*, Fiber::ptr> > m_waiters;
+    size_t m_concurrency;
+};
 
 
 

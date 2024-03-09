@@ -20,6 +20,8 @@ set(LIB_SRC
     src/config.cc
     src/thread.cc
     src/mutex.cc
+    src/fiber.cc
+    src/scheduler.cc
     )
 
 add_library(webserver SHARED ${LIB_SRC})
@@ -57,6 +59,10 @@ add_dependencies(test_util webserver)
 force_redefine_file_macro_for_sources(test_util)
 target_link_libraries(test_util ${LIBS})
 
+add_executable(test_fiber tests/test_fiber.cc)
+add_dependencies(test_fiber webserver)
+force_redefine_file_macro_for_sources(test_fiber)
+target_link_libraries(test_fiber ${LIBS})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

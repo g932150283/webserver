@@ -34,12 +34,12 @@
 触发断言: 调用assert宏，如果编译时定义了NDEBUG，则无效；否则，如果x为假，将导致程序终止。
  * 
  */
-#define WEBSERVER_ASSERT(x) \ 
-    if(WEBSERVER_UNLIKELY(!(x))) { \ 
-        WEBSERVER_LOG_ERROR(WEBSERVER_LOG_ROOT()) << "ASSERTION: " #x \ 
-            << "\nbacktrace:\n" \ 
-            << webserver::BacktraceToString(100, 2, "    "); \ 
-        assert(x); \ 
+#define WEBSERVER_ASSERT(x) \
+    if(WEBSERVER_UNLIKELY(!(x))) { \
+        WEBSERVER_LOG_ERROR(WEBSERVER_LOG_ROOT()) << "ASSERTION: " #x \
+            << "\nbacktrace:\n" \
+            << webserver::BacktraceToString(100, 2, "    "); \
+        assert(x); \
     }
 
 /// 断言宏封装，带有额外信息w
@@ -52,7 +52,8 @@
 // 使用标准断言assert，如果x为假则终止程序。
 /**
  * @brief WEBSERVER_ASSERT2(x, w)
-功能: 类似于WEBSERVER_ASSERT(x)，不过在触发断言失败的处理逻辑时，除了条件x本身外，还允许开发者提供额外的描述信息w，以便在日志中输出更多上下文信息。
+功能: 类似于WEBSERVER_ASSERT(x)，不过在触发断言失败的处理逻辑时，除了条件x本身外，还允许开发者提供额外的描述信息w，
+以便在日志中输出更多上下文信息。
 详细实现:
 如果条件x为假（即条件检查失败），则执行以下步骤：
 记录错误和额外信息: 使用服务器的日志系统输出一条错误消息，包括断言失败的条件表达式x，以及开发者提供的额外信息w。
@@ -60,13 +61,13 @@
 触发断言: 调用assert宏，同样，如果x为假，将导致程序终止。
  * 
  */
-#define WEBSERVER_ASSERT2(x, w) \ 
-    if(WEBSERVER_UNLIKELY(!(x))) { \ 
-        WEBSERVER_LOG_ERROR(WEBSERVER_LOG_ROOT()) << "ASSERTION: " #x \ 
-            << "\n" << w \ 
-            << "\nbacktrace:\n" \ 
-            << webserver::BacktraceToString(100, 2, "    "); \ 
-        assert(x); \ 
+#define WEBSERVER_ASSERT2(x, w) \
+    if(WEBSERVER_UNLIKELY(!(x))) { \
+        WEBSERVER_LOG_ERROR(WEBSERVER_LOG_ROOT()) << "ASSERTION: " #x \
+            << "\n" << w \
+            << "\nbacktrace:\n" \
+            << webserver::BacktraceToString(100, 2, "    "); \
+        assert(x); \
     }
 
 #endif

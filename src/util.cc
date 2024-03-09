@@ -1,6 +1,7 @@
 #include"util.h"
 #include "log.h"
 #include <execinfo.h>
+#include"fiber.cc"
 namespace webserver{
 
 static webserver::Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
@@ -12,7 +13,7 @@ pid_t GetThreadId(){
 
 // 返回当前协程的ID
 uint32_t GetFiberId(){
-    return 0;
+    return webserver::Fiber::GetFiberId();
 }
 
 // 尽量不要在栈上分配很大的对象，能用指针用指针
