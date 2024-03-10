@@ -177,6 +177,7 @@ macro
 轻量级，切换速度快，操作权掌握在用户手中
 
 ```
+Fiber::GetThis()
 thread->main_fiber <--> sub_fiber
             ↑
             |
@@ -184,6 +185,9 @@ thread->main_fiber <--> sub_fiber
         sub_fiber
 ```
 
+```
+
+```
 
 
 ## socket函数库

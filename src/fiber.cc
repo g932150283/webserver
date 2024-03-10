@@ -7,7 +7,8 @@
 
 namespace webserver {
 
-static Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
+// static Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
+extern webserver::Logger::ptr g_logger;
 
 // 定义一个原子变量 s_fiber_id，用于生成唯一的协程 ID，初始值为 0
 static std::atomic<uint64_t> s_fiber_id {0};
