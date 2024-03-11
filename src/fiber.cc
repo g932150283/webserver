@@ -7,8 +7,8 @@
 
 namespace webserver {
 
-// static Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
-extern webserver::Logger::ptr g_logger;
+static Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
+// extern webserver::Logger::ptr g_logger;
 
 // 定义一个原子变量 s_fiber_id，用于生成唯一的协程 ID，初始值为 0
 static std::atomic<uint64_t> s_fiber_id {0};
@@ -277,6 +277,7 @@ void Fiber::swapIn() {
     // 使用 swapcontext 函数切换当前执行上下文到当前协程的上下文
     // Scheduler::GetMainFiber()->m_ctx 是当前线程的主协程上下文，m_ctx 是当前协程的上下文
     // 这里实际上保存了当前执行流的上下文到主协程，然后切换到当前协程的上下文执行
+    // if(swapcontext(&t_threadFiber->m_ctx, &m_ctx)) {
     if(swapcontext(&Scheduler::GetMainFiber()->m_ctx, &m_ctx)) {
         // 如果上下文切换失败，则断言
         WEBSERVER_ASSERT2(false, "swapcontext");
@@ -300,6 +301,7 @@ void Fiber::swapOut() {
     // 使用 swapcontext 函数切换当前执行上下文回到主协程的上下文
     // 第一个参数 &m_ctx 是当前协程的上下文，保存当前协程的状态
     // 第二个参数是主协程的上下文，切换执行流到主协程
+    // if(swapcontext(&m_ctx, &t_threadFiber->m_ctx)) {
     if(swapcontext(&m_ctx, &Scheduler::GetMainFiber()->m_ctx)) {
         // 如果上下文切换失败，则断言，表示有严重的运行时错误
         WEBSERVER_ASSERT2(false, "swapcontext");

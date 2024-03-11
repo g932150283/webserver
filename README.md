@@ -185,8 +185,14 @@ thread->main_fiber <--> sub_fiber
         sub_fiber
 ```
 
-```
 
+协程调度模块scheduler
+```   
+          1 - N      1 - M       
+scheduler  --> thread --> fiber
+
+1. 线程池， 分配一组线程
+2. 协程调度器，将协程指定到相应的线程上去执行
 ```
 
 

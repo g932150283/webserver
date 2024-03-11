@@ -58,5 +58,10 @@
   "directory": "/home/user/wsl-code/webserver/build",
   "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_fiber.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_fiber.dir/tests/test_fiber.cc.o -c /home/user/wsl-code/webserver/tests/test_fiber.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_fiber.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_scheduler.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o -c /home/user/wsl-code/webserver/tests/test_scheduler.cc",
+  "file": "/home/user/wsl-code/webserver/tests/test_scheduler.cc"
 }
 ]

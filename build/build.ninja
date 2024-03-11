@@ -303,6 +303,42 @@ build ../bin/test_fiber: CXX_EXECUTABLE_LINKER__test_fiber_Debug CMakeFiles/test
   TARGET_FILE = ../bin/test_fiber
   TARGET_PDB = test_fiber.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target test_scheduler
+
+
+#############################################
+# Order-only phony target for test_scheduler
+
+build cmake_object_order_depends_target_test_scheduler: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o: CXX_COMPILER__test_scheduler_Debug /home/user/wsl-code/webserver/tests/test_scheduler.cc || cmake_object_order_depends_target_test_scheduler
+  DEFINES = -D__FILE__=\"tests/test_scheduler.cc\"
+  DEP_FILE = CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_scheduler.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_scheduler.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_scheduler
+
+
+#############################################
+# Link the executable ../bin/test_scheduler
+
+build ../bin/test_scheduler: CXX_EXECUTABLE_LINKER__test_scheduler_Debug CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o | ../lib/libwebserver.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_scheduler.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_scheduler
+  TARGET_PDB = test_scheduler.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -335,6 +371,8 @@ build test_config: phony ../bin/test_config
 
 build test_fiber: phony ../bin/test_fiber
 
+build test_scheduler: phony ../bin/test_scheduler
+
 build test_thread: phony ../bin/test_thread
 
 build test_tuple: phony ../bin/test_tuple
@@ -351,7 +389,7 @@ build webserver: phony ../lib/libwebserver.so
 #############################################
 # Folder: /home/user/wsl-code/webserver/build
 
-build all: phony ../lib/libwebserver.so ../bin/test_tuple ../bin/test_config ../bin/test_thread ../bin/test_util ../bin/test_fiber
+build all: phony ../lib/libwebserver.so ../bin/test_tuple ../bin/test_config ../bin/test_thread ../bin/test_util ../bin/test_fiber ../bin/test_scheduler
 
 # =============================================================================
 # Unknown Build Time Dependencies.

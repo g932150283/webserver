@@ -27,7 +27,8 @@
     if(logger->getLevel() <= level) \
         webserver::LogEventWrap(webserver::LogEvent::ptr(new webserver::LogEvent(logger, level, \
                         __FILE__, __LINE__, 0, webserver::GetThreadId(),\
-                webserver::GetFiberId(), time(0)))).getSS()
+                webserver::GetFiberId(), time(0), webserver::Thread::GetName()))).getSS()
+
 // 使用流式方式将日志级别debug的日志写入到logger
 #define WEBSERVER_LOG_DEBUG(logger) WEBSERVER_LOG_LEVEL(logger, webserver::LogLevel::DEBUG)
 // 使用流式方式将日志级别info的日志写入到logger
@@ -44,7 +45,7 @@
     if(logger->getLevel() <= level) \
         webserver::LogEventWrap(webserver::LogEvent::ptr(new webserver::LogEvent(logger, level, \
                         __FILE__, __LINE__, 0, webserver::GetThreadId(), webserver::GetFiberId(), \
-                        time(0)))).getEvent()->format(fmt, __VA_ARGS__)
+                        time(0), webserver::Thread::GetName()))).getEvent()->format(fmt, __VA_ARGS__)
 
 // 使用格式化方式将日志级别debug的日志写入到logger
 #define WEBSERVER_LOG_FMT_DEBUG(logger, fmt, ...) WEBSERVER_LOG_FMT_LEVEL(logger, webserver::LogLevel::DEBUG, fmt, __VA_ARGS__)
@@ -95,8 +96,10 @@ public:
 class LogEvent{
 public:
     typedef std::shared_ptr<LogEvent> ptr;
-    LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level, const char* file, int32_t line, uint32_t elapse
-            ,uint32_t thread_id, uint32_t fiber_id, uint64_t time);
+    LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level
+            ,const char* file, int32_t line, uint32_t elapse
+            ,uint32_t thread_id, uint32_t fiber_id, uint64_t time
+            ,const std::string& thread_name);
 
     // 返回文件名
     const char* getFile() const { return m_file;}
@@ -110,6 +113,8 @@ public:
     uint32_t getFiberId() const { return m_fiberId;}
     // 返回时间
     uint64_t getTime() const { return m_time;}
+    // 返回线程名称
+    const std::string& getThreadName() const { return m_threadName;}
     // 返回日志内容
     std::string getContent() const { return m_ss.str();}
     // 返回日志内容字符串流
@@ -123,16 +128,26 @@ public:
     // 格式化写入日志内容
     void format(const char* fmt, va_list al);
 private:
-    const char* m_file = nullptr; // 文件名
-    int32_t m_line = 0;           // 行号
-    uint32_t m_elapse = 0;        // 程序启动开始到现在的毫秒数
-    uint32_t m_threadId = 0;      // 线程ID
-    uint32_t m_fiberId = 0;       // 协程ID
-    uint64_t m_time = 0;          // 时间戳
-    std::stringstream m_ss;       // 日志内容流
-
-    std::shared_ptr<Logger> m_logger; // 日志器
-    LogLevel::Level m_level;          // 日志级别
+    /// 文件名
+    const char* m_file = nullptr;
+    /// 行号
+    int32_t m_line = 0;
+    /// 程序启动开始到现在的毫秒数
+    uint32_t m_elapse = 0;
+    /// 线程ID
+    uint32_t m_threadId = 0;
+    /// 协程ID
+    uint32_t m_fiberId = 0;
+    /// 时间戳
+    uint64_t m_time = 0;
+    /// 线程名称
+    std::string m_threadName;
+    /// 日志内容流
+    std::stringstream m_ss;
+    /// 日志器
+    std::shared_ptr<Logger> m_logger;
+    /// 日志等级
+    LogLevel::Level m_level;
 };
 
 

@@ -4,5 +4,6 @@
 /home/user/wsl-code/webserver/build/CMakeFiles/test_thread.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_util.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_fiber.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_scheduler.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/edit_cache.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/rebuild_cache.dir

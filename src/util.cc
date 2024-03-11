@@ -1,11 +1,11 @@
 #include"util.h"
 #include "log.h"
 #include <execinfo.h>
-#include"fiber.cc"
+#include"fiber.h"
 namespace webserver{
 
-// static webserver::Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
-webserver::Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
+static webserver::Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
+// webserver::Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
 // 返回当前线程的ID
 pid_t GetThreadId(){
     return syscall(SYS_gettid);    
