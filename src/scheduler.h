@@ -88,24 +88,39 @@ public:
     
 
     /**
-     * @brief 批量调度协程
-     * @param[in] begin 协程数组的开始
-     * @param[in] end 协程数组的结束
-     */
+    * @brief 从给定范围中批量调度协程或函数到调度队列。
+    * 
+    * 该函数通过迭代器接口接收一系列任务（可以是协程或函数），并将它们加入到调度器的执行队列中。
+    * 这允许以批量的方式安排多个任务执行，提高了调度的效率。
+    * 
+    * @tparam InputIterator 输入迭代器类型，用于遍历包含任务的容器。
+    * @param[in] begin 起始迭代器，指向任务序列的开始。
+    * @param[in] end 结束迭代器，指向任务序列的结束，此迭代器本身不包含在内。
+    * 
+    * @details
+    * 函数首先获取调度器的互斥锁，以保证线程安全。
+    * 然后遍历从begin到end的每一个元素，对每个元素调用`scheduleNoLock`函数，尝试将其加入调度队列。
+    * 如果在任何点上`scheduleNoLock`返回true（表示调度队列在加入任务之前是空的，因此需要唤醒调度器），则记录这一信息。
+    * 遍历完成后，如果有需要唤醒调度器的情况，就调用`tickle`方法进行唤醒。
+    * 
+    * 这种批量调度方法适用于当有多个任务需要被同时调度时，可以减少对互斥锁的多次获取释放，提高效率。
+    */
     template<class InputIterator>
     void schedule(InputIterator begin, InputIterator end) {
-        bool need_tickle = false;
+        bool need_tickle = false; // 标记是否需要唤醒调度器
         {
-            MutexType::Lock lock(m_mutex);
+            MutexType::Lock lock(m_mutex); // 锁定互斥锁以确保线程安全
             while(begin != end) {
+                // 尝试将当前迭代器指向的任务加入调度队列，并检查是否需要唤醒调度器
                 need_tickle = scheduleNoLock(&*begin, -1) || need_tickle;
-                ++begin;
+                ++begin; // 移动到下一个任务
             }
         }
         if(need_tickle) {
-            tickle();
+            tickle(); // 如果需要，唤醒调度器处理新加入的任务
         }
     }
+
 
     void switchTo(int thread = -1);
     std::ostream& dump(std::ostream& os);
@@ -113,8 +128,8 @@ protected:
     /**
      * @brief 通知协程调度器有任务了
      */
-
     virtual void tickle();
+    
     /**
      * @brief 协程调度函数
      */

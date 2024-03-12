@@ -193,6 +193,11 @@ scheduler  --> thread --> fiber
 
 1. 线程池， 分配一组线程
 2. 协程调度器，将协程指定到相应的线程上去执行
+
+m_threads 线程池
+<function<void()>, fiber, threadid> m_fibers  协程队列
+
+schedule(func/fiber)
 ```
 
 
