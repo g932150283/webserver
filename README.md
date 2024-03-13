@@ -198,6 +198,10 @@ m_threads 线程池
 <function<void()>, fiber, threadid> m_fibers  协程队列
 
 schedule(func/fiber)
+
+start()
+stop()  协程调度器所有任务结束后退出
+run()
 ```
 
 
