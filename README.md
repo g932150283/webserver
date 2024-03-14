@@ -201,7 +201,14 @@ schedule(func/fiber)
 
 start()
 stop()  协程调度器所有任务结束后退出
-run()
+run()  核心 协程和线程
+
+run() 
+1.设置当前线程的scheduler
+2.设置当前线程执行run方法的fiber
+3.协程调度循环while(true)
+    3.1 协程消息队列是否有 任务
+    3.2 无任务执行，执行idle
 ```
 
 

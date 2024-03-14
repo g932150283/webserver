@@ -239,21 +239,49 @@ void Fiber::reset(std::function<void()> cb) {
     m_state = INIT;
 }
 
+/*
+这两个函数是Fiber类的成员函数，用于在不同协程之间切换执行上下文。
+call函数用于从当前执行的协程（通常是主协程）切换到另一个协程，而back函数则用于从当前协程切换回主协程。
 
+swapcontext是POSIX标准中定义的函数，用于保存当前的执行上下文（包括寄存器、栈等）到指定的ucontext_t结构中，
+并将执行上下文切换到另一个通过ucontext_t结构指定的上下文。这是实现协程切换的底层机制之一。
+
+在call方法中，使用swapcontext切换到当前协程的执行上下文，这意味着当前协程将开始执行或继续执行。
+而在back方法中，使用swapcontext将执行上下文切换回主协程，这通常发生在当前协程的工作已经完成或需要等待某些事件时。
+
+通过这种方式，Fiber类实现了协程之间的相互切换，允许程序以非常轻量级的方式实现多任务并发执行。
+*/
+
+/**
+ * @brief 切换执行上下文到当前协程。
+ * 
+ * 该方法将执行上下文从主协程（或其他协程）切换到当前协程。
+ */
 void Fiber::call() {
-    SetThis(this);
-    m_state = EXEC;
+    SetThis(this); // 将当前协程设为正在执行的协程
+    m_state = EXEC; // 更新当前协程的状态为执行中
+    // 执行上下文切换：从t_threadFiber（通常指主协程）切换到当前协程
     if(swapcontext(&t_threadFiber->m_ctx, &m_ctx)) {
+        // 如果swapcontext失败，抛出断言异常
         WEBSERVER_ASSERT2(false, "swapcontext");
     }
 }
 
+
+/**
+ * @brief 从当前协程切换回主协程。
+ * 
+ * 当当前协程执行完成或需要暂时让出执行权时，可以调用此方法切换回主协程。
+ */
 void Fiber::back() {
-    SetThis(t_threadFiber.get());
+    SetThis(t_threadFiber.get()); // 将主协程设为正在执行的协程
+    // 执行上下文切换：从当前协程切换回t_threadFiber（主协程）
     if(swapcontext(&m_ctx, &t_threadFiber->m_ctx)) {
+        // 如果swapcontext失败，抛出断言异常
         WEBSERVER_ASSERT2(false, "swapcontext");
     }
 }
+
 
 /*
 swapIn 方法首先通过调用 SetThis 将当前协程设置为线程的当前运行协程。

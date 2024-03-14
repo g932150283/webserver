@@ -44,6 +44,28 @@ Scheduler::Scheduler(size_t threads, bool use_caller, const std::string& name)
     }
     m_threadCount = threads; // 设置调度器管理的线程数量
 }
+/*
+m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run, this), 0, true));
+这一行创建了一个新的协程（Fiber对象），并将其设置为调度器的根协程。这里涉及到几个关键点：
+
+Fiber类的构造函数可能接收一个函数对象、一个堆栈大小（这里传递的是0，可能表示使用默认堆栈大小）和一个布尔值表示是否为根协程。
+在这个上下文中，最后一个参数true指明这个新创建的协程为根协程，这意味着它有特殊的角色或行为，在协程调度器中可能被特别对待。
+
+std::bind(&Scheduler::run, this)这部分使用std::bind生成了一个可调用对象。
+std::bind是一个函数适配器，它接受一个函数（成员函数或普通函数）和一组参数，然后生成一个新的可调用对象。
+这个新的可调用对象可以在后续被直接调用，无需再提供那些已经绑定的参数。
+
+&Scheduler::run是指向Scheduler类成员函数run的指针。
+this是指向当前Scheduler实例的指针，表示run函数将在当前的Scheduler实例上调用。
+在这个场景下，std::bind(&Scheduler::run, this)的作用是创建一个绑定到当前Scheduler实例的run成员函数的可调用对象。
+当这个可调用对象被执行时，它实际上调用的是当前Scheduler实例的run方法，就好像是直接调用this->run()。
+
+m_rootFiber.reset(...)是使用智能指针std::shared_ptr的reset方法，将新创建的Fiber对象设置为m_rootFiber的新值。
+这种方式确保了在给m_rootFiber赋新值之前，它原来指向的对象（如果有的话）能够被正确地销毁（引用计数减少，并在需要时释放资源）。
+
+简而言之，这行代码通过创建一个绑定到当前调度器实例的run方法的新协程，并将其设置为根协程，来准备调度器的运行环境。
+这个根协程是协程调度过程中的一个关键组件，负责实际执行调度逻辑。
+*/
 
 
 Scheduler::~Scheduler() {
