@@ -209,8 +209,16 @@ run()
 3.协程调度循环while(true)
     3.1 协程消息队列是否有 任务
     3.2 无任务执行，执行idle
+
 ```
 
+```
+IOManager(epoll) --->Scheduler
+            |
+            |
+            ↓
+           idle(epoll_wait)
+```
 
 ## socket函数库
 
