@@ -1,14 +1,16 @@
 #include "log.h"
-#include <iostream>
 #include <map>
+#include <iostream>
 #include <functional>
 #include <time.h>
 #include <string.h>
-#include <cstdarg>
 #include "config.h"
-namespace webserver{
+#include "util.h"
+#include "macro.h"
+#include "env.h"
 
-// 将日志级别转成文本输出
+namespace webserver {
+
 const char* LogLevel::ToString(LogLevel::Level level) {
     switch(level) {
 #define XX(name) \
@@ -28,7 +30,6 @@ const char* LogLevel::ToString(LogLevel::Level level) {
     return "UNKNOW";
 }
 
-// 将文本转换成日志级别
 LogLevel::Level LogLevel::FromString(const std::string& str) {
 #define XX(level, v) \
     if(str == #v) { \
@@ -49,32 +50,22 @@ LogLevel::Level LogLevel::FromString(const std::string& str) {
 #undef XX
 }
 
-
 LogEventWrap::LogEventWrap(LogEvent::ptr e)
-    :m_event(e){
-    
+    :m_event(e) {
 }
 
-LogEventWrap::~LogEventWrap(){
-    // 把自己写进去
+LogEventWrap::~LogEventWrap() {
     m_event->getLogger()->log(m_event->getLevel(), m_event);
 }
 
-
-std::stringstream& LogEventWrap::getSS(){
-    return m_event->getSS();
-}
-
-// 格式化写入日志内容
-void LogEvent::format(const char* fmt, ...){
+void LogEvent::format(const char* fmt, ...) {
     va_list al;
     va_start(al, fmt);
     format(fmt, al);
-    va_end(al);    
+    va_end(al);
 }
 
-// 格式化写入日志内容
-void LogEvent::format(const char* fmt, va_list al){
+void LogEvent::format(const char* fmt, va_list al) {
     char* buf = nullptr;
     int len = vasprintf(&buf, fmt, al);
     if(len != -1) {
@@ -83,58 +74,74 @@ void LogEvent::format(const char* fmt, va_list al){
     }
 }
 
+std::stringstream& LogEventWrap::getSS() {
+    return m_event->getSS();
+}
 
-// 消息
+
+void LogAppender::setFormatter(LogFormatter::ptr val) {
+    MutexType::Lock lock(m_mutex);
+    m_formatter = val;
+    if(m_formatter) {
+        m_hasFormatter = true;
+    } else {
+        m_hasFormatter = false;
+    }
+}
+
+LogFormatter::ptr LogAppender::getFormatter() {
+    MutexType::Lock lock(m_mutex);
+    return m_formatter;
+}
+
 class MessageFormatItem : public LogFormatter::FormatItem {
 public:
     MessageFormatItem(const std::string& str = "") {}
-    void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override {
+    void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
         os << event->getContent();
     }
 };
-// 日志级别
+
 class LevelFormatItem : public LogFormatter::FormatItem {
 public:
     LevelFormatItem(const std::string& str = "") {}
-    void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override {
+    void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
         os << LogLevel::ToString(level);
     }
 };
-// 程序启动开始到现在的毫秒数
+
 class ElapseFormatItem : public LogFormatter::FormatItem {
 public:
     ElapseFormatItem(const std::string& str = "") {}
-    void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override {
+    void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
         os << event->getElapse();
     }
 };
-// 日志名称
+
 class NameFormatItem : public LogFormatter::FormatItem {
 public:
     NameFormatItem(const std::string& str = "") {}
-    void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override {
+    void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
         os << event->getLogger()->getName();
-        // os << logger->getName();
     }
 };
-// 线程号
+
 class ThreadIdFormatItem : public LogFormatter::FormatItem {
 public:
     ThreadIdFormatItem(const std::string& str = "") {}
-    void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override {
+    void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
         os << event->getThreadId();
     }
 };
-// 协程号
+
 class FiberIdFormatItem : public LogFormatter::FormatItem {
 public:
     FiberIdFormatItem(const std::string& str = "") {}
-    void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override {
+    void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
         os << event->getFiberId();
     }
 };
 
-// 线程名
 class ThreadNameFormatItem : public LogFormatter::FormatItem {
 public:
     ThreadNameFormatItem(const std::string& str = "") {}
@@ -143,8 +150,6 @@ public:
     }
 };
 
-
-// 日志时间
 class DateTimeFormatItem : public LogFormatter::FormatItem {
 public:
     DateTimeFormatItem(const std::string& format = "%Y-%m-%d %H:%M:%S")
@@ -165,7 +170,7 @@ public:
 private:
     std::string m_format;
 };
-// 文件名
+
 class FilenameFormatItem : public LogFormatter::FormatItem {
 public:
     FilenameFormatItem(const std::string& str = "") {}
@@ -173,7 +178,7 @@ public:
         os << event->getFile();
     }
 };
-// 行号
+
 class LineFormatItem : public LogFormatter::FormatItem {
 public:
     LineFormatItem(const std::string& str = "") {}
@@ -181,7 +186,7 @@ public:
         os << event->getLine();
     }
 };
-// 换行
+
 class NewLineFormatItem : public LogFormatter::FormatItem {
 public:
     NewLineFormatItem(const std::string& str = "") {}
@@ -189,7 +194,8 @@ public:
         os << std::endl;
     }
 };
-// 日志内容流
+
+
 class StringFormatItem : public LogFormatter::FormatItem {
 public:
     StringFormatItem(const std::string& str)
@@ -200,7 +206,7 @@ public:
 private:
     std::string m_string;
 };
-// Tab
+
 class TabFormatItem : public LogFormatter::FormatItem {
 public:
     TabFormatItem(const std::string& str = "") {}
@@ -227,58 +233,26 @@ LogEvent::LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level
     ,m_level(level) {
 }
 
-Logger::Logger(const std::string & name) 
+Logger::Logger(const std::string& name)
     :m_name(name)
     ,m_level(LogLevel::DEBUG) {
     m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
-    // m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
-    // m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
-
 }
 
-
-// 添加日志目标
-void Logger::addAppender(LogAppender::ptr appender){
-    // MutexType::Lock lock(m_mutex);
-    if(!appender->getFormatter()){
-        // MutexType::Lock ll(appender->m_mutex);
-        appender->setFormatter(m_formatter);
-    }
-    m_appenders.push_back(appender);
-}
-
-// 删除日志目标
-void Logger::delAppender(LogAppender::ptr appender){
-    // MutexType::Lock lock(m_mutex);
-    for(auto it = m_appenders.begin(); it != m_appenders.end(); it++){
-        if(*it == appender){
-            m_appenders.erase(it);
-            break;
-        }
-    }
-}
-
-// 清空日志目标
-void Logger::clearAppenders() {
-    // MutexType::Lock lock(m_mutex);
-    m_appenders.clear();
-}
-
-// 设置日志格式器
 void Logger::setFormatter(LogFormatter::ptr val) {
-    // MutexType::Lock lock(m_mutex);
+    MutexType::Lock lock(m_mutex);
     m_formatter = val;
 
-    for(auto& i : m_appenders){
-        // MutexType::Lock ll(i->m_mutex);
-        if(!i->m_hasFormatter){
+    for(auto& i : m_appenders) {
+        MutexType::Lock ll(i->m_mutex);
+        if(!i->m_hasFormatter) {
             i->m_formatter = m_formatter;
         }
     }
 }
 
-// 设置日志格式模板
 void Logger::setFormatter(const std::string& val) {
+    std::cout << "---" << val << std::endl;
     webserver::LogFormatter::ptr new_val(new webserver::LogFormatter(val));
     if(new_val->isError()) {
         std::cout << "Logger setFormatter name=" << m_name
@@ -290,9 +264,8 @@ void Logger::setFormatter(const std::string& val) {
     setFormatter(new_val);
 }
 
-// 将日志输出目标的配置转成YAML String
 std::string Logger::toYamlString() {
-    // MutexType::Lock lock(m_mutex);
+    MutexType::Lock lock(m_mutex);
     YAML::Node node;
     node["name"] = m_name;
     if(m_level != LogLevel::UNKNOW) {
@@ -310,17 +283,41 @@ std::string Logger::toYamlString() {
     return ss.str();
 }
 
-// 获取日志格式器
+
 LogFormatter::ptr Logger::getFormatter() {
-    // MutexType::Lock lock(m_mutex);
+    MutexType::Lock lock(m_mutex);
     return m_formatter;
 }
 
-// 写日志
-void Logger::log(LogLevel::Level level, const LogEvent::ptr event){
-    if(level >= m_level){
+void Logger::addAppender(LogAppender::ptr appender) {
+    MutexType::Lock lock(m_mutex);
+    if(!appender->getFormatter()) {
+        MutexType::Lock ll(appender->m_mutex);
+        appender->m_formatter = m_formatter;
+    }
+    m_appenders.push_back(appender);
+}
+
+void Logger::delAppender(LogAppender::ptr appender) {
+    MutexType::Lock lock(m_mutex);
+    for(auto it = m_appenders.begin();
+            it != m_appenders.end(); ++it) {
+        if(*it == appender) {
+            m_appenders.erase(it);
+            break;
+        }
+    }
+}
+
+void Logger::clearAppenders() {
+    MutexType::Lock lock(m_mutex);
+    m_appenders.clear();
+}
+
+void Logger::log(LogLevel::Level level, LogEvent::ptr event) {
+    if(level >= m_level) {
         auto self = shared_from_this();
-        // MutexType::Lock lock(m_mutex);
+        MutexType::Lock lock(m_mutex);
         if(!m_appenders.empty()) {
             for(auto& i : m_appenders) {
                 i->log(self, level, event);
@@ -331,98 +328,48 @@ void Logger::log(LogLevel::Level level, const LogEvent::ptr event){
     }
 }
 
-// 写debug级别日志
-void Logger::debug(LogEvent::ptr event){
+void Logger::debug(LogEvent::ptr event) {
     log(LogLevel::DEBUG, event);
-} 
+}
 
-// 写info级别日志
-void Logger::info(LogEvent::ptr event){
+void Logger::info(LogEvent::ptr event) {
     log(LogLevel::INFO, event);
-}  
+}
 
-// 写warn级别日志
-void Logger::warn(LogEvent::ptr event){
+void Logger::warn(LogEvent::ptr event) {
     log(LogLevel::WARN, event);
-}  
+}
 
-// 写error级别日志
-void Logger::error(LogEvent::ptr event){
+void Logger::error(LogEvent::ptr event) {
     log(LogLevel::ERROR, event);
-} 
+}
 
-// 写fatal级别日志
-void Logger::fatal(LogEvent::ptr event){
+void Logger::fatal(LogEvent::ptr event) {
     log(LogLevel::FATAL, event);
 }
 
-// 设置日志格式器
-void LogAppender::setFormatter(LogFormatter::ptr val) {
-    // MutexType::Lock lock(m_mutex);
-    m_formatter = val;
-    if(m_formatter){
-        m_hasFormatter = true;
-    }else{
-        m_hasFormatter = false;
-    }    
-}
-
-// 返回日志格式器
-LogFormatter::ptr LogAppender::getFormatter() {
-    // MutexType::Lock lock(m_mutex);
-    return m_formatter;
-}
-
-// 在成员函数声明或定义中，override 说明符确保该函数为虚函数并覆盖某个基类中的虚函数
-// 纯虚函数，子类必须实现该方法
-void StdoutLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, const LogEvent::ptr event) {
-    if(level >= m_level){
-        // MutexType::Lock lock(m_mutex);
-        std::cout << m_formatter->format(logger, level, event);
-    }
-}
-
-// 将日志输出目标的配置转成YAML String
-std::string StdoutLogAppender::toYamlString() {
-    // MutexType::Lock lock(m_mutex);
-    YAML::Node node;
-    node["type"] = "StdoutLogAppender";
-    if(m_level != LogLevel::UNKNOW) {
-        node["level"] = LogLevel::ToString(m_level);
-    }
-    if(m_hasFormatter && m_formatter) {
-        node["formatter"] = m_formatter->getPattern();
-    }
-    std::stringstream ss;
-    ss << node;
-    return ss.str();
-}
-
-
-FileLogAppender::FileLogAppender(const std::string& filename) : m_filename(filename){
+FileLogAppender::FileLogAppender(const std::string& filename)
+    :m_filename(filename) {
     reopen();
 }
 
-// 在成员函数声明或定义中，override 说明符确保该函数为虚函数并覆盖某个基类中的虚函数 
-// 纯虚函数，子类必须实现该方法   
-void FileLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, const LogEvent::ptr event) {
-        if(level >= m_level) {
+void FileLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) {
+    if(level >= m_level) {
         uint64_t now = event->getTime();
         if(now >= (m_lastTime + 3)) {
             reopen();
             m_lastTime = now;
         }
-        // MutexType::Lock lock(m_mutex);
-        if(!(m_filestream << m_formatter->format(logger, level, event))) {
-        // if(!m_formatter->format(m_filestream, logger, level, event)) {
+        MutexType::Lock lock(m_mutex);
+        //if(!(m_filestream << m_formatter->format(logger, level, event))) {
+        if(!m_formatter->format(m_filestream, logger, level, event)) {
             std::cout << "error" << std::endl;
         }
     }
 }
 
-// 将日志输出目标的配置转成YAML String
 std::string FileLogAppender::toYamlString() {
-    // MutexType::Lock lock(m_mutex);
+    MutexType::Lock lock(m_mutex);
     YAML::Node node;
     node["type"] = "FileLogAppender";
     node["file"] = m_filename;
@@ -437,33 +384,58 @@ std::string FileLogAppender::toYamlString() {
     return ss.str();
 }
 
-// 重新打开日志文件，文件的打开成功返回true
-bool FileLogAppender::reopen(){
-    // MutexType::Lock lock(m_mutex);
-    if(m_filestream){
+bool FileLogAppender::reopen() {
+    MutexType::Lock lock(m_mutex);
+    if(m_filestream) {
         m_filestream.close();
     }
-    m_filestream.open(m_filename, std::ios::app);  // 以追加模式打开文件
-    return !!m_filestream;
+    return FSUtil::OpenForWrite(m_filestream, m_filename, std::ios::app);
 }
 
-// 根据pattern赋值解析信息
-LogFormatter::LogFormatter(const std::string & pattern) : m_pattern(pattern){
+void StdoutLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) {
+    if(level >= m_level) {
+        MutexType::Lock lock(m_mutex);
+        m_formatter->format(std::cout, logger, level, event);
+    }
+}
+
+std::string StdoutLogAppender::toYamlString() {
+    MutexType::Lock lock(m_mutex);
+    YAML::Node node;
+    node["type"] = "StdoutLogAppender";
+    if(m_level != LogLevel::UNKNOW) {
+        node["level"] = LogLevel::ToString(m_level);
+    }
+    if(m_hasFormatter && m_formatter) {
+        node["formatter"] = m_formatter->getPattern();
+    }
+    std::stringstream ss;
+    ss << node;
+    return ss.str();
+}
+
+LogFormatter::LogFormatter(const std::string& pattern)
+    :m_pattern(pattern) {
     init();
 }
-// 返回格式化日志文本
-// 提供给appender输出
-std::string LogFormatter::format(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event){
+
+std::string LogFormatter::format(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) {
     std::stringstream ss;
-    for(auto& i : m_items){
+    for(auto& i : m_items) {
         i->format(ss, logger, level, event);
     }
     return ss.str();
 }
 
-// 做pattern解析
+std::ostream& LogFormatter::format(std::ostream& ofs, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) {
+    for(auto& i : m_items) {
+        i->format(ofs, logger, level, event);
+    }
+    return ofs;
+}
+
 //%xxx %xxx{xxx} %%
-void LogFormatter::init(){
+void LogFormatter::init() {
     //str, format, type
     std::vector<std::tuple<std::string, std::string, int> > vec;
     std::string nstr;
@@ -566,14 +538,15 @@ void LogFormatter::init(){
                 m_items.push_back(it->second(std::get<1>(i)));
             }
         }
-        // 视频中注释下一行
-        // std::cout << "(" << std::get<0>(i) << ") - (" << std::get<1>(i) << ") - (" << std::get<2>(i) << ")" << std::endl;
+
+        //std::cout << "(" << std::get<0>(i) << ") - (" << std::get<1>(i) << ") - (" << std::get<2>(i) << ")" << std::endl;
     }
     //std::cout << m_items.size() << std::endl;
 }
 
-LoggerManager::LoggerManager(){
-    m_root.reset(new Logger); // 使用 reset 重新分配关联资源
+
+LoggerManager::LoggerManager() {
+    m_root.reset(new Logger);
     m_root->addAppender(LogAppender::ptr(new StdoutLogAppender));
 
     m_loggers[m_root->m_name] = m_root;
@@ -581,8 +554,8 @@ LoggerManager::LoggerManager(){
     init();
 }
 
-Logger::ptr LoggerManager::getLogger(const std::string& name){
-    // MutexType::Lock lock(m_mutex);
+Logger::ptr LoggerManager::getLogger(const std::string& name) {
+    MutexType::Lock lock(m_mutex);
     auto it = m_loggers.find(name);
     if(it != m_loggers.end()) {
         return it->second;
@@ -594,8 +567,7 @@ Logger::ptr LoggerManager::getLogger(const std::string& name){
     return logger;
 }
 
-
-struct LogAppenderDefine{
+struct LogAppenderDefine {
     int type = 0; //1 File, 2 Stdout
     LogLevel::Level level = LogLevel::UNKNOW;
     std::string formatter;
@@ -609,7 +581,7 @@ struct LogAppenderDefine{
     }
 };
 
-struct LogDefine{
+struct LogDefine {
     std::string name;
     LogLevel::Level level = LogLevel::UNKNOW;
     std::string formatter;
@@ -626,25 +598,10 @@ struct LogDefine{
         return name < oth.name;
     }
 
-
-
+    bool isValid() const {
+        return !name.empty();
+    }
 };
-
-/*
-webserver::ConfigVar 看起来是一个模板类，它接受一个模板参数。这种模板类通常用于创建可配置的变量或对象。
-在这种情况下，模板参数是 std::set<LogDefine>，这意味着 webserver::ConfigVar 被实例化为一个存储 std::set<LogDefine> 类型数据的类。
-<std::set<LogDefine>> 表示这是一个模板特化，即 webserver::ConfigVar 类被特化为存储 std::set<LogDefine> 类型数据的类。
-模板特化允许你为特定类型提供定制化的实现。
-g_log_defines 是一个指向 webserver::ConfigVar<std::set<LogDefine>> 类型对象的指针。
-webserver::Config::Lookup 看起来是一个静态函数，用于查找名为 "logs" 的配置项，
-并返回一个指向 webserver::ConfigVar<std::set<LogDefine>> 类型对象的指针。
-该函数可能会在内部使用单例模式或其他方法来确保只有一个实例被创建。
-综上所述，这段代码通过模板特化创建了一个存储 std::set<LogDefine> 类型数据的配置变量，
-并使用 webserver::Config::Lookup 函数来获取该配置变量的指针。
-*/
-webserver::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =
-    webserver::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
-
 
 template<>
 class LexicalCast<std::string, LogDefine> {
@@ -740,31 +697,13 @@ public:
     }
 };
 
+webserver::ConfigVar<std::set<LogDefine> >::ptr g_log_defines =
+    webserver::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
 
 struct LogIniter {
-    /**
- * @brief 构造函数，用于初始化日志系统的配置
- * 
- * 此函数将添加一个监听器，以便在日志配置发生变化时进行相应的处理。
- * 
- * 监听器接受两个参数：旧的日志定义集合和新的日志定义集合，用于比较和处理配置变化。
- * 
- * 当有新的日志定义被添加或者已有的日志定义被修改时，将会根据变化进行相应的操作，包括：
- * - 添加新的 logger
- * - 修改已存在的 logger 的配置
- * - 删除不再存在的 logger
- * 
- * 每个 logger 的配置信息包括：
- * - 日志级别
- * - 日志格式器
- * - 日志输出目标（文件或控制台）
- * 
- * @note 此函数用于初始化日志系统的配置，应在日志系统启动之前调用。
- */
     LogIniter() {
         g_log_defines->addListener([](const std::set<LogDefine>& old_value,
                     const std::set<LogDefine>& new_value){
-            // WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "on_logger_conf_changed";
             WEBSERVER_LOG_INFO(WEBSERVER_LOG_ROOT()) << "on_logger_conf_changed";
             for(auto& i : new_value) {
                 auto it = old_value.find(i);
@@ -793,12 +732,11 @@ struct LogIniter {
                     if(a.type == 1) {
                         ap.reset(new FileLogAppender(a.file));
                     } else if(a.type == 2) {
-                        ap.reset(new StdoutLogAppender);
-                        // if(!webserver::EnvMgr::GetInstance()->has("d")) {
-                        //     ap.reset(new StdoutLogAppender);
-                        // } else {
-                        //     continue;
-                        // }
+                        if(!webserver::EnvMgr::GetInstance()->has("d")) {
+                            ap.reset(new StdoutLogAppender);
+                        } else {
+                            continue;
+                        }
                     }
                     ap->setLevel(a.level);
                     if(!a.formatter.empty()) {
@@ -827,12 +765,10 @@ struct LogIniter {
     }
 };
 
-
-//全局对象在main函数之前构造，所以一定触发构造事件
 static LogIniter __log_init;
 
 std::string LoggerManager::toYamlString() {
-    // MutexType::Lock lock(m_mutex);
+    MutexType::Lock lock(m_mutex);
     YAML::Node node;
     for(auto& i : m_loggers) {
         node.push_back(YAML::Load(i.second->toYamlString()));
@@ -842,9 +778,7 @@ std::string LoggerManager::toYamlString() {
     return ss.str();
 }
 
-
-void LoggerManager::init(){
-    
+void LoggerManager::init() {
 }
 
 }

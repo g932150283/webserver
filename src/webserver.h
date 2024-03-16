@@ -7,7 +7,7 @@
 #include "config.h"
 // #include "daemon.h"
 // #include "endian.h"
-// #include "env.h"
+#include "env.h"
 // #include "fd_manager.h"
 #include "fiber.h"
 // #include "hook.h"
@@ -68,6 +68,6 @@
 
 // #include "util/crypto_util.h"
 // #include "util/hash_util.h"
-// #include "util/json_util.h"
+#include "util/json_util.h"
 
 #endif

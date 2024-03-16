@@ -46,6 +46,16 @@
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/env.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/env.cc.o -c /home/user/wsl-code/webserver/src/env.cc",
+  "file": "/home/user/wsl-code/webserver/src/env.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/util/json_util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util/json_util.cc.o -c /home/user/wsl-code/webserver/src/util/json_util.cc",
+  "file": "/home/user/wsl-code/webserver/src/util/json_util.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
   "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_tuple.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -c /home/user/wsl-code/webserver/tests/test_tuple.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_tuple.cc"
 },

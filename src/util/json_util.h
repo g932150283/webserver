@@ -1,11 +1,11 @@
-#ifndef __SYLAR_UTIL_JSON_UTIL_H__
-#define __SYLAR_UTIL_JSON_UTIL_H__
+#ifndef __WEBSERVER_UTIL_JSON_UTIL_H__
+#define __WEBSERVER_UTIL_JSON_UTIL_H__
 
 #include <string>
 #include <iostream>
 #include <json/json.h>
 
-namespace sylar {
+namespace webserver {
 
 class JsonUtil {
 public:

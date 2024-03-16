@@ -30,6 +30,7 @@ private:
      * @brief Socket事件上线文类
      */
     struct FdContext {
+        // 互斥锁
         typedef Mutex MutexType;
         /**
          * @brief 事件上线文类
@@ -70,7 +71,7 @@ private:
         int fd = 0;
         /// 当前的事件
         Event events = NONE;
-        /// 事件的Mutex
+        /// 事件的Mutex 互斥锁
         MutexType mutex;
     };
 

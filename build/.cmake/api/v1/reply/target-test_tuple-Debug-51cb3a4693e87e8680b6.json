@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/user/wsl-code/webserver/bin/test_fiber"
+			"path" : "/home/user/wsl-code/webserver/bin/test_tuple"
 		}
 	],
 	"backtrace" : 1,
@@ -12,8 +12,6 @@
 		[
 			"add_executable",
 			"link_directories",
-			"target_link_libraries",
-			"add_dependencies",
 			"include_directories",
 			"set_property",
 			"force_redefine_file_macro_for_sources"
@@ -31,7 +29,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 64,
+				"line" : 53,
 				"parent" : 0
 			},
 			{
@@ -43,32 +41,20 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 67,
-				"parent" : 0
-			},
-			{
-				"command" : 3,
-				"file" : 0,
-				"line" : 65,
+				"line" : 11,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 11,
+				"line" : 54,
 				"parent" : 0
 			},
 			{
-				"command" : 6,
-				"file" : 0,
-				"line" : 66,
-				"parent" : 0
-			},
-			{
-				"command" : 5,
+				"command" : 3,
 				"file" : 1,
 				"line" : 12,
-				"parent" : 6
+				"parent" : 4
 			}
 		]
 	},
@@ -84,14 +70,14 @@
 			"defines" : 
 			[
 				{
-					"backtrace" : 7,
-					"define" : "__FILE__=\"tests/test_fiber.cc\""
+					"backtrace" : 5,
+					"define" : "__FILE__=\"tests/test_tuple.cc\""
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 5,
+					"backtrace" : 3,
 					"path" : "/home/user/wsl-code/webserver/."
 				}
 			],
@@ -102,14 +88,7 @@
 			]
 		}
 	],
-	"dependencies" : 
-	[
-		{
-			"backtrace" : 4,
-			"id" : "webserver::@6890427a1f51a3e7e1df"
-		}
-	],
-	"id" : "test_fiber::@6890427a1f51a3e7e1df",
+	"id" : "test_tuple::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -126,31 +105,12 @@
 				"backtrace" : 2,
 				"fragment" : "-L/usr/local/lib",
 				"role" : "libraryPath"
-			},
-			{
-				"fragment" : "-Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
-				"fragment" : "../lib/libwebserver.so",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
-				"fragment" : "-lpthread",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
-				"fragment" : "-lyaml-cpp",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "test_fiber",
-	"nameOnDisk" : "test_fiber",
+	"name" : "test_tuple",
+	"nameOnDisk" : "test_tuple",
 	"paths" : 
 	{
 		"build" : ".",
@@ -171,7 +131,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "tests/test_fiber.cc",
+			"path" : "tests/test_tuple.cc",
 			"sourceGroupIndex" : 0
 		}
 	],

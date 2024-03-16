@@ -218,6 +218,18 @@ IOManager(epoll) --->Scheduler
             |
             ↓
            idle(epoll_wait)
+
+信号量
+PutMessage(msg, ) + 信号量1, single()
+message_queue
+     |
+     | ----- Thread
+     | ----- Thread
+           wait()-信号量1, RecvMessage(msg, )
+
+异步IS，等待数据返回。 epoll_wait
+
+epoll_create, epoll_ctl, epoll_wait
 ```
 
 ## socket函数库

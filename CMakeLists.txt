@@ -13,7 +13,10 @@ include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
 # include_directories(${PROJECT_SOURCE_DIR}/src)
-
+find_package(Protobuf)
+if(Protobuf_FOUND)
+    include_directories(${Protobuf_INCLUDE_DIRS})
+endif()
 set(LIB_SRC
     src/log.cc
     src/util.cc
@@ -24,6 +27,8 @@ set(LIB_SRC
     src/scheduler.cc
     src/iomanager.cc
     src/timer.cc
+    src/env.cc
+    src/util/json_util.cc
     )
 
 add_library(webserver SHARED ${LIB_SRC})
@@ -33,6 +38,8 @@ set(LIBS
          webserver
          pthread
          yaml-cpp
+         jsoncpp
+         ${PROTOBUF_LIBRARIES}
     )
 
 message("***", ${LIBS})
