@@ -1,6 +1,6 @@
 #ifndef __WEBSERVER_UTIL_H__
 #define __WEBSERVER_UTIL_H__
-// 详细介绍函数功能，并为每一行添加注释，以标准注释方式回答
+// 详细介绍函数功能，并为每一行添加详细注释，功能参数返回值以标准注释方式回答
 // 提供改函数工作流程
 #include <pthread.h>
 #include <unistd.h>
