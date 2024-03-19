@@ -232,6 +232,12 @@ message_queue
 epoll_create, epoll_ctl, epoll_wait
 ```
 
+```
+Timer -> addTimer() --> cancel()
+获取当前的定时器触发离现在的时间差
+返回当前需要触发的定时器
+```
+
 ## socket函数库
 
 

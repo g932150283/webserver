@@ -27,7 +27,7 @@ void test_fiber() {
     memset(&addr, 0, sizeof(addr));
     addr.sin_family = AF_INET;
     addr.sin_port = htons(80);
-    inet_pton(AF_INET, "115.239.210.27", &addr.sin_addr.s_addr);
+    inet_pton(AF_INET, "220.181.38.149", &addr.sin_addr.s_addr);
 
     if(!connect(sock, (const sockaddr*)&addr, sizeof(addr))) {
     } else if(errno == EINPROGRESS) {
@@ -63,13 +63,13 @@ void test_timer() {
         if(++i == 3) {
             s_timer->reset(2000, true);
             //s_timer->cancel();
-            std::cout << "aaaaaaaaaa" << std::endl;
+            // std::cout << "aaaaaaaaaa" << std::endl;
         }
     }, true);
 }
 
 int main(int argc, char** argv) {
-    //test1();
-    test_timer();
+    test1();
+    // test_timer();
     return 0;
 }

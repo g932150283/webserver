@@ -3,25 +3,32 @@
 
 namespace webserver {
 
-bool Timer::Comparator::operator()(const Timer::ptr& lhs
-                        ,const Timer::ptr& rhs) const {
-    if(!lhs && !rhs) {
+/**
+ * @brief Timer::Comparator::operator() 是 Timer 类中的 Comparator 结构体的函数调用运算符重载，用于比较 Timer 智能指针的优先级。
+ * @param lhs 一个 Timer 智能指针，用于比较。
+ * @param rhs 另一个 Timer 智能指针，用于比较。
+ * @return 如果 lhs 的 m_next 小于 rhs 的 m_next，或者如果 lhs 为空且 rhs 不为空，则返回 true；否则返回 false。
+ */
+bool Timer::Comparator::operator()(const Timer::ptr& lhs, const Timer::ptr& rhs) const {
+    // 检查 lhs 和 rhs 是否都为空
+    if (!lhs && !rhs) {
         return false;
     }
-    if(!lhs) {
+    if (!lhs) {
         return true;
     }
-    if(!rhs) {
+    if (!rhs) {
         return false;
     }
-    if(lhs->m_next < rhs->m_next) {
+    if (lhs->m_next < rhs->m_next) {
         return true;
     }
-    if(rhs->m_next < lhs->m_next) {
+    if (rhs->m_next < lhs->m_next) {
         return false;
     }
     return lhs.get() < rhs.get();
 }
+
 
 
 Timer::Timer(uint64_t ms, std::function<void()> cb,
