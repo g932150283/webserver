@@ -19,7 +19,7 @@ void test_fiber() {
 
     //close(sock);
     //webserver::IOManager::GetThis()->cancelAll(sock);
-
+    // 创建socket
     sock = socket(AF_INET, SOCK_STREAM, 0);
     fcntl(sock, F_SETFL, O_NONBLOCK);
 
@@ -27,8 +27,9 @@ void test_fiber() {
     memset(&addr, 0, sizeof(addr));
     addr.sin_family = AF_INET;
     addr.sin_port = htons(80);
+    // 地址转换
     inet_pton(AF_INET, "220.181.38.149", &addr.sin_addr.s_addr);
-
+    // 发起连接
     if(!connect(sock, (const sockaddr*)&addr, sizeof(addr))) {
     } else if(errno == EINPROGRESS) {
         WEBSERVER_LOG_INFO(g_logger) << "add event errno=" << errno << " " << strerror(errno);
@@ -39,6 +40,7 @@ void test_fiber() {
             WEBSERVER_LOG_INFO(g_logger) << "write callback";
             //close(sock);
             webserver::IOManager::GetThis()->cancelEvent(sock, webserver::IOManager::READ);
+            // 关闭连接
             close(sock);
         });
     } else {
