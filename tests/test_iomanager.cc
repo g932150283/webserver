@@ -31,6 +31,7 @@ void test_fiber() {
     inet_pton(AF_INET, "220.181.38.149", &addr.sin_addr.s_addr);
     // 发起连接
     if(!connect(sock, (const sockaddr*)&addr, sizeof(addr))) {
+    // EINPROGRESS在处理中
     } else if(errno == EINPROGRESS) {
         WEBSERVER_LOG_INFO(g_logger) << "add event errno=" << errno << " " << strerror(errno);
         webserver::IOManager::GetThis()->addEvent(sock, webserver::IOManager::READ, [](){
