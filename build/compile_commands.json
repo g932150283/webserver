@@ -1,92 +1,97 @@
 [
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/log.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/log.cc.o -c /home/user/wsl-code/webserver/src/log.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/log.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/log.cc.o -c /home/user/wsl-code/webserver/src/log.cc",
   "file": "/home/user/wsl-code/webserver/src/log.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util.cc.o -c /home/user/wsl-code/webserver/src/util.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util.cc.o -c /home/user/wsl-code/webserver/src/util.cc",
   "file": "/home/user/wsl-code/webserver/src/util.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/config.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/config.cc.o -c /home/user/wsl-code/webserver/src/config.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/config.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/config.cc.o -c /home/user/wsl-code/webserver/src/config.cc",
   "file": "/home/user/wsl-code/webserver/src/config.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/thread.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/thread.cc.o -c /home/user/wsl-code/webserver/src/thread.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/thread.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/thread.cc.o -c /home/user/wsl-code/webserver/src/thread.cc",
   "file": "/home/user/wsl-code/webserver/src/thread.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/mutex.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/mutex.cc.o -c /home/user/wsl-code/webserver/src/mutex.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/mutex.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/mutex.cc.o -c /home/user/wsl-code/webserver/src/mutex.cc",
   "file": "/home/user/wsl-code/webserver/src/mutex.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/fiber.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/fiber.cc.o -c /home/user/wsl-code/webserver/src/fiber.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/fiber.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/fiber.cc.o -c /home/user/wsl-code/webserver/src/fiber.cc",
   "file": "/home/user/wsl-code/webserver/src/fiber.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/scheduler.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/scheduler.cc.o -c /home/user/wsl-code/webserver/src/scheduler.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/scheduler.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/scheduler.cc.o -c /home/user/wsl-code/webserver/src/scheduler.cc",
   "file": "/home/user/wsl-code/webserver/src/scheduler.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/iomanager.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/iomanager.cc.o -c /home/user/wsl-code/webserver/src/iomanager.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/iomanager.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/iomanager.cc.o -c /home/user/wsl-code/webserver/src/iomanager.cc",
   "file": "/home/user/wsl-code/webserver/src/iomanager.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/timer.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/timer.cc.o -c /home/user/wsl-code/webserver/src/timer.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/timer.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/timer.cc.o -c /home/user/wsl-code/webserver/src/timer.cc",
   "file": "/home/user/wsl-code/webserver/src/timer.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/env.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/env.cc.o -c /home/user/wsl-code/webserver/src/env.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/env.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/env.cc.o -c /home/user/wsl-code/webserver/src/env.cc",
   "file": "/home/user/wsl-code/webserver/src/env.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/util/json_util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util/json_util.cc.o -c /home/user/wsl-code/webserver/src/util/json_util.cc",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/util/json_util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util/json_util.cc.o -c /home/user/wsl-code/webserver/src/util/json_util.cc",
   "file": "/home/user/wsl-code/webserver/src/util/json_util.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_tuple.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -c /home/user/wsl-code/webserver/tests/test_tuple.cc",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_tuple.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -c /home/user/wsl-code/webserver/tests/test_tuple.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_tuple.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_config.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_config.dir/tests/test_config.cc.o -c /home/user/wsl-code/webserver/tests/test_config.cc",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_async.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_async.dir/tests/test_async.cc.o -c /home/user/wsl-code/webserver/tests/test_async.cc",
+  "file": "/home/user/wsl-code/webserver/tests/test_async.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_config.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_config.dir/tests/test_config.cc.o -c /home/user/wsl-code/webserver/tests/test_config.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_config.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_thread.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_thread.dir/tests/test_thread.cc.o -c /home/user/wsl-code/webserver/tests/test_thread.cc",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_thread.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_thread.dir/tests/test_thread.cc.o -c /home/user/wsl-code/webserver/tests/test_thread.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_thread.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_util.dir/tests/test_util.cc.o -c /home/user/wsl-code/webserver/tests/test_util.cc",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_util.dir/tests/test_util.cc.o -c /home/user/wsl-code/webserver/tests/test_util.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_util.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_fiber.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_fiber.dir/tests/test_fiber.cc.o -c /home/user/wsl-code/webserver/tests/test_fiber.cc",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_fiber.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_fiber.dir/tests/test_fiber.cc.o -c /home/user/wsl-code/webserver/tests/test_fiber.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_fiber.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_scheduler.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o -c /home/user/wsl-code/webserver/tests/test_scheduler.cc",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_scheduler.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o -c /home/user/wsl-code/webserver/tests/test_scheduler.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_scheduler.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
-  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_iomanager.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.o -c /home/user/wsl-code/webserver/tests/test_iomanager.cc",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_iomanager.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.o -c /home/user/wsl-code/webserver/tests/test_iomanager.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_iomanager.cc"
 }
 ]

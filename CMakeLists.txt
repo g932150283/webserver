@@ -5,8 +5,9 @@ include (cmake/utils.cmake)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 # 指定编译器的行为
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
 # set(CMAKE_C_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
+# set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
 
 include_directories(.)
 include_directories(/usr/local/include)
@@ -52,6 +53,9 @@ message("***", ${LIBS})
 
 add_executable(test_tuple tests/test_tuple.cc)
 force_redefine_file_macro_for_sources(test_tuple)
+
+add_executable(test_async tests/test_async.cc)
+force_redefine_file_macro_for_sources(test_async)
 
 add_executable(test_config tests/test_config.cc)
 add_dependencies(test_config webserver)
