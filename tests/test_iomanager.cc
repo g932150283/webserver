@@ -64,15 +64,15 @@ void test_timer() {
         static int i = 0;
         WEBSERVER_LOG_INFO(g_logger) << "hello timer i=" << i;
         if(++i == 3) {
-            s_timer->reset(2000, true);
-            //s_timer->cancel();
+            s_timer->reset(500, true);
+            // s_timer->cancel();
             // std::cout << "aaaaaaaaaa" << std::endl;
         }
     }, true);
 }
 
 int main(int argc, char** argv) {
-    test1();
-    // test_timer();
+    // test1();
+    test_timer();
     return 0;
 }
