@@ -1,7 +1,7 @@
 #include "scheduler.h"
 #include "log.h"
 #include "macro.h"
-// #include "hook.h"
+#include "hook.h"
 
 namespace webserver {
 
@@ -248,7 +248,8 @@ Scheduler::run函数是调度系统的核心，旨在高效地管理和执行纤
 void Scheduler::run() {
     // 记录调度器启动的调试信息，包括调度器的名字。
     WEBSERVER_LOG_DEBUG(g_logger) << m_name << " run";
-
+    
+    set_hook_enable(true);
     // 设置当前线程的Scheduler实例，用于在当前线程内部获取调度器的上下文。
     setThis();
 

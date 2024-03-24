@@ -238,9 +238,46 @@ Timer -> addTimer() --> cancel()
 返回当前需要触发的定时器
 ```
 
+
+```
+                [Fiber]                   [Timer]
+                   ↑N                       ↑
+                   |                        |
+                   |1                       |
+                [Thread]               [TimerManager]
+                   ↑M                       ↑
+                   |                        |
+                   |1                       |
+                [Scheduledr] <----  [IOManager(epoll)]
+
+```
+
+## HOOK
+
+sleep
+usleep
+
+socket相关 : socket, connet, accept
+io相关 : read, wirte, send, recv
+fd相关 : fcntl, ioctl
+
 ## socket函数库
 
 
+
+
+              [UnixAddress]
+                    |
+                ---------                      | - [IPv4Address]
+                |Address|  --- [IPAddress] --- |
+                ---------                      | - [IPv6Address]
+                    |
+                    |
+                ---------
+                |Address|
+                ---------
+                    
+                
 ## http协议开发
 
 

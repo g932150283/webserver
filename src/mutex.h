@@ -10,7 +10,8 @@
 #include <atomic>
 #include <list>
 
-// #include "noncopyable.h"
+#include "noncopyable.h"
+
 #include "fiber.h"
 
 namespace webserver {
@@ -18,8 +19,8 @@ namespace webserver {
 /**
  * @brief 信号量
  */
-// class Semaphore : Noncopyable {
-class Semaphore {    
+class Semaphore : Noncopyable {
+// class Semaphore {    
 public:
     /**
      * @brief 构造函数R
@@ -195,8 +196,8 @@ private:
 /**
  * @brief 互斥量
  */
-// class Mutex : Noncopyable {
-class Mutex {
+class Mutex : Noncopyable {
+// class Mutex {
 public: 
     /// 局部锁
     typedef ScopedLockImpl<Mutex> Lock;
@@ -236,8 +237,8 @@ private:
 /**
  * @brief 空锁(用于调试)
  */
-// class NullMutex : Noncopyable{
-class NullMutex {
+class NullMutex : Noncopyable{
+// class NullMutex {
 public:
     /// 局部锁
     typedef ScopedLockImpl<NullMutex> Lock;
@@ -266,8 +267,8 @@ public:
 /**
  * @brief 读写互斥量
  */
-// class RWMutex : Noncopyable
-class RWMutex {
+class RWMutex : Noncopyable{
+// class RWMutex {
 public:
 
     /// 局部读锁
@@ -318,8 +319,8 @@ private:
 /**
  * @brief 空读写锁(用于调试)
  */
-// class NullRWMutex : Noncopyable {
-class NullRWMutex {
+class NullRWMutex : Noncopyable {
+// class NullRWMutex {
 public:
     /// 局部读锁
     typedef ReadScopedLockImpl<NullMutex> ReadLock;
@@ -353,8 +354,8 @@ public:
 /**
  * @brief 自旋锁
  */
-// class Spinlock : Noncopyable {
-class Spinlock {
+class Spinlock : Noncopyable {
+// class Spinlock {
 public:
     /// 局部锁
     typedef ScopedLockImpl<Spinlock> Lock;
@@ -394,8 +395,8 @@ private:
 /**
  * @brief 原子锁
  */
-// class CASLock : Noncopyable {
-class CASLock {
+class CASLock : Noncopyable {
+// class CASLock {
 public:
     /// 局部锁
     typedef ScopedLockImpl<CASLock> Lock;
@@ -432,8 +433,8 @@ private:
 };
 
 class Scheduler;
-// class FiberSemaphore : Noncopyable {
-class FiberSemaphore {
+class FiberSemaphore : Noncopyable {
+// class FiberSemaphore {
 public:
     typedef Spinlock MutexType;
 

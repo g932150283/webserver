@@ -19,6 +19,7 @@ if(Protobuf_FOUND)
     include_directories(${Protobuf_INCLUDE_DIRS})
 endif()
 set(LIB_SRC
+    src/address.cc
     src/log.cc
     src/util.cc
     src/config.cc
@@ -29,6 +30,8 @@ set(LIB_SRC
     src/iomanager.cc
     src/timer.cc
     src/env.cc
+    src/hook.cc
+    src/fd_manager.cc
     src/util/json_util.cc
     )
 
@@ -40,6 +43,7 @@ set(LIBS
          pthread
          yaml-cpp
          jsoncpp
+         dl
          ${PROTOBUF_LIBRARIES}
     )
 
@@ -86,6 +90,17 @@ add_executable(test_iomanager tests/test_iomanager.cc)
 add_dependencies(test_iomanager webserver)
 force_redefine_file_macro_for_sources(test_iomanager)
 target_link_libraries(test_iomanager ${LIBS})
+
+add_executable(test_hook tests/test_hook.cc)
+add_dependencies(test_hook webserver)
+force_redefine_file_macro_for_sources(test_hook)
+target_link_libraries(test_hook ${LIBS})
+
+add_executable(test_address tests/test_address.cc)
+add_dependencies(test_address webserver)
+force_redefine_file_macro_for_sources(test_address)
+target_link_libraries(test_address ${LIBS})
+
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
