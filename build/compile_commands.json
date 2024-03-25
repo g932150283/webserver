@@ -56,6 +56,71 @@
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/http.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/http.cc.o -c /home/user/wsl-code/webserver/src/http/http.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/http.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/http_connection.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/http_connection.cc.o -c /home/user/wsl-code/webserver/src/http/http_connection.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/http_connection.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/http_parser.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/http_parser.cc.o -c /home/user/wsl-code/webserver/src/http/http_parser.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/http_parser.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/http_session.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/http_session.cc.o -c /home/user/wsl-code/webserver/src/http/http_session.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/http_session.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/http_server.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/http_server.cc.o -c /home/user/wsl-code/webserver/src/http/http_server.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/http_server.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/servlet.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/servlet.cc.o -c /home/user/wsl-code/webserver/src/http/servlet.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/servlet.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/servlets/config_servlet.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/servlets/config_servlet.cc.o -c /home/user/wsl-code/webserver/src/http/servlets/config_servlet.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/servlets/config_servlet.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/servlets/status_servlet.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/servlets/status_servlet.cc.o -c /home/user/wsl-code/webserver/src/http/servlets/status_servlet.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/servlets/status_servlet.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/session_data.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/session_data.cc.o -c /home/user/wsl-code/webserver/src/http/session_data.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/session_data.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/ws_connection.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/ws_connection.cc.o -c /home/user/wsl-code/webserver/src/http/ws_connection.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/ws_connection.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/ws_session.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/ws_session.cc.o -c /home/user/wsl-code/webserver/src/http/ws_session.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/ws_session.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/ws_server.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/ws_server.cc.o -c /home/user/wsl-code/webserver/src/http/ws_server.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/ws_server.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/ws_servlet.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/ws_servlet.cc.o -c /home/user/wsl-code/webserver/src/http/ws_servlet.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/ws_servlet.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
   "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/hook.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/hook.cc.o -c /home/user/wsl-code/webserver/src/hook.cc",
   "file": "/home/user/wsl-code/webserver/src/hook.cc"
 },
@@ -66,8 +131,128 @@
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/library.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/library.cc.o -c /home/user/wsl-code/webserver/src/library.cc",
+  "file": "/home/user/wsl-code/webserver/src/library.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/util/crypto_util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util/crypto_util.cc.o -c /home/user/wsl-code/webserver/src/util/crypto_util.cc",
+  "file": "/home/user/wsl-code/webserver/src/util/crypto_util.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
   "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/util/json_util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util/json_util.cc.o -c /home/user/wsl-code/webserver/src/util/json_util.cc",
   "file": "/home/user/wsl-code/webserver/src/util/json_util.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/util/hash_util.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/util/hash_util.cc.o -c /home/user/wsl-code/webserver/src/util/hash_util.cc",
+  "file": "/home/user/wsl-code/webserver/src/util/hash_util.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/socket.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/socket.cc.o -c /home/user/wsl-code/webserver/src/socket.cc",
+  "file": "/home/user/wsl-code/webserver/src/socket.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/bytearray.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/bytearray.cc.o -c /home/user/wsl-code/webserver/src/bytearray.cc",
+  "file": "/home/user/wsl-code/webserver/src/bytearray.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/stream.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/stream.cc.o -c /home/user/wsl-code/webserver/src/stream.cc",
+  "file": "/home/user/wsl-code/webserver/src/stream.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/streams/async_socket_stream.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/streams/async_socket_stream.cc.o -c /home/user/wsl-code/webserver/src/streams/async_socket_stream.cc",
+  "file": "/home/user/wsl-code/webserver/src/streams/async_socket_stream.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/streams/socket_stream.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/streams/socket_stream.cc.o -c /home/user/wsl-code/webserver/src/streams/socket_stream.cc",
+  "file": "/home/user/wsl-code/webserver/src/streams/socket_stream.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/streams/load_balance.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/streams/load_balance.cc.o -c /home/user/wsl-code/webserver/src/streams/load_balance.cc",
+  "file": "/home/user/wsl-code/webserver/src/streams/load_balance.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/streams/service_discovery.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/streams/service_discovery.cc.o -c /home/user/wsl-code/webserver/src/streams/service_discovery.cc",
+  "file": "/home/user/wsl-code/webserver/src/streams/service_discovery.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/streams/zlib_stream.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/streams/zlib_stream.cc.o -c /home/user/wsl-code/webserver/src/streams/zlib_stream.cc",
+  "file": "/home/user/wsl-code/webserver/src/streams/zlib_stream.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/tcp_server.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/tcp_server.cc.o -c /home/user/wsl-code/webserver/src/tcp_server.cc",
+  "file": "/home/user/wsl-code/webserver/src/tcp_server.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/zk_client.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/zk_client.cc.o -c /home/user/wsl-code/webserver/src/zk_client.cc",
+  "file": "/home/user/wsl-code/webserver/src/zk_client.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/worker.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/worker.cc.o -c /home/user/wsl-code/webserver/src/worker.cc",
+  "file": "/home/user/wsl-code/webserver/src/worker.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/module.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/module.cc.o -c /home/user/wsl-code/webserver/src/module.cc",
+  "file": "/home/user/wsl-code/webserver/src/module.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/rock/rock_protocol.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/rock/rock_protocol.cc.o -c /home/user/wsl-code/webserver/src/rock/rock_protocol.cc",
+  "file": "/home/user/wsl-code/webserver/src/rock/rock_protocol.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/rock/rock_server.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/rock/rock_server.cc.o -c /home/user/wsl-code/webserver/src/rock/rock_server.cc",
+  "file": "/home/user/wsl-code/webserver/src/rock/rock_server.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/rock/rock_stream.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/rock/rock_stream.cc.o -c /home/user/wsl-code/webserver/src/rock/rock_stream.cc",
+  "file": "/home/user/wsl-code/webserver/src/rock/rock_stream.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/protocol.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/protocol.cc.o -c /home/user/wsl-code/webserver/src/protocol.cc",
+  "file": "/home/user/wsl-code/webserver/src/protocol.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/daemon.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/daemon.cc.o -c /home/user/wsl-code/webserver/src/daemon.cc",
+  "file": "/home/user/wsl-code/webserver/src/daemon.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/application.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/application.cc.o -c /home/user/wsl-code/webserver/src/application.cc",
+  "file": "/home/user/wsl-code/webserver/src/application.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/http11_parser.rl.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/http11_parser.rl.cc.o -c /home/user/wsl-code/webserver/src/http/http11_parser.rl.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/http11_parser.rl.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/http/httpclient_parser.rl.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/http/httpclient_parser.rl.cc.o -c /home/user/wsl-code/webserver/src/http/httpclient_parser.rl.cc",
+  "file": "/home/user/wsl-code/webserver/src/http/httpclient_parser.rl.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -Dwebserver_EXPORTS -D__FILE__=\\\"src/uri.rl.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC -o CMakeFiles/webserver.dir/src/uri.rl.cc.o -c /home/user/wsl-code/webserver/src/uri.rl.cc",
+  "file": "/home/user/wsl-code/webserver/src/uri.rl.cc"
 },
 {
   "directory": "/home/user/wsl-code/webserver/build",
@@ -118,5 +303,20 @@
   "directory": "/home/user/wsl-code/webserver/build",
   "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_address.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_address.dir/tests/test_address.cc.o -c /home/user/wsl-code/webserver/tests/test_address.cc",
   "file": "/home/user/wsl-code/webserver/tests/test_address.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_socket.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_socket.dir/tests/test_socket.cc.o -c /home/user/wsl-code/webserver/tests/test_socket.cc",
+  "file": "/home/user/wsl-code/webserver/tests/test_socket.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_bytearray.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.o -c /home/user/wsl-code/webserver/tests/test_bytearray.cc",
+  "file": "/home/user/wsl-code/webserver/tests/test_bytearray.cc"
+},
+{
+  "directory": "/home/user/wsl-code/webserver/build",
+  "command": "/usr/bin/g++ -D__FILE__=\\\"tests/test_http.cc\\\" -I/home/user/wsl-code/webserver/.  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -o CMakeFiles/test_http.dir/tests/test_http.cc.o -c /home/user/wsl-code/webserver/tests/test_http.cc",
+  "file": "/home/user/wsl-code/webserver/tests/test_http.cc"
 }
 ]

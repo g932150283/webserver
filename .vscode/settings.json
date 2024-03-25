@@ -64,6 +64,11 @@
         "stop_token": "cpp",
         "thread": "cpp",
         "iomanip": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "bitset": "cpp",
+        "complex": "cpp",
+        "optional": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     }
 }

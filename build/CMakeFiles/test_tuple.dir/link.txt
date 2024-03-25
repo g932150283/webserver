@@ -1,1 +1,0 @@
-/usr/bin/c++  -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -rdynamic CMakeFiles/test_tuple.dir/tests/test_tuple.cc.o -o ../bin/test_tuple   -L/usr/local/lib 

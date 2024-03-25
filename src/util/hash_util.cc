@@ -8,7 +8,7 @@
 #include <openssl/sha.h>
 #include <zookeeper/zookeeper.h>
 #include <zookeeper/zookeeper_version.h>
-namespace sylar {
+namespace webserver {
 
 #define	ROTL(x, r) ((x << r) | (x >> (32 - r)))
 

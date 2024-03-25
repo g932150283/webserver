@@ -1,6 +1,6 @@
 #ifndef __WEBSERVER_UTIL_H__
 #define __WEBSERVER_UTIL_H__
-// 详细介绍函数功能，并为每一行添加详细注释，功能参数返回值以标准注释方式回答
+// 详细介绍函数功能，并为每一行添加详细注释，功能参数返回值以标准注释头方式给出并且不要分段给出
 // 提供改函数工作流程
 #include <pthread.h>
 #include <unistd.h>
@@ -23,9 +23,9 @@
 #include <iostream>
 #include <boost/lexical_cast.hpp>
 #include <google/protobuf/message.h>
-// #include "src/util/hash_util.h"
+#include "src/util/hash_util.h"
 #include "src/util/json_util.h"
-// #include "src/util/crypto_util.h"
+#include "src/util/crypto_util.h"
 namespace webserver{
 
 // 返回当前线程的ID

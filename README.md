@@ -263,9 +263,6 @@ fd相关 : fcntl, ioctl
 
 ## socket函数库
 
-
-
-
               [UnixAddress]
                     |
                 ---------                      | - [IPv4Address]
@@ -274,11 +271,43 @@ fd相关 : fcntl, ioctl
                     |
                     |
                 ---------
-                |Address|
+                 |Socket|
                 ---------
-                    
+
+connetc
+accept
+read/wirte/clses   
+
+
+## 序列化bytearry
+
+write(int, float, ...)
+read(int, float, ...)
                 
 ## http协议开发
+
+HTTP/1.1 - API
+
+HttpRequest
+HttpResponse
+
+
+GET / HTTP/1.1
+host: www.baidu.com
+
+HTTP/1.0 200 OK
+Pragma: no-cache
+Content-Type: text/html
+Content-Length: 14988
+Connection: close
+
+url: http://www.baidu.com:80/page/xxx?id=10&v=20#fr
+    协议 : http
+    host : www.baidu.com
+    port : 80
+    path : xxx
+    param : id=10&v=20
+    fragment : fr
 
 
 ## 分布式协议

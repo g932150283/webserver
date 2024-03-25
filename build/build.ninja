@@ -47,7 +47,7 @@ cmake_ninja_workdir = /home/user/wsl-code/webserver/build/
 #############################################
 # Order-only phony target for webserver
 
-build cmake_object_order_depends_target_webserver: phony || CMakeFiles/webserver.dir
+build cmake_object_order_depends_target_webserver: phony || ../src/http/http11_parser.rl.cc ../src/http/httpclient_parser.rl.cc ../src/uri.rl.cc
 
 build CMakeFiles/webserver.dir/src/address.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/address.cc || cmake_object_order_depends_target_webserver
   DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/address.cc\"
@@ -137,6 +137,110 @@ build CMakeFiles/webserver.dir/src/env.cc.o: CXX_COMPILER__webserver_Debug /home
   OBJECT_DIR = CMakeFiles/webserver.dir
   OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
 
+build CMakeFiles/webserver.dir/src/http/http.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/http.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/http.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/http.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/http_connection.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/http_connection.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/http_connection.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/http_connection.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/http_parser.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/http_parser.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/http_parser.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/http_parser.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/http_session.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/http_session.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/http_session.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/http_session.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/http_server.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/http_server.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/http_server.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/http_server.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/servlet.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/servlet.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/servlet.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/servlet.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/servlets/config_servlet.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/servlets/config_servlet.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/servlets/config_servlet.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/servlets/config_servlet.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http/servlets
+
+build CMakeFiles/webserver.dir/src/http/servlets/status_servlet.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/servlets/status_servlet.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/servlets/status_servlet.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/servlets/status_servlet.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http/servlets
+
+build CMakeFiles/webserver.dir/src/http/session_data.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/session_data.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/session_data.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/session_data.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/ws_connection.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/ws_connection.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/ws_connection.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/ws_connection.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/ws_session.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/ws_session.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/ws_session.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/ws_session.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/ws_server.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/ws_server.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/ws_server.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/ws_server.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/ws_servlet.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/ws_servlet.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/ws_servlet.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/ws_servlet.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
 build CMakeFiles/webserver.dir/src/hook.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/hook.cc || cmake_object_order_depends_target_webserver
   DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/hook.cc\"
   DEP_FILE = CMakeFiles/webserver.dir/src/hook.cc.o.d
@@ -153,6 +257,22 @@ build CMakeFiles/webserver.dir/src/fd_manager.cc.o: CXX_COMPILER__webserver_Debu
   OBJECT_DIR = CMakeFiles/webserver.dir
   OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
 
+build CMakeFiles/webserver.dir/src/library.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/library.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/library.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/library.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/util/crypto_util.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/util/crypto_util.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/util/crypto_util.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/util/crypto_util.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/util
+
 build CMakeFiles/webserver.dir/src/util/json_util.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/util/json_util.cc || cmake_object_order_depends_target_webserver
   DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/util/json_util.cc\"
   DEP_FILE = CMakeFiles/webserver.dir/src/util/json_util.cc.o.d
@@ -160,6 +280,182 @@ build CMakeFiles/webserver.dir/src/util/json_util.cc.o: CXX_COMPILER__webserver_
   INCLUDES = -I/home/user/wsl-code/webserver/.
   OBJECT_DIR = CMakeFiles/webserver.dir
   OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/util
+
+build CMakeFiles/webserver.dir/src/util/hash_util.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/util/hash_util.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/util/hash_util.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/util/hash_util.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/util
+
+build CMakeFiles/webserver.dir/src/socket.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/socket.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/socket.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/socket.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/bytearray.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/bytearray.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/bytearray.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/bytearray.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/stream.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/stream.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/stream.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/stream.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/streams/async_socket_stream.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/streams/async_socket_stream.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/streams/async_socket_stream.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/streams/async_socket_stream.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/streams
+
+build CMakeFiles/webserver.dir/src/streams/socket_stream.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/streams/socket_stream.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/streams/socket_stream.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/streams/socket_stream.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/streams
+
+build CMakeFiles/webserver.dir/src/streams/load_balance.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/streams/load_balance.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/streams/load_balance.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/streams/load_balance.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/streams
+
+build CMakeFiles/webserver.dir/src/streams/service_discovery.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/streams/service_discovery.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/streams/service_discovery.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/streams/service_discovery.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/streams
+
+build CMakeFiles/webserver.dir/src/streams/zlib_stream.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/streams/zlib_stream.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/streams/zlib_stream.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/streams/zlib_stream.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/streams
+
+build CMakeFiles/webserver.dir/src/tcp_server.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/tcp_server.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/tcp_server.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/tcp_server.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/zk_client.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/zk_client.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/zk_client.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/zk_client.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/worker.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/worker.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/worker.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/worker.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/module.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/module.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/module.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/module.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/rock/rock_protocol.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/rock/rock_protocol.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/rock/rock_protocol.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/rock/rock_protocol.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/rock
+
+build CMakeFiles/webserver.dir/src/rock/rock_server.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/rock/rock_server.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/rock/rock_server.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/rock/rock_server.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/rock
+
+build CMakeFiles/webserver.dir/src/rock/rock_stream.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/rock/rock_stream.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/rock/rock_stream.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/rock/rock_stream.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/rock
+
+build CMakeFiles/webserver.dir/src/protocol.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/protocol.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/protocol.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/protocol.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/daemon.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/daemon.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/daemon.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/daemon.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/application.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/application.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/application.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/application.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
+
+build CMakeFiles/webserver.dir/src/http/http11_parser.rl.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/http11_parser.rl.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/http11_parser.rl.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/http11_parser.rl.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/http/httpclient_parser.rl.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/http/httpclient_parser.rl.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/http/httpclient_parser.rl.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/http/httpclient_parser.rl.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src/http
+
+build CMakeFiles/webserver.dir/src/uri.rl.cc.o: CXX_COMPILER__webserver_Debug /home/user/wsl-code/webserver/src/uri.rl.cc || cmake_object_order_depends_target_webserver
+  DEFINES = -Dwebserver_EXPORTS -D__FILE__=\"src/uri.rl.cc\"
+  DEP_FILE = CMakeFiles/webserver.dir/src/uri.rl.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g -fPIC
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/webserver.dir
+  OBJECT_FILE_DIR = CMakeFiles/webserver.dir/src
 
 
 # =============================================================================
@@ -169,7 +465,7 @@ build CMakeFiles/webserver.dir/src/util/json_util.cc.o: CXX_COMPILER__webserver_
 #############################################
 # Link the shared library ../lib/libwebserver.so
 
-build ../lib/libwebserver.so: CXX_SHARED_LIBRARY_LINKER__webserver_Debug CMakeFiles/webserver.dir/src/address.cc.o CMakeFiles/webserver.dir/src/log.cc.o CMakeFiles/webserver.dir/src/util.cc.o CMakeFiles/webserver.dir/src/config.cc.o CMakeFiles/webserver.dir/src/thread.cc.o CMakeFiles/webserver.dir/src/mutex.cc.o CMakeFiles/webserver.dir/src/fiber.cc.o CMakeFiles/webserver.dir/src/scheduler.cc.o CMakeFiles/webserver.dir/src/iomanager.cc.o CMakeFiles/webserver.dir/src/timer.cc.o CMakeFiles/webserver.dir/src/env.cc.o CMakeFiles/webserver.dir/src/hook.cc.o CMakeFiles/webserver.dir/src/fd_manager.cc.o CMakeFiles/webserver.dir/src/util/json_util.cc.o
+build ../lib/libwebserver.so: CXX_SHARED_LIBRARY_LINKER__webserver_Debug CMakeFiles/webserver.dir/src/address.cc.o CMakeFiles/webserver.dir/src/log.cc.o CMakeFiles/webserver.dir/src/util.cc.o CMakeFiles/webserver.dir/src/config.cc.o CMakeFiles/webserver.dir/src/thread.cc.o CMakeFiles/webserver.dir/src/mutex.cc.o CMakeFiles/webserver.dir/src/fiber.cc.o CMakeFiles/webserver.dir/src/scheduler.cc.o CMakeFiles/webserver.dir/src/iomanager.cc.o CMakeFiles/webserver.dir/src/timer.cc.o CMakeFiles/webserver.dir/src/env.cc.o CMakeFiles/webserver.dir/src/http/http.cc.o CMakeFiles/webserver.dir/src/http/http_connection.cc.o CMakeFiles/webserver.dir/src/http/http_parser.cc.o CMakeFiles/webserver.dir/src/http/http_session.cc.o CMakeFiles/webserver.dir/src/http/http_server.cc.o CMakeFiles/webserver.dir/src/http/servlet.cc.o CMakeFiles/webserver.dir/src/http/servlets/config_servlet.cc.o CMakeFiles/webserver.dir/src/http/servlets/status_servlet.cc.o CMakeFiles/webserver.dir/src/http/session_data.cc.o CMakeFiles/webserver.dir/src/http/ws_connection.cc.o CMakeFiles/webserver.dir/src/http/ws_session.cc.o CMakeFiles/webserver.dir/src/http/ws_server.cc.o CMakeFiles/webserver.dir/src/http/ws_servlet.cc.o CMakeFiles/webserver.dir/src/hook.cc.o CMakeFiles/webserver.dir/src/fd_manager.cc.o CMakeFiles/webserver.dir/src/library.cc.o CMakeFiles/webserver.dir/src/util/crypto_util.cc.o CMakeFiles/webserver.dir/src/util/json_util.cc.o CMakeFiles/webserver.dir/src/util/hash_util.cc.o CMakeFiles/webserver.dir/src/socket.cc.o CMakeFiles/webserver.dir/src/bytearray.cc.o CMakeFiles/webserver.dir/src/stream.cc.o CMakeFiles/webserver.dir/src/streams/async_socket_stream.cc.o CMakeFiles/webserver.dir/src/streams/socket_stream.cc.o CMakeFiles/webserver.dir/src/streams/load_balance.cc.o CMakeFiles/webserver.dir/src/streams/service_discovery.cc.o CMakeFiles/webserver.dir/src/streams/zlib_stream.cc.o CMakeFiles/webserver.dir/src/tcp_server.cc.o CMakeFiles/webserver.dir/src/zk_client.cc.o CMakeFiles/webserver.dir/src/worker.cc.o CMakeFiles/webserver.dir/src/module.cc.o CMakeFiles/webserver.dir/src/rock/rock_protocol.cc.o CMakeFiles/webserver.dir/src/rock/rock_server.cc.o CMakeFiles/webserver.dir/src/rock/rock_stream.cc.o CMakeFiles/webserver.dir/src/protocol.cc.o CMakeFiles/webserver.dir/src/daemon.cc.o CMakeFiles/webserver.dir/src/application.cc.o CMakeFiles/webserver.dir/src/http/http11_parser.rl.cc.o CMakeFiles/webserver.dir/src/http/httpclient_parser.rl.cc.o CMakeFiles/webserver.dir/src/uri.rl.cc.o
   LANGUAGE_COMPILE_FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/webserver.dir
@@ -275,10 +571,10 @@ build CMakeFiles/test_config.dir/tests/test_config.cc.o: CXX_COMPILER__test_conf
 #############################################
 # Link the executable ../bin/test_config
 
-build ../bin/test_config: CXX_EXECUTABLE_LINKER__test_config_Debug CMakeFiles/test_config.dir/tests/test_config.cc.o | ../lib/libwebserver.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+build ../bin/test_config: CXX_EXECUTABLE_LINKER__test_config_Debug CMakeFiles/test_config.dir/tests/test_config.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp  -ljsoncpp  -ldl  /usr/local/lib/libprotobuf.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_config.dir
   POST_BUILD = :
@@ -311,10 +607,10 @@ build CMakeFiles/test_thread.dir/tests/test_thread.cc.o: CXX_COMPILER__test_thre
 #############################################
 # Link the executable ../bin/test_thread
 
-build ../bin/test_thread: CXX_EXECUTABLE_LINKER__test_thread_Debug CMakeFiles/test_thread.dir/tests/test_thread.cc.o | ../lib/libwebserver.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+build ../bin/test_thread: CXX_EXECUTABLE_LINKER__test_thread_Debug CMakeFiles/test_thread.dir/tests/test_thread.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp  -ljsoncpp  -ldl  /usr/local/lib/libprotobuf.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_thread.dir
   POST_BUILD = :
@@ -347,10 +643,10 @@ build CMakeFiles/test_util.dir/tests/test_util.cc.o: CXX_COMPILER__test_util_Deb
 #############################################
 # Link the executable ../bin/test_util
 
-build ../bin/test_util: CXX_EXECUTABLE_LINKER__test_util_Debug CMakeFiles/test_util.dir/tests/test_util.cc.o | ../lib/libwebserver.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+build ../bin/test_util: CXX_EXECUTABLE_LINKER__test_util_Debug CMakeFiles/test_util.dir/tests/test_util.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp  -ljsoncpp  -ldl  /usr/local/lib/libprotobuf.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_util.dir
   POST_BUILD = :
@@ -383,10 +679,10 @@ build CMakeFiles/test_fiber.dir/tests/test_fiber.cc.o: CXX_COMPILER__test_fiber_
 #############################################
 # Link the executable ../bin/test_fiber
 
-build ../bin/test_fiber: CXX_EXECUTABLE_LINKER__test_fiber_Debug CMakeFiles/test_fiber.dir/tests/test_fiber.cc.o | ../lib/libwebserver.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+build ../bin/test_fiber: CXX_EXECUTABLE_LINKER__test_fiber_Debug CMakeFiles/test_fiber.dir/tests/test_fiber.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp  -ljsoncpp  -ldl  /usr/local/lib/libprotobuf.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_fiber.dir
   POST_BUILD = :
@@ -419,10 +715,10 @@ build CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o: CXX_COMPILER__tes
 #############################################
 # Link the executable ../bin/test_scheduler
 
-build ../bin/test_scheduler: CXX_EXECUTABLE_LINKER__test_scheduler_Debug CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o | ../lib/libwebserver.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+build ../bin/test_scheduler: CXX_EXECUTABLE_LINKER__test_scheduler_Debug CMakeFiles/test_scheduler.dir/tests/test_scheduler.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp  -ljsoncpp  -ldl  /usr/local/lib/libprotobuf.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_scheduler.dir
   POST_BUILD = :
@@ -455,10 +751,10 @@ build CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.o: CXX_COMPILER__tes
 #############################################
 # Link the executable ../bin/test_iomanager
 
-build ../bin/test_iomanager: CXX_EXECUTABLE_LINKER__test_iomanager_Debug CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.o | ../lib/libwebserver.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+build ../bin/test_iomanager: CXX_EXECUTABLE_LINKER__test_iomanager_Debug CMakeFiles/test_iomanager.dir/tests/test_iomanager.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp  -ljsoncpp  -ldl  /usr/local/lib/libprotobuf.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_iomanager.dir
   POST_BUILD = :
@@ -491,10 +787,10 @@ build CMakeFiles/test_hook.dir/tests/test_hook.cc.o: CXX_COMPILER__test_hook_Deb
 #############################################
 # Link the executable ../bin/test_hook
 
-build ../bin/test_hook: CXX_EXECUTABLE_LINKER__test_hook_Debug CMakeFiles/test_hook.dir/tests/test_hook.cc.o | ../lib/libwebserver.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+build ../bin/test_hook: CXX_EXECUTABLE_LINKER__test_hook_Debug CMakeFiles/test_hook.dir/tests/test_hook.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp  -ljsoncpp  -ldl  /usr/local/lib/libprotobuf.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_hook.dir
   POST_BUILD = :
@@ -527,16 +823,124 @@ build CMakeFiles/test_address.dir/tests/test_address.cc.o: CXX_COMPILER__test_ad
 #############################################
 # Link the executable ../bin/test_address
 
-build ../bin/test_address: CXX_EXECUTABLE_LINKER__test_address_Debug CMakeFiles/test_address.dir/tests/test_address.cc.o | ../lib/libwebserver.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+build ../bin/test_address: CXX_EXECUTABLE_LINKER__test_address_Debug CMakeFiles/test_address.dir/tests/test_address.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
   FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -lpthread  -lyaml-cpp  -ljsoncpp  -ldl  /usr/local/lib/libprotobuf.so
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
   LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/test_address.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = ../bin/test_address
   TARGET_PDB = test_address.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_socket
+
+
+#############################################
+# Order-only phony target for test_socket
+
+build cmake_object_order_depends_target_test_socket: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_socket.dir/tests/test_socket.cc.o: CXX_COMPILER__test_socket_Debug /home/user/wsl-code/webserver/tests/test_socket.cc || cmake_object_order_depends_target_test_socket
+  DEFINES = -D__FILE__=\"tests/test_socket.cc\"
+  DEP_FILE = CMakeFiles/test_socket.dir/tests/test_socket.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_socket.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_socket.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_socket
+
+
+#############################################
+# Link the executable ../bin/test_socket
+
+build ../bin/test_socket: CXX_EXECUTABLE_LINKER__test_socket_Debug CMakeFiles/test_socket.dir/tests/test_socket.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_socket.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_socket
+  TARGET_PDB = test_socket.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_bytearray
+
+
+#############################################
+# Order-only phony target for test_bytearray
+
+build cmake_object_order_depends_target_test_bytearray: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.o: CXX_COMPILER__test_bytearray_Debug /home/user/wsl-code/webserver/tests/test_bytearray.cc || cmake_object_order_depends_target_test_bytearray
+  DEFINES = -D__FILE__=\"tests/test_bytearray.cc\"
+  DEP_FILE = CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_bytearray.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_bytearray.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_bytearray
+
+
+#############################################
+# Link the executable ../bin/test_bytearray
+
+build ../bin/test_bytearray: CXX_EXECUTABLE_LINKER__test_bytearray_Debug CMakeFiles/test_bytearray.dir/tests/test_bytearray.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_bytearray.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_bytearray
+  TARGET_PDB = test_bytearray.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_http
+
+
+#############################################
+# Order-only phony target for test_http
+
+build cmake_object_order_depends_target_test_http: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_http.dir/tests/test_http.cc.o: CXX_COMPILER__test_http_Debug /home/user/wsl-code/webserver/tests/test_http.cc || cmake_object_order_depends_target_test_http
+  DEFINES = -D__FILE__=\"tests/test_http.cc\"
+  DEP_FILE = CMakeFiles/test_http.dir/tests/test_http.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_http.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_http.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_http
+
+
+#############################################
+# Link the executable ../bin/test_http
+
+build ../bin/test_http: CXX_EXECUTABLE_LINKER__test_http_Debug CMakeFiles/test_http.dir/tests/test_http.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_http.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_http
+  TARGET_PDB = test_http.dbg
 
 
 #############################################
@@ -561,6 +965,33 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Custom command for ../src/http/http11_parser.rl.cc
+
+build ../src/http/http11_parser.rl.cc | ${cmake_ninja_workdir}../src/http/http11_parser.rl.cc: CUSTOM_COMMAND ../src/http/http11_parser.rl
+  COMMAND = cd /home/user/wsl-code/webserver/build && cd /home/user/wsl-code/webserver/src/http && ragel /home/user/wsl-code/webserver/src/http/http11_parser.rl -o /home/user/wsl-code/webserver/src/http/http11_parser.rl.cc -l -C -G2 --error-format=msvc
+  DESC = Generating ../src/http/http11_parser.rl.cc
+  restat = 1
+
+
+#############################################
+# Custom command for ../src/http/httpclient_parser.rl.cc
+
+build ../src/http/httpclient_parser.rl.cc | ${cmake_ninja_workdir}../src/http/httpclient_parser.rl.cc: CUSTOM_COMMAND ../src/http/httpclient_parser.rl
+  COMMAND = cd /home/user/wsl-code/webserver/build && cd /home/user/wsl-code/webserver/src/http && ragel /home/user/wsl-code/webserver/src/http/httpclient_parser.rl -o /home/user/wsl-code/webserver/src/http/httpclient_parser.rl.cc -l -C -G2 --error-format=msvc
+  DESC = Generating ../src/http/httpclient_parser.rl.cc
+  restat = 1
+
+
+#############################################
+# Custom command for ../src/uri.rl.cc
+
+build ../src/uri.rl.cc | ${cmake_ninja_workdir}../src/uri.rl.cc: CUSTOM_COMMAND ../src/uri.rl
+  COMMAND = cd /home/user/wsl-code/webserver/build && cd /home/user/wsl-code/webserver/src && ragel /home/user/wsl-code/webserver/src/uri.rl -o /home/user/wsl-code/webserver/src/uri.rl.cc -l -C -G2 --error-format=msvc
+  DESC = Generating ../src/uri.rl.cc
+  restat = 1
+
 # =============================================================================
 # Target aliases.
 
@@ -570,15 +1001,21 @@ build test_address: phony ../bin/test_address
 
 build test_async: phony ../bin/test_async
 
+build test_bytearray: phony ../bin/test_bytearray
+
 build test_config: phony ../bin/test_config
 
 build test_fiber: phony ../bin/test_fiber
 
 build test_hook: phony ../bin/test_hook
 
+build test_http: phony ../bin/test_http
+
 build test_iomanager: phony ../bin/test_iomanager
 
 build test_scheduler: phony ../bin/test_scheduler
+
+build test_socket: phony ../bin/test_socket
 
 build test_thread: phony ../bin/test_thread
 
@@ -596,7 +1033,7 @@ build webserver: phony ../lib/libwebserver.so
 #############################################
 # Folder: /home/user/wsl-code/webserver/build
 
-build all: phony ../lib/libwebserver.so ../bin/test_tuple ../bin/test_async ../bin/test_config ../bin/test_thread ../bin/test_util ../bin/test_fiber ../bin/test_scheduler ../bin/test_iomanager ../bin/test_hook ../bin/test_address
+build all: phony ../lib/libwebserver.so ../bin/test_tuple ../bin/test_async ../bin/test_config ../bin/test_thread ../bin/test_util ../bin/test_fiber ../bin/test_scheduler ../bin/test_iomanager ../bin/test_hook ../bin/test_address ../bin/test_socket ../bin/test_bytearray ../bin/test_http
 
 # =============================================================================
 # Unknown Build Time Dependencies.
@@ -610,14 +1047,14 @@ build all: phony ../lib/libwebserver.so ../bin/test_tuple ../bin/test_async ../b
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../cmake/utils.cmake /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindProtobuf.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../cmake/utils.cmake /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindOpenSSL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindProtobuf.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt ../cmake/utils.cmake /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindProtobuf.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../cmake/utils.cmake /usr/share/cmake-3.22/Modules/CMakeCInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.22/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.22/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.22/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Compiler/GNU.cmake /usr/share/cmake-3.22/Modules/FindOpenSSL.cmake /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.22/Modules/FindPackageMessage.cmake /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake /usr/share/cmake-3.22/Modules/FindProtobuf.cmake /usr/share/cmake-3.22/Modules/FindThreads.cmake /usr/share/cmake-3.22/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.22/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.22/Modules/Platform/Linux.cmake /usr/share/cmake-3.22/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.22/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.22.1/CMakeCCompiler.cmake CMakeFiles/3.22.1/CMakeCXXCompiler.cmake CMakeFiles/3.22.1/CMakeSystem.cmake: phony
 
 
 #############################################

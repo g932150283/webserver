@@ -9,5 +9,8 @@
 /home/user/wsl-code/webserver/build/CMakeFiles/test_iomanager.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_hook.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_address.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_socket.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_bytearray.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_http.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/edit_cache.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/rebuild_cache.dir

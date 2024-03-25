@@ -14,10 +14,16 @@ include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
 # include_directories(${PROJECT_SOURCE_DIR}/src)
+
 find_package(Protobuf)
 if(Protobuf_FOUND)
     include_directories(${Protobuf_INCLUDE_DIRS})
 endif()
+find_package(OpenSSL REQUIRED)
+if(OPENSSL_FOUND)
+    include_directories(${OPENSSL_INCLUDE_DIR})
+endif()
+
 set(LIB_SRC
     src/address.cc
     src/log.cc
@@ -30,21 +36,62 @@ set(LIB_SRC
     src/iomanager.cc
     src/timer.cc
     src/env.cc
+    src/http/http.cc
+    src/http/http_connection.cc
+    src/http/http_parser.cc
+    src/http/http_session.cc
+    src/http/http_server.cc
+    src/http/servlet.cc
+    src/http/servlets/config_servlet.cc
+    src/http/servlets/status_servlet.cc
+    src/http/session_data.cc
+    src/http/ws_connection.cc
+    src/http/ws_session.cc
+    src/http/ws_server.cc
+    src/http/ws_servlet.cc
     src/hook.cc
     src/fd_manager.cc
+    src/library.cc
+    src/util/crypto_util.cc
     src/util/json_util.cc
+    src/util/hash_util.cc
+    src/socket.cc
+    src/bytearray.cc
+    src/stream.cc
+    src/streams/async_socket_stream.cc
+    src/streams/socket_stream.cc
+    src/streams/load_balance.cc
+    src/streams/service_discovery.cc
+    src/streams/zlib_stream.cc
+    src/tcp_server.cc
+    src/zk_client.cc
+    src/worker.cc
+    src/module.cc
+    src/rock/rock_protocol.cc
+    src/rock/rock_server.cc
+    src/rock/rock_stream.cc
+    src/protocol.cc
+    src/daemon.cc
+    src/application.cc
     )
+
+ragelmaker(src/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
+ragelmaker(src/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
+ragelmaker(src/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 add_library(webserver SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(webserver) # __FILE__
 
 set(LIBS
          webserver
+         dl
          pthread
          yaml-cpp
          jsoncpp
-         dl
-         ${PROTOBUF_LIBRARIES}
+         ${OPENSSL_LIBRARIES}
+         ${PROTOBUF_LIBRARIES}         
+         hiredis_vip
+         zookeeper_mt
     )
 
 message("***", ${LIBS})
@@ -100,6 +147,21 @@ add_executable(test_address tests/test_address.cc)
 add_dependencies(test_address webserver)
 force_redefine_file_macro_for_sources(test_address)
 target_link_libraries(test_address ${LIBS})
+
+add_executable(test_socket tests/test_socket.cc)
+add_dependencies(test_socket webserver)
+force_redefine_file_macro_for_sources(test_socket)
+target_link_libraries(test_socket ${LIBS})
+
+add_executable(test_bytearray tests/test_bytearray.cc)
+add_dependencies(test_bytearray webserver)
+force_redefine_file_macro_for_sources(test_bytearray)
+target_link_libraries(test_bytearray ${LIBS})
+
+add_executable(test_http tests/test_http.cc)
+add_dependencies(test_http webserver)
+force_redefine_file_macro_for_sources(test_http)
+target_link_libraries(test_http ${LIBS})
 
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
