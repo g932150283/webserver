@@ -428,95 +428,218 @@ void HttpRequest::initBodyParam() {
 }
 
 
+/**
+ * 初始化 HTTP 请求中的 Cookies。
+ *
+ * 该方法从 HTTP 请求头中解析 "cookie" 字段，以初始化请求中的 Cookies。
+ * 它首先检查是否已经解析过 Cookies（通过 m_parserParamFlag 标志位），
+ * 避免重复解析。如果请求中包含 Cookies，该方法会解析它们，并将结果存储在
+ * m_cookies 成员变量中。解析时，使用 ';' 作为 Cookie 项的分隔符，并对每个
+ * Cookie 项应用 Trim 操作以去除前后空格。
+ *
+ * 注意：该方法仅在 Cookies 尚未解析时执行。一旦 m_parserParamFlag 的第 3 位
+ * 被设置，表示 Cookies 已解析，该方法将直接返回。
+ *
+ * 参数：无。
+ *
+ * 返回值：无（void）。
+ */
 void HttpRequest::initCookies() {
+    // 检查 m_parserParamFlag 的第 3 位以判断 Cookies 是否已解析
     if(m_parserParamFlag & 0x4) {
-        return;
+        return; // 如果已解析，则直接返回
     }
+
+    // 从 HTTP 请求头中获取 "cookie" 字段的值
     std::string cookie = getHeader("cookie");
+
+    // 如果 cookie 字符串为空，则表示请求中没有 Cookie，设置 m_parserParamFlag 的第 3 位，然后返回
     if(cookie.empty()) {
         m_parserParamFlag |= 0x4;
         return;
     }
+
+    // 使用 PARSE_PARAM 宏（或函数）解析 Cookie 字符串，使用 ';' 作为分隔符，将结果存储在 m_cookies 中
+    // 对每个 Cookie 项使用 webserver::StringUtil::Trim 函数去除前后空格
     PARSE_PARAM(cookie, m_cookies, ';', webserver::StringUtil::Trim);
+
+    // 解析完成，设置 m_parserParamFlag 的第 3 位为 1
     m_parserParamFlag |= 0x4;
 }
 
 
+/**
+ * 构造函数：初始化 HttpResponse 对象。
+ *
+ * 构造一个 HttpResponse 对象，并设置其初始状态、版本、连接关闭标志以及 websocket 标志。
+ *
+ * 参数:
+ * - version (uint8_t): HTTP 响应的版本号。
+ * - close (bool): 指示在响应后是否关闭连接。
+ *
+ * 返回值: 无（构造函数）。
+ */
 HttpResponse::HttpResponse(uint8_t version, bool close)
-    :m_status(HttpStatus::OK)
-    ,m_version(version)
-    ,m_close(close)
-    ,m_websocket(false) {
+    : m_status(HttpStatus::OK) // 默认状态码为 OK (200)
+    , m_version(version)        // 设置 HTTP 版本
+    , m_close(close)            // 设置连接是否关闭
+    , m_websocket(false)        // 默认 websocket 支持为关闭
+{
 }
 
+/**
+ * 获取指定 HTTP 响应头的值。
+ *
+ * 如果给定的 key 存在于响应头中，则返回其对应的值；否则，返回提供的默认值 def。
+ *
+ * 参数:
+ * - key (const std::string&): 要获取的响应头的键。
+ * - def (const std::string&): 如果键不存在时返回的默认值。
+ *
+ * 返回值:
+ * - std::string: 响应头的值，或者默认值。
+ */
 std::string HttpResponse::getHeader(const std::string& key, const std::string& def) const {
-    auto it = m_headers.find(key);
-    return it == m_headers.end() ? def : it->second;
+    auto it = m_headers.find(key); // 在响应头映射中查找键
+    return it == m_headers.end() ? def : it->second; // 如果找到，则返回值；否则返回默认值
 }
 
+/**
+ * 设置 HTTP 响应头。
+ *
+ * 在响应头中添加或更新一个键值对。如果键已存在，其值将被更新为提供的 val。
+ *
+ * 参数:
+ * - key (const std::string&): 要设置的响应头的键。
+ * - val (const std::string&): 要设置的响应头的值。
+ *
+ * 返回值: 无。
+ */
 void HttpResponse::setHeader(const std::string& key, const std::string& val) {
-    m_headers[key] = val;
+    m_headers[key] = val; // 设置或更新响应头
 }
 
+/**
+ * 删除 HTTP 响应头。
+ *
+ * 如果给定的键存在于响应头中，则删除该键及其对应的值。
+ *
+ * 参数:
+ * - key (const std::string&): 要删除的响应头的键。
+ *
+ * 返回值: 无。
+ */
 void HttpResponse::delHeader(const std::string& key) {
-    m_headers.erase(key);
+    m_headers.erase(key); // 从响应头映射中删除键
 }
 
+/**
+ * 设置重定向。
+ *
+ * 将响应的状态码设置为 302 (Found)，并设置 "Location" 响应头以指示重定向的 URI。
+ *
+ * 参数:
+ * - uri (const std::string&): 重定向目标的 URI。
+ *
+ * 返回值: 无。
+ */
 void HttpResponse::setRedirect(const std::string& uri) {
-    m_status = HttpStatus::FOUND;
-    setHeader("Location", uri);
+    m_status = HttpStatus::FOUND; // 设置状态码为 302 Found
+    setHeader("Location", uri);   // 设置 "Location" 响应头
 }
 
+/**
+ * 设置一个 Cookie。
+ *
+ * 在响应中添加一个 Set-Cookie 头部，允许你指定一个 Cookie 的键、值、过期时间、路径、域以及是否仅通过安全连接发送。
+ *
+ * 参数:
+ * - key (const std::string&): Cookie 的键。
+ * - val (const std::string&): Cookie 的值。
+ * - expired (time_t): Cookie 的过期时间（UNIX 时间戳）。如果大于 0，则设置过期时间。
+ * - path (const std::string&): Cookie 的路径。如果非空，则添加到 Cookie 中。
+ * - domain (const std::string&): Cookie 的域。如果非空，则添加到 Cookie 中。
+ * - secure (bool): 如果为 true，则 Cookie 仅通过安全连接发送。
+ *
+ * 返回值: 无。
+ */
 void HttpResponse::setCookie(const std::string& key, const std::string& val,
                              time_t expired, const std::string& path,
                              const std::string& domain, bool secure) {
     std::stringstream ss;
-    ss << key << "=" << val;
+    ss << key << "=" << val; // 添加键值对
     if(expired > 0) {
+        // 如果指定了过期时间，将其格式化并添加
         ss << ";expires=" << webserver::Time2Str(expired, "%a, %d %b %Y %H:%M:%S") << " GMT";
     }
     if(!domain.empty()) {
-        ss << ";domain=" << domain;
+        ss << ";domain=" << domain; // 添加域
     }
     if(!path.empty()) {
-        ss << ";path=" << path;
+        ss << ";path=" << path; // 添加路径
     }
     if(secure) {
-        ss << ";secure";
+        ss << ";secure"; // 添加安全标记
     }
-    m_cookies.push_back(ss.str());
+    m_cookies.push_back(ss.str()); // 将生成的 Cookie 字符串添加到响应的 Cookie 列表中
 }
 
-
+/**
+ * 将 HTTP 响应转换为字符串。
+ *
+ * 使用内部的 dump 方法将响应的各部分（状态行、头部、Cookies 和正文）序列化为一个字符串。
+ *
+ * 参数: 无。
+ *
+ * 返回值:
+ * - std::string: 表示整个 HTTP 响应的字符串。
+ */
 std::string HttpResponse::toString() const {
     std::stringstream ss;
-    dump(ss);
-    return ss.str();
+    dump(ss); // 调用 dump 方法输出响应的各部分
+    return ss.str(); // 返回序列化后的字符串
 }
 
+/**
+ * 输出 HTTP 响应到流。
+ *
+ * 将 HTTP 响应的状态行、头部、Cookies 和正文输出到提供的输出流中。如果是 WebSocket 连接，
+ * 则忽略 "connection" 头部。此外，根据连接是否保持活动，输出 "connection" 头部的值。
+ *
+ * 参数:
+ * - os (std::ostream&): 要输出到的流。
+ *
+ * 返回值:
+ * - std::ostream&: 输出流的引用，允许链式调用。
+ */
 std::ostream& HttpResponse::dump(std::ostream& os) const {
+    // 输出状态行
     os << "HTTP/"
-       << ((uint32_t)(m_version >> 4))
+       << ((uint32_t)(m_version >> 4)) // 主版本号
        << "."
-       << ((uint32_t)(m_version & 0x0F))
+       << ((uint32_t)(m_version & 0x0F)) // 副版本号
        << " "
-       << (uint32_t)m_status
+       << (uint32_t)m_status // 状态码
        << " "
-       << (m_reason.empty() ? HttpStatusToString(m_status) : m_reason)
+       << (m_reason.empty() ? HttpStatusToString(m_status) : m_reason) // 原因短语
        << "\r\n";
 
+    // 输出头部，忽略 WebSocket 连接的 "connection" 头部
     for(auto& i : m_headers) {
         if(!m_websocket && strcasecmp(i.first.c_str(), "connection") == 0) {
             continue;
         }
         os << i.first << ": " << i.second << "\r\n";
     }
+    // 输出 Cookies
     for(auto& i : m_cookies) {
         os << "Set-Cookie: " << i << "\r\n";
     }
+    // 输出连接状态
     if(!m_websocket) {
         os << "connection: " << (m_close ? "close" : "keep-alive") << "\r\n";
     }
+    // 如果有正文，输出正文长度和正文本身
     if(!m_body.empty()) {
         os << "content-length: " << m_body.size() << "\r\n\r\n"
            << m_body;
@@ -526,13 +649,20 @@ std::ostream& HttpResponse::dump(std::ostream& os) const {
     return os;
 }
 
+/**
+ * 重载 << 运算符以允许直接向流输出 HttpRequest 对象。
+ */
 std::ostream& operator<<(std::ostream& os, const HttpRequest& req) {
     return req.dump(os);
 }
 
+/**
+ * 重载 << 运算符以允许直接向流输出 HttpResponse 对象。
+ */
 std::ostream& operator<<(std::ostream& os, const HttpResponse& rsp) {
     return rsp.dump(os);
 }
+
 
 }
 }

@@ -942,6 +942,258 @@ build ../bin/test_http: CXX_EXECUTABLE_LINKER__test_http_Debug CMakeFiles/test_h
   TARGET_FILE = ../bin/test_http
   TARGET_PDB = test_http.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target test_http_parser
+
+
+#############################################
+# Order-only phony target for test_http_parser
+
+build cmake_object_order_depends_target_test_http_parser: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_http_parser.dir/tests/test_http_parser.cc.o: CXX_COMPILER__test_http_parser_Debug /home/user/wsl-code/webserver/tests/test_http_parser.cc || cmake_object_order_depends_target_test_http_parser
+  DEFINES = -D__FILE__=\"tests/test_http_parser.cc\"
+  DEP_FILE = CMakeFiles/test_http_parser.dir/tests/test_http_parser.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_http_parser.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_http_parser.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_http_parser
+
+
+#############################################
+# Link the executable ../bin/test_http_parser
+
+build ../bin/test_http_parser: CXX_EXECUTABLE_LINKER__test_http_parser_Debug CMakeFiles/test_http_parser.dir/tests/test_http_parser.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_http_parser.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_http_parser
+  TARGET_PDB = test_http_parser.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_tcp_server
+
+
+#############################################
+# Order-only phony target for test_tcp_server
+
+build cmake_object_order_depends_target_test_tcp_server: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_tcp_server.dir/tests/test_tcp_server.cc.o: CXX_COMPILER__test_tcp_server_Debug /home/user/wsl-code/webserver/tests/test_tcp_server.cc || cmake_object_order_depends_target_test_tcp_server
+  DEFINES = -D__FILE__=\"tests/test_tcp_server.cc\"
+  DEP_FILE = CMakeFiles/test_tcp_server.dir/tests/test_tcp_server.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_tcp_server.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_tcp_server.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_tcp_server
+
+
+#############################################
+# Link the executable ../bin/test_tcp_server
+
+build ../bin/test_tcp_server: CXX_EXECUTABLE_LINKER__test_tcp_server_Debug CMakeFiles/test_tcp_server.dir/tests/test_tcp_server.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_tcp_server.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_tcp_server
+  TARGET_PDB = test_tcp_server.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target echo_server
+
+
+#############################################
+# Order-only phony target for echo_server
+
+build cmake_object_order_depends_target_echo_server: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/echo_server.dir/examples/echo_server.cc.o: CXX_COMPILER__echo_server_Debug /home/user/wsl-code/webserver/examples/echo_server.cc || cmake_object_order_depends_target_echo_server
+  DEFINES = -D__FILE__=\"examples/echo_server.cc\"
+  DEP_FILE = CMakeFiles/echo_server.dir/examples/echo_server.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/echo_server.dir
+  OBJECT_FILE_DIR = CMakeFiles/echo_server.dir/examples
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target echo_server
+
+
+#############################################
+# Link the executable ../bin/echo_server
+
+build ../bin/echo_server: CXX_EXECUTABLE_LINKER__echo_server_Debug CMakeFiles/echo_server.dir/examples/echo_server.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/echo_server.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/echo_server
+  TARGET_PDB = echo_server.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_http_server
+
+
+#############################################
+# Order-only phony target for test_http_server
+
+build cmake_object_order_depends_target_test_http_server: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_http_server.dir/tests/test_http_server.cc.o: CXX_COMPILER__test_http_server_Debug /home/user/wsl-code/webserver/tests/test_http_server.cc || cmake_object_order_depends_target_test_http_server
+  DEFINES = -D__FILE__=\"tests/test_http_server.cc\"
+  DEP_FILE = CMakeFiles/test_http_server.dir/tests/test_http_server.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_http_server.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_http_server.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_http_server
+
+
+#############################################
+# Link the executable ../bin/test_http_server
+
+build ../bin/test_http_server: CXX_EXECUTABLE_LINKER__test_http_server_Debug CMakeFiles/test_http_server.dir/tests/test_http_server.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_http_server.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_http_server
+  TARGET_PDB = test_http_server.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_http_connection
+
+
+#############################################
+# Order-only phony target for test_http_connection
+
+build cmake_object_order_depends_target_test_http_connection: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.o: CXX_COMPILER__test_http_connection_Debug /home/user/wsl-code/webserver/tests/test_http_connection.cc || cmake_object_order_depends_target_test_http_connection
+  DEFINES = -D__FILE__=\"tests/test_http_connection.cc\"
+  DEP_FILE = CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_http_connection.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_http_connection.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_http_connection
+
+
+#############################################
+# Link the executable ../bin/test_http_connection
+
+build ../bin/test_http_connection: CXX_EXECUTABLE_LINKER__test_http_connection_Debug CMakeFiles/test_http_connection.dir/tests/test_http_connection.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_http_connection.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_http_connection
+  TARGET_PDB = test_http_connection.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_uri
+
+
+#############################################
+# Order-only phony target for test_uri
+
+build cmake_object_order_depends_target_test_uri: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/test_uri.dir/tests/test_uri.cc.o: CXX_COMPILER__test_uri_Debug /home/user/wsl-code/webserver/tests/test_uri.cc || cmake_object_order_depends_target_test_uri
+  DEFINES = -D__FILE__=\"tests/test_uri.cc\"
+  DEP_FILE = CMakeFiles/test_uri.dir/tests/test_uri.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/test_uri.dir
+  OBJECT_FILE_DIR = CMakeFiles/test_uri.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_uri
+
+
+#############################################
+# Link the executable ../bin/test_uri
+
+build ../bin/test_uri: CXX_EXECUTABLE_LINKER__test_uri_Debug CMakeFiles/test_uri.dir/tests/test_uri.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/test_uri.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/test_uri
+  TARGET_PDB = test_uri.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target my_http_server
+
+
+#############################################
+# Order-only phony target for my_http_server
+
+build cmake_object_order_depends_target_my_http_server: phony || cmake_object_order_depends_target_webserver
+
+build CMakeFiles/my_http_server.dir/samples/my_http_server.cc.o: CXX_COMPILER__my_http_server_Debug /home/user/wsl-code/webserver/samples/my_http_server.cc || cmake_object_order_depends_target_my_http_server
+  DEFINES = -D__FILE__=\"samples/my_http_server.cc\"
+  DEP_FILE = CMakeFiles/my_http_server.dir/samples/my_http_server.cc.o.d
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  INCLUDES = -I/home/user/wsl-code/webserver/.
+  OBJECT_DIR = CMakeFiles/my_http_server.dir
+  OBJECT_FILE_DIR = CMakeFiles/my_http_server.dir/samples
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target my_http_server
+
+
+#############################################
+# Link the executable ../bin/my_http_server
+
+build ../bin/my_http_server: CXX_EXECUTABLE_LINKER__my_http_server_Debug CMakeFiles/my_http_server.dir/samples/my_http_server.cc.o | ../lib/libwebserver.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/local/lib/libprotobuf.so || ../lib/libwebserver.so
+  FLAGS = -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g
+  LINK_FLAGS = -rdynamic
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib:/home/user/wsl-code/webserver/lib  ../lib/libwebserver.so  -ldl  -lpthread  -lyaml-cpp  -ljsoncpp  -lssl  -lcrypto  /usr/local/lib/libprotobuf.so  -lhiredis_vip  -lzookeeper_mt
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/my_http_server.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = ../bin/my_http_server
+  TARGET_PDB = my_http_server.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -995,7 +1247,11 @@ build ../src/uri.rl.cc | ${cmake_ninja_workdir}../src/uri.rl.cc: CUSTOM_COMMAND 
 # =============================================================================
 # Target aliases.
 
+build echo_server: phony ../bin/echo_server
+
 build libwebserver.so: phony ../lib/libwebserver.so
+
+build my_http_server: phony ../bin/my_http_server
 
 build test_address: phony ../bin/test_address
 
@@ -1011,15 +1267,25 @@ build test_hook: phony ../bin/test_hook
 
 build test_http: phony ../bin/test_http
 
+build test_http_connection: phony ../bin/test_http_connection
+
+build test_http_parser: phony ../bin/test_http_parser
+
+build test_http_server: phony ../bin/test_http_server
+
 build test_iomanager: phony ../bin/test_iomanager
 
 build test_scheduler: phony ../bin/test_scheduler
 
 build test_socket: phony ../bin/test_socket
 
+build test_tcp_server: phony ../bin/test_tcp_server
+
 build test_thread: phony ../bin/test_thread
 
 build test_tuple: phony ../bin/test_tuple
+
+build test_uri: phony ../bin/test_uri
 
 build test_util: phony ../bin/test_util
 
@@ -1033,7 +1299,7 @@ build webserver: phony ../lib/libwebserver.so
 #############################################
 # Folder: /home/user/wsl-code/webserver/build
 
-build all: phony ../lib/libwebserver.so ../bin/test_tuple ../bin/test_async ../bin/test_config ../bin/test_thread ../bin/test_util ../bin/test_fiber ../bin/test_scheduler ../bin/test_iomanager ../bin/test_hook ../bin/test_address ../bin/test_socket ../bin/test_bytearray ../bin/test_http
+build all: phony ../lib/libwebserver.so ../bin/test_tuple ../bin/test_async ../bin/test_config ../bin/test_thread ../bin/test_util ../bin/test_fiber ../bin/test_scheduler ../bin/test_iomanager ../bin/test_hook ../bin/test_address ../bin/test_socket ../bin/test_bytearray ../bin/test_http ../bin/test_http_parser ../bin/test_tcp_server ../bin/echo_server ../bin/test_http_server ../bin/test_http_connection ../bin/test_uri ../bin/my_http_server
 
 # =============================================================================
 # Unknown Build Time Dependencies.

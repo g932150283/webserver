@@ -28,7 +28,14 @@
 						10,
 						11,
 						12,
-						13
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20
 					]
 				}
 			],
@@ -56,12 +63,33 @@
 						10,
 						11,
 						12,
-						13
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20
 					]
 				}
 			],
 			"targets" : 
 			[
+				{
+					"directoryIndex" : 0,
+					"id" : "echo_server::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-echo_server-Debug-5be41b4cfc2539414727.json",
+					"name" : "echo_server",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "my_http_server::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-my_http_server-Debug-158aec4476ee76d9777b.json",
+					"name" : "my_http_server",
+					"projectIndex" : 0
+				},
 				{
 					"directoryIndex" : 0,
 					"id" : "test_address::@6890427a1f51a3e7e1df",
@@ -113,6 +141,27 @@
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "test_http_connection::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_http_connection-Debug-065721a62157af35d72b.json",
+					"name" : "test_http_connection",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_http_parser::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_http_parser-Debug-8661c53867c5760e904d.json",
+					"name" : "test_http_parser",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_http_server::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_http_server-Debug-8772cda1ecbf3f503874.json",
+					"name" : "test_http_server",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "test_iomanager::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-test_iomanager-Debug-22942e4633df1aea362d.json",
 					"name" : "test_iomanager",
@@ -134,6 +183,13 @@
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "test_tcp_server::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_tcp_server-Debug-f733a46cf71af9734a9d.json",
+					"name" : "test_tcp_server",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "test_thread::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-test_thread-Debug-d0cfe33b1212af8d2b2f.json",
 					"name" : "test_thread",
@@ -144,6 +200,13 @@
 					"id" : "test_tuple::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-test_tuple-Debug-998c697904846e44e8ce.json",
 					"name" : "test_tuple",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_uri::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_uri-Debug-ca137d2f2fd1b683ffd7.json",
+					"name" : "test_uri",
 					"projectIndex" : 0
 				},
 				{

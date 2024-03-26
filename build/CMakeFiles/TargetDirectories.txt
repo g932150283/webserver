@@ -12,5 +12,12 @@
 /home/user/wsl-code/webserver/build/CMakeFiles/test_socket.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_bytearray.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/test_http.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_http_parser.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_tcp_server.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/echo_server.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_http_server.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_http_connection.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/test_uri.dir
+/home/user/wsl-code/webserver/build/CMakeFiles/my_http_server.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/edit_cache.dir
 /home/user/wsl-code/webserver/build/CMakeFiles/rebuild_cache.dir

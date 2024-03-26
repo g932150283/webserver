@@ -163,6 +163,42 @@ add_dependencies(test_http webserver)
 force_redefine_file_macro_for_sources(test_http)
 target_link_libraries(test_http ${LIBS})
 
+add_executable(test_http_parser tests/test_http_parser.cc)
+add_dependencies(test_http_parser webserver)
+force_redefine_file_macro_for_sources(test_http_parser)
+target_link_libraries(test_http_parser ${LIBS})
+
+add_executable(test_tcp_server tests/test_tcp_server.cc)
+add_dependencies(test_tcp_server webserver)
+force_redefine_file_macro_for_sources(test_tcp_server)
+target_link_libraries(test_tcp_server ${LIBS})
+
+
+add_executable(echo_server examples/echo_server.cc)
+add_dependencies(echo_server webserver)
+force_redefine_file_macro_for_sources(echo_server)
+target_link_libraries(echo_server ${LIBS})
+
+add_executable(test_http_server tests/test_http_server.cc)
+add_dependencies(test_http_server webserver)
+force_redefine_file_macro_for_sources(test_http_server)
+target_link_libraries(test_http_server ${LIBS})
+
+add_executable(test_http_connection tests/test_http_connection.cc)
+add_dependencies(test_http_connection webserver)
+force_redefine_file_macro_for_sources(test_http_connection)
+target_link_libraries(test_http_connection ${LIBS})
+
+add_executable(test_uri tests/test_uri.cc)
+add_dependencies(test_uri webserver)
+force_redefine_file_macro_for_sources(test_uri)
+target_link_libraries(test_uri ${LIBS})
+
+
+add_executable(my_http_server samples/my_http_server.cc)
+add_dependencies(my_http_server webserver)
+force_redefine_file_macro_for_sources(my_http_server)
+target_link_libraries(my_http_server ${LIBS})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

@@ -1,5 +1,108 @@
 # webserver
 
+## 压测
+
+ ab -n 1000000 -c 200 "http://172.30.72.21:8020/webserver"
+
+```nginx 1个线程
+Server Software:        nginx/1.18.0
+Server Hostname:        172.30.72.21
+Server Port:            80
+
+Document Path:          /webserver
+Document Length:        162 bytes
+
+Concurrency Level:      200
+Time taken for tests:   59.502 seconds
+Complete requests:      1000000
+Failed requests:        0
+Non-2xx responses:      1000000
+Total transferred:      321000000 bytes
+HTML transferred:       162000000 bytes
+Requests per second:    16806.23 [#/sec] (mean)
+Time per request:       11.900 [ms] (mean)
+Time per request:       0.060 [ms] (mean, across all concurrent requests)
+Transfer rate:          5268.36 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    5   1.5      5      29
+Processing:     1    7   1.9      7      50
+Waiting:        0    5   1.8      5      45
+Total:          2   12   2.4     11      61
+
+Percentage of the requests served within a certain time (ms)
+  50%     11
+  66%     12
+  75%     12
+  80%     13
+  90%     14
+  95%     16
+  98%     18
+  99%     21
+ 100%     61 (longest request)
+```
+
+```webserver 1个线程
+Server Software:        webserver/1.0.0
+Server Hostname:        172.30.72.21
+Server Port:            8020
+
+Document Path:          /webserver
+Document Length:        140 bytes
+
+Concurrency Level:      200
+Time taken for tests:   30.773 seconds
+Complete requests:      1000000
+Failed requests:        0
+Non-2xx responses:      1000000
+Total transferred:      256000000 bytes
+HTML transferred:       140000000 bytes
+Requests per second:    32496.27 [#/sec] (mean)
+Time per request:       6.155 [ms] (mean)
+Time per request:       0.031 [ms] (mean, across all concurrent requests)
+Transfer rate:          8124.07 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    2   0.8      2      32
+Processing:     1    4   1.4      4      35
+Waiting:        0    3   1.2      3      34
+Total:          2    6   1.7      6      38
+
+Percentage of the requests served within a certain time (ms)
+  50%      6
+  66%      6
+  75%      7
+  80%      7
+  90%      8
+  95%      9
+  98%     10
+  99%     11
+ 100%     38 (longest request)
+```
+
+```
+Server Software:        webserver/1.0.0
+Server Hostname:        172.30.72.21
+Server Port:            8020
+
+Document Path:          /webserver
+Document Length:        140 bytes
+
+Concurrency Level:      200
+Time taken for tests:   47.636 seconds
+Complete requests:      1000000
+Failed requests:        0
+Non-2xx responses:      1000000
+Total transferred:      256000000 bytes
+HTML transferred:       140000000 bytes
+Requests per second:    20992.63 [#/sec] (mean)
+Time per request:       9.527 [ms] (mean)
+Time per request:       0.048 [ms] (mean, across all concurrent requests)
+Transfer rate:          5248.16 [Kbytes/sec] received
+```
+
 ## 项目路径
 
 bin --  二进制
@@ -309,10 +412,26 @@ url: http://www.baidu.com:80/page/xxx?id=10&v=20#fr
     param : id=10&v=20
     fragment : fr
 
+ragel mongrel2
 
-## 分布式协议
+## TcpServer封装
+基于TcpServer实现了一个EchoSever
 
-业务功能、系统功能分开
+## Stream 针对文件/socket封装
+read/write/readFixeSize/writeFixeSize
 
-## 推荐系统
+
+HttpSession/HttpConnection
+Server accept socket -> session
+client connect socket -> connection
+
+HttpServer : TcpServer
+
+        Servlet <--- FunctionServlet
+           |
+           |
+           ↓
+     ServletDispatch
+
+
 

@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2019年 webserver.yin All rights reserved (www.webserver.top)
  */
 #ifndef __WEBSERVER_UTIL_CRYPTO_UTIL_H__
-#define __WEBSERVER_CRYPTO_UTIL_H__
+#define __WEBSERVER_UTIL_CRYPTO_UTIL_H__
 
 #include <openssl/ssl.h>
 #include <openssl/evp.h>
