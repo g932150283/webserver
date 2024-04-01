@@ -315,6 +315,11 @@ run()
 
 ```
 
+
+### IO协程调度模块
+在协程调度模块的基础上，封装了epoll。支持对IO事件的调度功能，可以为socket句柄添加读事件(EPOLLIN)和写事件(EPOLLOUT)，并且支持删除事件功能。IOManager主要通过FdContext结构体存储文件描述符fd, 注册的事件event，执行任务cb/fiber，其中fd和event用于epoll_wait，cb/fiber用于执行任务。
+当有任务时，使用管道pipe来唤醒epoll_wait()先执行其他任务。
+
 ```
 IOManager(epoll) --->Scheduler
             |

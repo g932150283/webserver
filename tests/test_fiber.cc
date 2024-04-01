@@ -4,6 +4,7 @@ webserver::Logger::ptr g_logger = WEBSERVER_LOG_ROOT();
 
 void run_in_fiber() {
     WEBSERVER_LOG_INFO(g_logger) << "run_in_fiber begin";
+    // webserver::Fiber::back();
     webserver::Fiber::YieldToHold();
     WEBSERVER_LOG_INFO(g_logger) << "run_in_fiber end";
     webserver::Fiber::YieldToHold();

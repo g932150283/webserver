@@ -32,7 +32,7 @@ static webserver::Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
  * 详细描述：
  *  - 调用基类TcpServer的构造函数，初始化工作线程、IO线程和接收连接线程。
  *  - 设置m_isKeepalive为提供的keepalive参数。
- *  - 创建一个ServletDispatch对象，并设置默认的NotFoundServlet。
+ *  - 创建一个对象，并设置默认的NotFoundServlet。
  *  - 设置服务器类型为"http"。
  *  - 注册默认的StatusServlet和ConfigServlet。
  */

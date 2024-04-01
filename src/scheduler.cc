@@ -108,10 +108,10 @@ void Scheduler::start() {
     // 将调度器标记为非停止状态，即启动状态
     m_stopping = false;
     
-    // 断言以确保在启动调度器前线程容器为空，避免重复启动
+    // 断言以确保在启动调度器前线程池为空，避免重复启动
     WEBSERVER_ASSERT(m_threads.empty());
     
-    // 根据预设的线程数调整线程容器的大小，准备存放工作线程
+    // 根据预设的线程数调整线程池的大小，准备存放工作线程
     m_threads.resize(m_threadCount);
     
     // 循环创建指定数量的工作线程
@@ -148,7 +148,7 @@ void Scheduler::stop() {
     // 设置自动停止标志为true，表示调度器应当开始停止流程
     m_autoStop = true;
 
-    // 检查根纤程是否存在，线程数量是否为0，以及根纤程是否处于终止(TERM)或初始化(INIT)状态
+    // 检查根协程是否存在，线程数量是否为0，以及根协程是否处于终止(TERM)或初始化(INIT)状态
     if(m_rootFiber
             && m_threadCount == 0
             && (m_rootFiber->getState() == Fiber::TERM
@@ -165,6 +165,8 @@ void Scheduler::stop() {
     }
 
     // 检查是否在根线程上，如果是，则确保当前调度器实例就是此线程的调度器实例
+    // use_caller线程
+    // 当前调度器和t_secheduler相同
     if(m_rootThread != -1) {
         WEBSERVER_ASSERT(GetThis() == this);
     } else {
@@ -179,15 +181,16 @@ void Scheduler::stop() {
         tickle();
     }
 
-    // 如果存在根纤程，则再次发送停止信号
+    // 如果存在根协程，则再次发送停止信号
     if(m_rootFiber) {
         tickle();
     }
 
-    // 如果根纤程存在，并且调度器还未完全停止
+    // 如果根协程存在，并且调度器还未完全停止
+    // 使用use_caller，只要没达到停止条件，调度器主协程交出执行权，执行run
     if(m_rootFiber) {
         if(!stopping()) {
-            // 调用根纤程的call方法，可能是为了处理一些清理任务
+            // 调用根协程的call方法，可能是为了处理一些清理任务
             m_rootFiber->call();
         }
     }
@@ -204,7 +207,7 @@ void Scheduler::stop() {
     for(auto& i : thrs) {
         i->join();
     }
-    // 之前的版本可能考虑在当前纤程退出，但最终这段代码没有被启用
+    // 之前的版本可能考虑在当前协程退出，但最终这段代码没有被启用
     //if(exit_on_this_fiber) {
     //}
 }
@@ -216,55 +219,55 @@ void Scheduler::setThis() {
 
 /*
 
-Scheduler::run函数是调度器的主运行循环，它负责管理和执行纤程（Fiber）以及回调函数。
-这个函数使得调度器能够在多个任务（纤程或回调）之间进行切换，实现非阻塞的并发执行。
-Scheduler::run函数是调度系统的核心，旨在高效地管理和执行纤程（轻量级协作线程）。
-该函数负责协调纤程的运行、调度，并管理回调函数。
+Scheduler::run函数是调度器的主运行循环，它负责管理和执行协程（Fiber）以及回调函数。
+这个函数使得调度器能够在多个任务（协程或回调）之间进行切换，实现非阻塞的并发执行。
+Scheduler::run函数是调度系统的核心，旨在高效地管理和执行协程（轻量级协作线程）。
+该函数负责协调协程的运行、调度，并管理回调函数。
 
 首先，函数通过日志记录启动调度器的信息，便于调试和跟踪。
 接下来，它设置当前调度器实例为线程局部变量，使得在整个线程的执行上下文中都可以访问当前调度器实例。
-如果当前线程不是根线程，则将当前纤程设置为该线程的调度纤程。
-创建了一个空闲纤程idle_fiber，当调度器没有活跃的纤程可运行时，会执行此空闲纤程。空闲纤程通过绑定到调度器的idle函数来创建。
-为了执行回调函数，定义了一个cb_fiber指针，用于将回调函数包装成纤程以便执行。
-定义了一个FiberAndThread结构体ft，用来持有纤程和其关联的线程ID信息。
+如果当前线程不是根线程，则将当前协程设置为该线程的调度协程。
+创建了一个空闲协程idle_fiber，当调度器没有活跃的协程可运行时，会执行此空闲协程。空闲协程通过绑定到调度器的idle函数来创建。
+为了执行回调函数，定义了一个cb_fiber指针，用于将回调函数包装成协程以便执行。
+定义了一个FiberAndThread结构体ft，用来持有协程和其关联的线程ID信息。
 
 主循环：
 
-在无限循环中，调度器不断地重置ft，检查和调度待执行的纤程或回调函数。
-使用互斥锁m_mutex保护纤程队列的访问，避免在多线程环境下的数据竞争。
-遍历纤程队列，选择合适的纤程执行。如果当前线程不适合执行某个纤程（基于线程ID的检查），则继续检查下一个纤程。
-如果找到可执行的纤程或回调，就从队列中移除，并执行它。
-如果执行的是纤程，并且纤程结束后没有处于TERM（终止）或EXCEPT（异常）状态，则根据纤程的状态决定是重新调度还是设置为HOLD状态。
-如果执行的是回调函数，则将回调包装成纤程并执行。执行后同样根据状态决定后续操作。
-如果没有活跃的纤程或回调要执行，并且纤程队列为空，就执行空闲纤程。空闲纤程在没有其它任务可执行时保持调度器运行。
+在无限循环中，调度器不断地重置ft，检查和调度待执行的协程或回调函数。
+使用互斥锁m_mutex保护协程队列的访问，避免在多线程环境下的数据竞争。
+遍历协程队列，选择合适的协程执行。如果当前线程不适合执行某个协程（基于线程ID的检查），则继续检查下一个协程。
+如果找到可执行的协程或回调，就从队列中移除，并执行它。
+如果执行的是协程，并且协程结束后没有处于TERM（终止）或EXCEPT（异常）状态，则根据协程的状态决定是重新调度还是设置为HOLD状态。
+如果执行的是回调函数，则将回调包装成协程并执行。执行后同样根据状态决定后续操作。
+如果没有活跃的协程或回调要执行，并且协程队列为空，就执行空闲协程。空闲协程在没有其它任务可执行时保持调度器运行。
 
-整个run函数通过细致地管理纤程和回调函数的执行，确保调度器能高效地运行。
-通过空闲纤程和主循环的设计，调度器能够在等待新任务时保持响应，同时优化了资源的使用和任务的调度策略。
+整个run函数通过细致地管理协程和回调函数的执行，确保调度器能高效地运行。
+通过空闲协程和主循环的设计，调度器能够在等待新任务时保持响应，同时优化了资源的使用和任务的调度策略。
 
-此函数通过细致地控制纤程和回调的执行，实现了一个高效和灵活的任务调度系统。
-它通过持续检查和执行任务队列中的纤程或回调，确保系统能够充分利用CPU资源，同时也通过空闲纤程保证了调度器在无任务执行时不会占用过多资源。
+此函数通过细致地控制协程和回调的执行，实现了一个高效和灵活的任务调度系统。
+它通过持续检查和执行任务队列中的协程或回调，确保系统能够充分利用CPU资源，同时也通过空闲协程保证了调度器在无任务执行时不会占用过多资源。
 */
-// Scheduler::run函数：调度器的核心运行循环，负责管理和执行纤程以及回调任务。
+// Scheduler::run函数：调度器的核心运行循环，负责管理和执行协程以及回调任务。
 void Scheduler::run() {
     // 记录调度器启动的调试信息，包括调度器的名字。
     WEBSERVER_LOG_DEBUG(g_logger) << m_name << " run";
-    
+    // hook
     set_hook_enable(true);
     // 设置当前线程的Scheduler实例，用于在当前线程内部获取调度器的上下文。
     setThis();
 
-    // 检查当前线程是否为根线程，如果不是，则设置当前纤程为调度器纤程。
+    // 检查当前线程是否为根线程，如果不是，则设置当前协程为调度器协程。
     if(webserver::GetThreadId() != m_rootThread) {
         t_scheduler_fiber = Fiber::GetThis().get();
     }
 
-    // 创建一个空闲纤程，用于调度器在没有任务执行时切换至此纤程，执行idle函数。
+    // 创建一个空闲协程，用于调度器在没有任务执行时切换至此协程，执行idle函数。
     Fiber::ptr idle_fiber(new Fiber(std::bind(&Scheduler::idle, this)));
 
-    // 用于执行回调任务的纤程，初始状态为空。
+    // 用于执行回调任务的协程，初始状态为空。
     Fiber::ptr cb_fiber;
 
-    // 创建一个FiberAndThread结构体实例，用于记录待执行的纤程或回调以及它们对应的线程ID。
+    // 创建一个FiberAndThread结构体实例，用于记录待执行的协程或回调以及它们对应的线程ID。
     FiberAndThread ft;
 
     // 调度器的主循环。
@@ -290,10 +293,10 @@ void Scheduler::run() {
                     continue;
                 }
 
-                // 确保任务是有效的，即有纤程或回调需要执行。
+                // 确保任务是有效的，即有协程或回调需要执行。
                 WEBSERVER_ASSERT(it->fiber || it->cb);
 
-                // 如果任务是纤程，并且纤程已经在执行中，则跳过。
+                // 如果任务是协程，并且协程已经在执行中，则跳过。
                 if(it->fiber && it->fiber->getState() == Fiber::EXEC) {
                     ++it;
                     continue;
@@ -315,36 +318,36 @@ void Scheduler::run() {
             tickle();
         }
 
-        // 如果找到的任务是纤程，并且纤程状态不是终止或异常，则执行纤程。
+        // 如果找到的任务是协程，并且协程状态不是终止或异常，则执行协程。
         if(ft.fiber && (ft.fiber->getState() != Fiber::TERM && ft.fiber->getState() != Fiber::EXCEPT)) {
-            ft.fiber->swapIn(); // 切换到该纤程执行。
+            ft.fiber->swapIn(); // 切换到该协程执行。
             --m_activeThreadCount; // 执行完成后，活跃任务计数减少。
 
-            // 根据纤程执行后的状态，决定是否重新调度该纤程。
+            // 根据协程执行后的状态，决定是否重新调度该协程。
             if(ft.fiber->getState() == Fiber::READY) {
-                schedule(ft.fiber); // 如果纤程准备好再次执行，则重新调度。
+                schedule(ft.fiber); // 如果协程准备好再次执行，则重新调度。
             } else if(ft.fiber->getState() != Fiber::TERM && ft.fiber->getState() != Fiber::EXCEPT) {
-                ft.fiber->m_state = Fiber::HOLD; // 如果纤程未终止且无异常，则设置为保持状态。
+                ft.fiber->m_state = Fiber::HOLD; // 如果协程未终止且无异常，则设置为保持状态。
             }
             ft.reset(); // 重置ft，准备下一轮循环。
         } else if(ft.cb) { // 如果找到的任务是回调函数，则执行回调。
-            // 如果已有回调纤程，则重置其任务为当前回调；否则创建新的回调纤程。
+            // 如果已有回调协程，则重置其任务为当前回调；否则创建新的回调协程。
             if(cb_fiber) {
                 cb_fiber->reset(ft.cb);
             } else {
                 cb_fiber.reset(new Fiber(ft.cb));
             }
             ft.reset(); // 重置ft，准备执行回调。
-            cb_fiber->swapIn(); // 切换到回调纤程执行。
+            cb_fiber->swapIn(); // 切换到回调协程执行。
             --m_activeThreadCount; // 执行完成后，活跃任务计数减少。
 
-            // 根据回调纤程执行后的状态，决定是否重新调度。
+            // 根据回调协程执行后的状态，决定是否重新调度。
             if(cb_fiber->getState() == Fiber::READY) {
-                schedule(cb_fiber); // 如果回调纤程准备好再次执行，则重新调度。
+                schedule(cb_fiber); // 如果回调协程准备好再次执行，则重新调度。
                 cb_fiber.reset(); // 重置cb_fiber，准备下一轮循环。
             } else if(cb_fiber->getState() == Fiber::EXCEPT || cb_fiber->getState() == Fiber::TERM) {
-                cb_fiber->reset(nullptr); // 如果回调纤程终止或异常，则清空cb_fiber。
-            } else { // 如果回调纤程状态为其他，则设置为保持状态，并重置cb_fiber。
+                cb_fiber->reset(nullptr); // 如果回调协程终止或异常，则清空cb_fiber。
+            } else { // 如果回调协程状态为其他，则设置为保持状态，并重置cb_fiber。
                 cb_fiber->m_state = Fiber::HOLD;
                 cb_fiber.reset();
             }
@@ -353,18 +356,18 @@ void Scheduler::run() {
                 --m_activeThreadCount;
                 continue;
             }
-            // 如果空闲纤程已终止，则退出主循环。
+            // 如果空闲协程已终止，则退出主循环。
             if(idle_fiber->getState() == Fiber::TERM) {
                 WEBSERVER_LOG_INFO(g_logger) << "idle fiber term";
                 break;
             }
 
-            // 没有任务执行时，切换到空闲纤程，直到有新的任务到来。
+            // 没有任务执行时，切换到空闲协程，直到有新的任务到来。
             ++m_idleThreadCount; // 空闲线程计数增加。
-            idle_fiber->swapIn(); // 切换到空闲纤程执行。
+            idle_fiber->swapIn(); // 切换到空闲协程执行。
             --m_idleThreadCount; // 执行完成后，空闲线程计数减少。
 
-            // 根据空闲纤程执行后的状态，决定是否设置为保持状态。
+            // 根据空闲协程执行后的状态，决定是否设置为保持状态。
             if(idle_fiber->getState() != Fiber::TERM && idle_fiber->getState() != Fiber::EXCEPT) {
                 idle_fiber->m_state = Fiber::HOLD;
             }
@@ -394,7 +397,7 @@ bool Scheduler::stopping() {
     // 如果满足以下所有条件，则返回true，表示调度器正在停止：
     // 1. 自动停止被启用；
     // 2. 明确要求停止；
-    // 3. 没有待处理的纤程；
+    // 3. 没有待处理的协程；
     // 4. 没有活跃的线程。
     return m_autoStop && m_stopping && m_fibers.empty() && m_activeThreadCount == 0;
 }
@@ -403,14 +406,14 @@ bool Scheduler::stopping() {
 // 调度器空闲时执行的函数。
 /*
 idle函数在调度器没有任务可以执行时被调用，它会不断检查调度器是否应该停止。
-如果不应该停止，它将使当前纤程让出执行权，让其他纤程有机会执行，直到新的任务到来。
+如果不应该停止，它将使当前协程让出执行权，让其他协程有机会执行，直到新的任务到来。
 */
 void Scheduler::idle() {
     // 记录进入空闲状态的日志信息。
     WEBSERVER_LOG_INFO(g_logger) << "idle";
     // 当调度器没有停止时，循环执行。
     while(!stopping()) {
-        // 让当前纤程让出执行权，进入等待或保持状态，直到有新的任务需要处理。
+        // 让当前协程让出执行权，进入等待或保持状态，直到有新的任务需要处理。
         webserver::Fiber::YieldToHold();
     }
 }
@@ -418,9 +421,9 @@ void Scheduler::idle() {
 
 // 切换执行线程。
 /*
-switchTo函数用于将当前执行的纤程切换到指定的线程上执行。
+switchTo函数用于将当前执行的协程切换到指定的线程上执行。
 如果当前调度器与调用此函数的调度器相同，且指定的线程为-1（表示不关心线程）或当前线程ID，则不会进行切换。
-否则，它会调度当前纤程到指定的线程上，并让当前纤程让出执行权。
+否则，它会调度当前协程到指定的线程上，并让当前协程让出执行权。
 */
 void Scheduler::switchTo(int thread) {
     // 确保当前存在调度器实例。
@@ -431,9 +434,9 @@ void Scheduler::switchTo(int thread) {
             return;
         }
     }
-    // 将当前纤程调度到指定线程上执行。
+    // 将当前协程调度到指定线程上执行。
     schedule(Fiber::GetThis(), thread);
-    // 让当前纤程让出执行权，等待被再次调度执行。
+    // 让当前协程让出执行权，等待被再次调度执行。
     Fiber::YieldToHold();
 }
 
