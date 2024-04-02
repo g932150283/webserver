@@ -179,8 +179,12 @@ IOManager::IOManager(size_t threads, bool use_caller, const std::string& name)
     epoll_event event; // 定义一个epoll事件
     memset(&event, 0, sizeof(epoll_event)); // 初始化epoll事件结构体
     event.events = EPOLLIN | EPOLLET; // 设置事件类型为输入事件和边缘触发
+    // fd关联pipe的读端
     event.data.fd = m_tickleFds[0]; // 将管道读端设置为epoll事件的文件描述符
 
+    // 对一个打开的文件描述符执行一系列控制操作
+    // F_SETFL: 获取/设置文件状态标志
+    // O_NONBLOCK: 使I/O变成非阻塞模式，在读取不到数据或是写入缓冲区已满会马上return，而不会阻塞等待。
     rt = fcntl(m_tickleFds[0], F_SETFL, O_NONBLOCK); // 设置管道读端为非阻塞模式
     WEBSERVER_ASSERT(!rt); // 断言设置成功
 
@@ -214,7 +218,7 @@ IOManager::~IOManager() {
     close(m_tickleFds[0]); // 关闭用于通知事件循环的管道读端。
     close(m_tickleFds[1]); // 关闭用于通知事件循环的管道写端。
 
-    // 遍历并清理所有的文件描述符上下文对象
+    // 遍历并清理所有的文件描述符上下文对象 释放 m_fdContexts 内存
     for(size_t i = 0; i < m_fdContexts.size(); ++i) {
         if(m_fdContexts[i]) { // 如果上下文对象存在
             delete m_fdContexts[i]; // 删除对象，释放内存
@@ -316,10 +320,12 @@ void IOManager::contextResize(size_t size) {
  * 通过细致地管理每个文件描述符的事件监听和回调，IOManager能够高效地处理大量并发的IO操作。
  */
 int IOManager::addEvent(int fd, Event event, std::function<void()> cb) {
+    // 初始化一个 FdContext
     FdContext* fd_ctx = nullptr; // 定义文件描述符上下文指针。
     
     // 首先尝试以读锁的方式获取锁，避免写锁的高开销。
     RWMutexType::ReadLock lock(m_mutex);
+    // 从 m_fdContexts 中拿到对应的 FdContext
     if((int)m_fdContexts.size() > fd) { // 检查fd是否已经有对应的上下文。
         fd_ctx = m_fdContexts[fd]; // 获取文件描述符上下文。
         lock.unlock(); // 解锁读锁。
@@ -332,6 +338,7 @@ int IOManager::addEvent(int fd, Event event, std::function<void()> cb) {
 
     // 对文件描述符上下文加锁，避免并发修改。
     FdContext::MutexType::Lock lock2(fd_ctx->mutex);
+    // 一个句柄一般不会重复加同一个事件， 可能是两个不同的线程在操控同一个句柄添加事件
     // 检查是否已经监听了该事件，如果是，则记录错误并断言。
     if(WEBSERVER_UNLIKELY(fd_ctx->events & event)) {
         WEBSERVER_LOG_ERROR(g_logger) << "addEvent assert fd=" << fd
@@ -341,9 +348,12 @@ int IOManager::addEvent(int fd, Event event, std::function<void()> cb) {
     }
 
     // 判断是修改现有事件监听（EPOLL_CTL_MOD）还是添加新的事件监听（EPOLL_CTL_ADD）。
+    // 若已经有注册的事件则为修改操作，若没有则为添加操作
     int op = fd_ctx->events ? EPOLL_CTL_MOD : EPOLL_CTL_ADD;
     epoll_event epevent; // 定义epoll事件。
+    // 设置边缘触发模式，添加原有的事件以及要注册的事件
     epevent.events = EPOLLET | fd_ctx->events | event; // 设置事件类型，包括边缘触发和新事件。
+    // 将fd_ctx存到data的指针中
     epevent.data.ptr = fd_ctx; // 将文件描述符上下文作为回调数据。
 
     // 调用epoll_ctl添加或修改事件监听。
@@ -369,6 +379,7 @@ int IOManager::addEvent(int fd, Event event, std::function<void()> cb) {
 
     // 设置事件上下文的调度器为当前调度器实例。
     event_ctx.scheduler = Scheduler::GetThis();
+    // 如果有回调就执行回调，没有就执行该协程
     if(cb) { // 如果提供了回调函数，则设置回调函数。
         event_ctx.cb.swap(cb);
     } else { // 否则，设置当前协程为事件处理协程。
@@ -567,7 +578,7 @@ bool IOManager::cancelEvent(int fd, Event event) {
             << rt << " (" << errno << ") (" << strerror(errno) << ")";
         return false;
     }
-
+    // 取消事件会触发该事件
     // 成功更新epoll监听状态后，触发指定事件的处理
     fd_ctx->triggerEvent(event);
     // 减少待处理的事件计数
@@ -710,6 +721,7 @@ dynamic_cast 是 C++ 中用于运行时类型检查的一个操作符，它确�
 
 */
 IOManager* IOManager::GetThis() {
+    // 获得当前IO调度器
     // 将当前线程的 Scheduler 实例转型为 IOManager 实例并返回。
     // dynamic_cast 在运行时执行类型安全的向下转换，用于确定某个基类指针或引用是否可以安全地转换为派生类指针或引用。
     // Scheduler::GetThis() 用于获取当前线程关联的 Scheduler 实例。
@@ -727,6 +739,7 @@ IOManager* IOManager::GetThis() {
 函数中的断言 WEBSERVER_ASSERT(rt == 1); 确保写操作正常完成，确切地写入了一个字节。
 如果写入的字节数不是预期的一个字节，断言将触发，可能会导致程序中断或输出错误信息。
 */
+// 通知有任务
 void IOManager::tickle() {
     // 检查是否存在空闲线程可以处理新任务
     if(!hasIdleThreads()) {
@@ -774,6 +787,7 @@ void IOManager::tickle() {
  * 
  * 总的来说，这个函数的作用是判断IO管理器是否应该停止运行，它通过检查是否有待处理的定时器事件、非定时器事件以及调度器的停止状态来做出决定。
  */
+// 停止条件
 bool IOManager::stopping(uint64_t& timeout) {
     // 获取下一个定时器的超时时间，并将其赋值给timeout参数。
     timeout = getNextTimer();
@@ -896,10 +910,10 @@ void IOManager::idle() {
 
     // 最大事件数量，用于epoll_wait调用。
     const uint64_t MAX_EVNETS = 256;
-
+    
     // 动态分配一个足够大的epoll_event数组来接收epoll_wait的输出。
     epoll_event* events = new epoll_event[MAX_EVNETS]();
-
+    // 使用智能指针托管events， 离开idle自动释放
     // 使用智能指针管理epoll_event数组，确保异常安全，自动释放资源。
     std::shared_ptr<epoll_event> shared_events(events, [](epoll_event* ptr){
         delete[] ptr; // 自定义删除器，用于数组释放。
@@ -925,6 +939,13 @@ void IOManager::idle() {
             } else {
                 next_timeout = MAX_TIMEOUT;
             }
+            /*  
+             * 阻塞在这里，但有3中情况能够唤醒epoll_wait
+             * 1. 超时时间到了
+             * 2. 关注的 soket 有数据来了
+             * 3. 通过 tickle 往 pipe 里发数据，表明有任务来了
+             */
+
             // 调用epoll_wait等待事件发生，或超时。
             rt = epoll_wait(m_epfd, events, MAX_EVNETS, (int)next_timeout);
             // 处理epoll_wait被信号打断的情况。
@@ -938,6 +959,7 @@ void IOManager::idle() {
 
         // 处理所有到期的定时任务。
         std::vector<std::function<void()>> cbs;
+        // 获取已经超时的任务
         listExpiredCb(cbs); // 收集到期的定时器回调。
         if(!cbs.empty()) {
             // 如果有到期的定时任务，则依次执行它们。
@@ -946,12 +968,15 @@ void IOManager::idle() {
         }
 
         // 遍历epoll_wait报告的所有事件。
+        // 遍历已经准备好的fd
         for(int i = 0; i < rt; ++i) {
             epoll_event& event = events[i];
+            // 如果获得的这个信息时来自 pipe
             // 检查是否为内部唤醒操作（tickle）的事件。
             if(event.data.fd == m_tickleFds[0]) {
                 // 清空tickle fd的读缓冲区。
                 uint8_t dummy[256];
+                
                 while(read(m_tickleFds[0], dummy, sizeof(dummy)) > 0);
                 continue; // 处理下一个事件。
             }
@@ -966,24 +991,31 @@ void IOManager::idle() {
             }
             int real_events = NONE; // 实际处理的事件类型。
             // 判断事件类型并设置相应的标志。
+            // 读事件
             if(event.events & EPOLLIN) {
                 real_events |= READ;
             }
+            // 写事件
             if(event.events & EPOLLOUT) {
                 real_events |= WRITE;
             }
 
             // 如果没有与fd_ctx的事件匹配，继续下一个事件。
+            // 没事件
             if((fd_ctx->events & real_events) == NONE) {
                 continue;
             }
 
             // 根据实际处理的事件更新epoll的监听事件。
+            // 剩余的事件
             int left_events = (fd_ctx->events & ~real_events);
+            // 如果执行完该事件还有事件则修改，若无事件则删除
             int op = left_events ? EPOLL_CTL_MOD : EPOLL_CTL_DEL;
+            // 更新新的事件
             event.events = EPOLLET | left_events;
 
             // 更新epoll监听设置。
+            // 重新注册事件
             int rt2 = epoll_ctl(m_epfd, op, fd_ctx->fd, &event);
             if(rt2) {
                 // 如果epoll_ctl失败，记录错误日志。
@@ -994,21 +1026,27 @@ void IOManager::idle() {
             }
 
             // 触发对应的事件处理函数。
+            // 读事件
             if(real_events & READ) {
                 fd_ctx->triggerEvent(READ);
                 --m_pendingEventCount; // 减少待处理事件计数。
             }
+            // 写事件
             if(real_events & WRITE) {
                 fd_ctx->triggerEvent(WRITE);
                 --m_pendingEventCount;
             }
         }
-
+        // 执行完epoll_wait返回的事件
+        // 获得当前协程
         // 如果支持协程，切换出当前协程，让出CPU控制权。
         Fiber::ptr cur = Fiber::GetThis();
+        // 获得裸指针
         auto raw_ptr = cur.get(); // 获取原始指针。
+        // 将当前idle协程指向空指针，状态为INI
         cur.reset(); // 释放智能指针的控制权。
 
+        // 执行完返回scheduler的MainFiber 继续下一轮
         raw_ptr->swapOut(); // 切换协程。
     }
 }

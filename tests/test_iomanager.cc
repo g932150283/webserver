@@ -63,16 +63,76 @@ void test_timer() {
     s_timer = iom.addTimer(1000, [](){
         static int i = 0;
         WEBSERVER_LOG_INFO(g_logger) << "hello timer i=" << i;
-        if(++i == 3) {
-            s_timer->reset(500, true);
-            // s_timer->cancel();
-            // std::cout << "aaaaaaaaaa" << std::endl;
+        // if(++i == 3) {
+        //     s_timer->reset(500, true);
+        //     // s_timer->cancel();
+        //     // std::cout << "aaaaaaaaaa" << std::endl;
+        // }
+        if (++i == 5) {
+            s_timer->reset(2000, true);
         }
+        if (i == 10) {
+            s_timer->cancel();
+        }
+
     }, true);
 }
 
 int main(int argc, char** argv) {
     // test1();
+    g_logger->setLevel(webserver::LogLevel::INFO);
     test_timer();
     return 0;
 }
+
+
+// int sock = 0;
+
+void test_fiber1() {
+    WEBSERVER_LOG_INFO(g_logger) << "test_fiber1";
+
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    fcntl(sock, F_SETFL, O_NONBLOCK);
+
+    sockaddr_in addr;
+    memset(&addr, 0, sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(80);
+    inet_pton(AF_INET, "220.181.38.149", &addr.sin_addr.s_addr);
+
+    if (!connect(sock, (const sockaddr*)&addr, sizeof(addr))) {
+    } else if(errno == EINPROGRESS) {
+        WEBSERVER_LOG_INFO(g_logger) << "add event errno=" << errno << " " << strerror(errno);
+
+        webserver::IOManager::GetThis()->addEvent(sock, webserver::IOManager::READ, [](){
+            WEBSERVER_LOG_INFO(g_logger) << "read callback";
+            char temp[1000];
+            int rt = read(sock, temp, 1000);
+            if (rt >= 0) {
+                std::string ans(temp, rt);
+                WEBSERVER_LOG_INFO(g_logger) << "read:["<< ans << "]";
+            } else {
+                WEBSERVER_LOG_INFO(g_logger) << "read rt = " << rt;
+            }
+            });
+        webserver::IOManager::GetThis()->addEvent(sock, webserver::IOManager::WRITE, [](){
+            WEBSERVER_LOG_INFO(g_logger) << "write callback";
+            int rt = write(sock, "GET / HTTP/1.1\r\ncontent-length: 0\r\n\r\n",38);
+            WEBSERVER_LOG_INFO(g_logger) << "write rt = " << rt;
+            });
+    } else {
+        WEBSERVER_LOG_INFO(g_logger) << "else " << errno << " " << strerror(errno);
+    }
+}
+
+void test01() {
+    webserver::IOManager iom(2, true, "IOM");
+    iom.schedule(test_fiber1);
+}
+
+// int main(int argc, char** argv) {
+//     g_logger->setLevel(webserver::LogLevel::INFO);
+//     test01();
+    
+//     return 0;
+// }

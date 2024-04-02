@@ -146,7 +146,7 @@ private:
      */
     bool detectClockRollover(uint64_t now_ms);
 private:
-    /// Mutex
+    /// Mutex 锁
     RWMutexType m_mutex;
     /// 定时器集合
     std::set<Timer::ptr, Timer::Comparator> m_timers;
