@@ -40,11 +40,17 @@ namespace webserver {
      */
     void set_hook_enable(bool flag);
 }
-
+/*
+将函数接口都存放到extern "C"作用域下，指定函数按照C语言的方式进行编译和链接。
+它的作用是为了解决C++中函数名重载的问题，使得C++代码可以和C语言代码进行互操作。
+*/
 extern "C" {
 
+/* 重新定义同签名的接口 只列举了几个*/
+// sleep_fun 为函数指针
 //sleep
 typedef unsigned int (*sleep_fun)(unsigned int seconds);
+// 它是一个sleep_fun类型的函数指针变量，表示该变量在其他文件中已经定义，我们只是在当前文件中引用它。
 extern sleep_fun sleep_f;
 
 typedef int (*usleep_fun)(useconds_t usec);

@@ -68,7 +68,7 @@ bool FdCtx::init() {
     return m_isInit;
 }
 
-
+// 设置超时事件
 void FdCtx::setTimeout(int type, uint64_t v) {
     if(type == SO_RCVTIMEO) {
         m_recvTimeout = v;
@@ -76,7 +76,7 @@ void FdCtx::setTimeout(int type, uint64_t v) {
         m_sendTimeout = v;
     }
 }
-
+// 获得超时事件
 uint64_t FdCtx::getTimeout(int type) {
     if(type == SO_RCVTIMEO) {
         return m_recvTimeout;
@@ -90,11 +90,14 @@ FdManager::FdManager() {
 }
 
 // 获取文件描述符上下文信息
+// 获取/创建文件句柄类FdCtx
+// auto_create：是否自动创建FdCtx
 FdCtx::ptr FdManager::get(int fd, bool auto_create) {
     // 如果文件描述符为 -1，直接返回空指针
     if (fd == -1) {
         return nullptr;
     }
+    // 集合中没有，并且不自动创建，返回nullptr
     // 获取读锁以避免竞态条件
     RWMutexType::ReadLock lock(m_mutex);
     // 如果文件描述符超出当前数据容器大小，且不需要自动创建，则返回空指针
@@ -103,6 +106,7 @@ FdCtx::ptr FdManager::get(int fd, bool auto_create) {
             return nullptr;
         }
     } else {
+        // 找到了直接返回
         // 否则，如果文件描述符对应的上下文已存在且不需要自动创建，则直接返回该上下文
         if (m_datas[fd] || !auto_create) {
             return m_datas[fd];
@@ -113,19 +117,23 @@ FdCtx::ptr FdManager::get(int fd, bool auto_create) {
 
     // 获取写锁以进行数据修改
     RWMutexType::WriteLock lock2(m_mutex);
+    // 创建新的FdCtx
     // 创建文件描述符上下文对象
     FdCtx::ptr ctx(new FdCtx(fd));
     // 如果文件描述符大于当前数据容器大小，则扩展容器大小
+    // fd比集合下标大，扩充
     if (fd >= (int)m_datas.size()) {
         m_datas.resize(fd * 1.5);
     }
     // 存储文件描述符上下文到数据容器中
+    // 放入集合中
     m_datas[fd] = ctx;
     // 返回创建的文件描述符上下文对象
     return ctx;
 }
 
 // 删除文件描述符上下文信息
+// 删除文件句柄类
 void FdManager::del(int fd) {
     // 获取写锁以进行数据修改
     RWMutexType::WriteLock lock(m_mutex);
