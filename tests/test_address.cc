@@ -8,8 +8,8 @@ void test() {
 
     WEBSERVER_LOG_INFO(g_logger) << "begin";
     // bool v = webserver::Address::Lookup(addrs, "localhost:3080");
-    // bool v = webserver::Address::Lookup(addrs, "www.baidu.com", AF_INET);
-    bool v = webserver::Address::Lookup(addrs, "www.sylar.top", AF_INET);
+    bool v = webserver::Address::Lookup(addrs, "www.baidu.com", AF_INET);
+    // bool v = webserver::Address::Lookup(addrs, "www.sylar.top", AF_INET);
     WEBSERVER_LOG_INFO(g_logger) << "end";
     if(!v) {
         WEBSERVER_LOG_ERROR(g_logger) << "lookup fail";
@@ -43,6 +43,16 @@ void test_iface() {
     }
 }
 
+// 通过静态方法获取IPAddress
+void test_ip() {
+    auto addr = webserver::IPAddress::Create("www.baidu.com");
+    if (addr) {
+        WEBSERVER_LOG_INFO(g_logger) << addr->toString();
+    }
+}
+
+
+// 创建IPv4地址
 void test_ipv4() {
     // auto addr = webserver::IPAddress::Create("www.sylar.top");
     auto addr = webserver::IPAddress::Create("127.0.0.8");
@@ -51,8 +61,18 @@ void test_ipv4() {
     }
 }
 
+void test_ipv6() {
+    auto addr = webserver::IPv6Address::Create("fe80::215:5dff:fe20:e26a");
+    if (addr) {
+        WEBSERVER_LOG_INFO(g_logger) << addr->toString();
+    }
+}
+
+
 int main(int argc, char** argv) {
-    test_ipv4();
+    // test_ipv4();
+    test_ipv6();
+    test_ip();
     // test_iface();
     // test();
     return 0;

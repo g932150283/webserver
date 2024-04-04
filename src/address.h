@@ -13,7 +13,31 @@
 #include <map>
 
 namespace webserver {
+/*
+socket的通信都需要与地址打交道，所以封装了Address模块，不用进行繁琐的一系列操作。
+Address模块有主要一下几类：
 
+class Address：基类，抽象类，对应sockaddr类型。提供获取地址的方法，以及一些基础操作的纯虚函数。
+class IPAddress：继承Address，抽象类。提供关于IP操作的纯虚函数。
+class IPv4Address：继承IPAddress，对应sockaddr_in类型。一个IPv4地址。
+class IPv6Address：继承IPAddress，对应sockaddr_in6类型。一个IPv6地址。
+class UinxAddress：继承Address，Unix域套接字类，对应sockaddr_un类型。一个Unix地址。
+class UnknowAddress：继承Address，对应sockaddr类型。未知地址。
+
+
+sockaddr和sockaddr_in都为16字节，sockaddr_in6为28字节。
+
+如果要问为什么字节数不同还能相互转化，那是因为在进行类型转换时，只需要将指针类型进行转换即可，不需要改变结构体的大小。
+
+getaddrinfo
+
+函数将主机名、主机地址、服务名和端口的字符串表示转换成套接字地址结构体，应用程序只要处理由getaddrinfo函数填写的套接口地址结构。
+
+getifaddrs
+
+函数用于获取系统中所有网络接口的信息。
+
+*/
 class IPAddress;
 
 /**
@@ -160,7 +184,7 @@ public:
      * @param[in] prefix_len 子网掩码位数
      * @return 调用成功返回IPAddress,失败返回nullptr
      */
-    virtual IPAddress::ptr networdAddress(uint32_t prefix_len) = 0;
+    virtual IPAddress::ptr networkAddress(uint32_t prefix_len) = 0;
 
     /**
      * @brief 获取子网掩码地址
@@ -214,11 +238,12 @@ public:
     std::ostream& insert(std::ostream& os) const override;
 
     IPAddress::ptr broadcastAddress(uint32_t prefix_len) override;
-    IPAddress::ptr networdAddress(uint32_t prefix_len) override;
+    IPAddress::ptr networkAddress(uint32_t prefix_len) override;
     IPAddress::ptr subnetMask(uint32_t prefix_len) override;
     uint32_t getPort() const override;
     void setPort(uint16_t v) override;
 private:
+    // sockaddr_in 结构体
     sockaddr_in m_addr;
 };
 
@@ -258,11 +283,12 @@ public:
     std::ostream& insert(std::ostream& os) const override;
 
     IPAddress::ptr broadcastAddress(uint32_t prefix_len) override;
-    IPAddress::ptr networdAddress(uint32_t prefix_len) override;
+    IPAddress::ptr networkAddress(uint32_t prefix_len) override;
     IPAddress::ptr subnetMask(uint32_t prefix_len) override;
     uint32_t getPort() const override;
     void setPort(uint16_t v) override;
 private:
+    // // sockaddr_in6 结构体
     sockaddr_in6 m_addr;
 };
 
@@ -291,7 +317,9 @@ public:
     std::string getPath() const;
     std::ostream& insert(std::ostream& os) const override;
 private:
+    // sockaddr_un 结构体
     sockaddr_un m_addr;
+    // 长度
     socklen_t m_length;
 };
 
