@@ -394,6 +394,48 @@ read(int, float, ...)
                 
 ## http协议开发
 
+主要封装HTTP请求（class HttpRequest）和HTTP响应报文（class HttpResponse）
+
+使用状态机解析报文格式，保存到请求和响应报文对象中。
+
+请求报文格式
+```
+
+GET / HTTP/1.1  #请求行
+Host: www.baidu.com   #主机地址
+Connection: keep-alive   #表示TCP未断开
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64;x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36   #产生请求的浏览器类型
+Sec-Fetch-Dest: document
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: ......    #用户安全凭证
+
+```
+
+应答报文格式
+
+
+```
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Date: Mon, 05 Jun 2023 06:53:13 GMT
+Link: <http://www.sylar.top/blog/index.php?rest_route=/>; rel="https://api.w.org/"
+Server: nginx/1.12.2
+Transfer-Encoding: chunked
+X-Powered-By: PHP/7.0.33
+Connection: close
+Content-length: 45383
+​
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="UTF-8">
+```
 HTTP/1.1 - API
 
 HttpRequest
@@ -425,10 +467,19 @@ ragel mongrel2
 ## Stream 针对文件/socket封装
 read/write/readFixeSize/writeFixeSize
 
+## HttpServer模块
+
+HttpServer模块概述
+封装HttpSession接收请求报文，发送响应报文，该类继承自SocketStream。
+封装Servlet,虚拟接口，当Server命中某个uri时，执行对应的Servlet。
+封装HttpServer服务器，继承自TcpServer。
+
 
 HttpSession/HttpConnection
 Server accept socket -> session
 client connect socket -> connection
+
+
 
 HttpServer : TcpServer
 
@@ -439,4 +490,33 @@ HttpServer : TcpServer
      ServletDispatch
 
 
+## HttpConnection模块
 
+class HttpConnection继承自class SocketStream，发送请求报文，接收响应报文。
+封装struct HttpResultHTTP响应结果
+实现连接池class HttpConnectionPool，仅在长连接有效时使用。
+封装class URI，使用状态机解析URI。
+
+URI格式
+
+```
+
+foo://user@example.com:8042/over/there?name=ferret#nose
+_/   ___________________/_________/ _________/ __/
+ |              |              |            |        |
+scheme      authority         path        query   fragment
+ |   __________________________|__
+/ \ /                             \
+urn:example:animal:ferret:nose
+​
+authority   = [ userinfo "@" ] host [ ":" port ]
+
+
+     foo://user@webserver.com:8042/over/there?name=ferret#nose
+       \_/   \______________/\_________/ \_________/ \__/
+        |           |            |            |        |
+     scheme     authority       path        query   fragment
+
+
+
+```

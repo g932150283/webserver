@@ -201,7 +201,9 @@ public:
     int sendRequest(HttpRequest::ptr req);
 
 private:
+    // 创建时间
     uint64_t m_createTime = 0;
+    // 请求超时时间
     uint64_t m_request = 0;
 };
 
@@ -320,16 +322,23 @@ public:
 private:
     static void ReleasePtr(HttpConnection* ptr, HttpConnectionPool* pool);
 private:
+    // 主机
     std::string m_host;
     std::string m_vhost;
+    // 端口号
     uint32_t m_port;
+    // 连接最大数
     uint32_t m_maxSize;
+    // 连接时长
     uint32_t m_maxAliveTime;
+    // 请求时长
     uint32_t m_maxRequest;
     bool m_isHttps;
-
+    // 锁
     MutexType m_mutex;
+    // HttpConnection指针链表
     std::list<HttpConnection*> m_conns;
+    // 连接的数量
     std::atomic<int32_t> m_total = {0};
 };
 

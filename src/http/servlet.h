@@ -44,6 +44,7 @@ public:
 
     /**
      * @brief 处理请求
+     * 抽象类，基类，提供一个纯虚函数。当访问到该servlet时，执行handle方法
      * @param[in] request HTTP请求
      * @param[in] response HTTP响应
      * @param[in] session HTTP连接
@@ -58,7 +59,7 @@ public:
      */
     const std::string& getName() const { return m_name;}
 protected:
-    /// 名称
+    /// 名称 servlet名字
     std::string m_name;
 };
 
@@ -246,6 +247,7 @@ private:
     /// 模糊匹配servlet 数组
     /// uri(/webserver/*) -> servlet
     std::vector<std::pair<std::string, IServletCreator::ptr> > m_globs;
+    // 默认servlet返回404 Not found，所有路径无匹配使用
     /// 默认servlet，所有路径都没匹配到时使用
     Servlet::ptr m_default;
 };
@@ -266,7 +268,9 @@ public:
                    , webserver::http::HttpSession::ptr session) override;
 
 private:
+    // 服务器版本名称
     std::string m_name;
+    // body
     std::string m_content;
 };
 

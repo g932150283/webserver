@@ -12,6 +12,12 @@
 namespace webserver {
 namespace http {
 
+/**
+ * @brief 
+ * 
+ * 
+ */
+
 /* Request Methods */
 #define HTTP_METHOD_MAP(XX)         \
   XX(0,  DELETE,      DELETE)       \
@@ -121,6 +127,7 @@ namespace http {
 
 /**
  * @brief HTTP方法枚举
+ * 使用宏将所有请求方法转为枚举类的成员
  */
 enum class HttpMethod {
 #define XX(num, name, string) name = num,
@@ -131,6 +138,7 @@ enum class HttpMethod {
 
 /**
  * @brief HTTP状态枚举
+ * 使用宏将所有响应码转为枚举类的成员
  */
 enum class HttpStatus {
 #define XX(code, name, desc) name = code,
@@ -178,6 +186,7 @@ struct CaseInsensitiveLess {
 
 /**
  * @brief 获取Map中的key值,并转成对应类型,返回是否成功
+ * 
  * @param[in] m Map数据结构
  * @param[in] key 关键字
  * @param[out] val 保存转换后的值
@@ -543,6 +552,10 @@ public:
     void initBodyParam();
     void initCookies();
 private:
+    /*
+    typedef std::map<std::string, std::string, CaseInsensitiveLess> MapType;
+    map的键与大小无关。
+    */
     /// HTTP方法
     HttpMethod m_method;
     /// HTTP版本
@@ -741,7 +754,7 @@ private:
     std::string m_reason;
     /// 响应头部MAP
     MapType m_headers;
-
+    // cookies
     std::vector<std::string> m_cookies;
 };
 

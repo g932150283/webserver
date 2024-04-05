@@ -4,6 +4,7 @@ namespace webserver {
 
 /**
  * @brief 从流中读取固定大小的数据
+ * readFixSize（读固定长度的数据，读取到内存）
  * 
  * @param buffer 存放读取数据的缓冲区指针
  * @param length 要读取的数据长度
@@ -25,6 +26,7 @@ int Stream::readFixSize(void* buffer, size_t length) {
 
 /**
  * @brief 从流中读取固定大小的数据，并将数据写入字节数组中
+ * readFixSize（读固定长度的数据，读取到ByteArray）
  * 
  * @param ba 要写入数据的字节数组指针
  * @param length 要读取的数据长度
@@ -44,6 +46,7 @@ int Stream::readFixSize(ByteArray::ptr ba, size_t length) {
 
 /**
  * @brief 向流中写入固定大小的数据
+ * writeFixSize（写固定长度的数据，从内存写）
  * 
  * @param buffer 存放要写入数据的缓冲区指针
  * @param length 要写入的数据长度
@@ -65,6 +68,7 @@ int Stream::writeFixSize(const void* buffer, size_t length) {
 
 /**
  * @brief 向流中写入固定大小的数据，数据来自字节数组
+ * writeFixSize（写固定长度的数据，从ByteArray写）
  * 
  * @param ba 存放要写入数据的字节数组指针
  * @param length 要写入的数据长度

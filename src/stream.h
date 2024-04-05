@@ -14,6 +14,17 @@
 
 namespace webserver {
 
+/*
+Socket流接口模块概述
+基于序列化模块封装了读和写操作，但是socket的API并不保证一定能够写或读到规定的字节数，
+所以封装了readFixSize、writeFixSize保证一定操作规定字节的数据。
+该模块主要有以下几类：
+
+class Stream：基类，抽象类。
+class SocketStream：内部封装一个socket。
+
+*/
+
 /**
  * @brief 流结构
  */

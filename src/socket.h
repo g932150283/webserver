@@ -19,7 +19,14 @@
 #include "noncopyable.h"
 
 namespace webserver {
+/*
+主要对socket的方法进行封装，提供接口方便的创建TCP、UDP、Unix的socket对象。
+当创建一个socket对象时，并没有真正的创建一个socket句柄，此时它的句柄为-1，
+只有在bind、connect的时候才会通过newSock()创建一个socket句柄与对象关联起来，
+在accept时创建新的socket对象，并初始化。
 
+新的socket句柄都初始化为地址复用模式，如果为TCP连接，禁用Nagle算法，提高传输效率，降低延迟。
+*/
 /**
  * @brief Socket封装类
  */

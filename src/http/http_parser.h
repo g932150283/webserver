@@ -84,6 +84,7 @@ private:
     /// http_parser
     http_parser m_parser;
     /// HttpRequest结构
+    // 请求报文
     HttpRequest::ptr m_data;
     /// 错误码
     /// 1000: invalid method

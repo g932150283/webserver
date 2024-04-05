@@ -12,6 +12,7 @@ static webserver::Logger::ptr g_logger = WEBSERVER_LOG_NAME("system");
 
 /**
  * 创建TCP套接字对象，根据指定地址创建相应类型的套接字。
+ * 根据地址创建TCP套接字
  *
  * @param address 指定的地址对象指针
  * @return 返回创建的TCP套接字对象指针
@@ -115,6 +116,7 @@ Socket::ptr Socket::CreateUnixUDPSocket() {
 
 /**
  * Socket类的构造函数，用于初始化Socket对象。
+ * 只是创建对象，并没有真正的创建socketfd
  *
  * @param family   地址族 (AF_INET、AF_INET6等)
  * @param type     套接字类型 (SOCK_STREAM、SOCK_DGRAM等)
@@ -141,6 +143,7 @@ Socket::~Socket() {
 
 /**
  * 获取发送超时时间。
+ * 返回发送超时时间
  *
  * @return 发送超时时间，以毫秒为单位；如果获取失败或未设置超时时间，则返回-1。
  */
@@ -188,6 +191,7 @@ void Socket::setRecvTimeout(int64_t v) {
 
 /**
  * 获取套接字选项的值。
+ * 获取socketfd信息
  *
  * @param level  选项级别
  * @param option 选项名称
@@ -209,6 +213,7 @@ bool Socket::getOption(int level, int option, void* result, socklen_t* len) {
 
 /**
  * 设置套接字选项的值。
+ * 设置socketfd信息
  *
  * @param level  选项级别
  * @param option 选项名称
@@ -230,6 +235,8 @@ bool Socket::setOption(int level, int option, const void* result, socklen_t len)
 
 /**
  * 接受新的连接并返回对应的Socket对象。
+ * 接收connect连接
+ * 创建新的socket对象，用于与客户端通信。
  *
  * @return 成功接受连接并初始化Socket对象时返回Socket::ptr；否则返回nullptr。
  */
@@ -250,6 +257,8 @@ Socket::ptr Socket::accept() {
 
 /**
  * 初始化Socket对象。
+ * 初始化socket对象
+ * 初始化accept后用于通信的socket
  *
  * @param sock 新的套接字描述符
  * @return 如果成功初始化Socket对象，则返回true；否则返回false。
@@ -260,6 +269,7 @@ bool Socket::init(int sock) {
         // 如果上下文信息有效且套接字未关闭，则初始化Socket对象
         m_sock = sock;  // 设置套接字描述符
         m_isConnected = true;  // 设置连接状态为已连接
+        // 初始化socketfd
         initSock();  // 初始化套接字
         getLocalAddress();  // 获取本地地址信息
         getRemoteAddress();  // 获取远程地址信息
@@ -334,6 +344,7 @@ bool Socket::reconnect(uint64_t timeout_ms) {
 
 /**
  * 连接到指定地址。
+ * 连接地址
  *
  * @param addr       要连接的地址对象指针
  * @param timeout_ms 连接超时时间，以毫秒为单位
@@ -386,6 +397,7 @@ bool Socket::connect(const Address::ptr addr, uint64_t timeout_ms) {
 
 /**
  * 监听套接字连接请求。
+ * 监听
  *
  * @param backlog 最大等待连接队列的长度
  * @return 如果监听成功，则返回true；否则返回false。
@@ -407,6 +419,7 @@ bool Socket::listen(int backlog) {
 
 /**
  * 关闭套接字连接。
+ * 关闭socket
  *
  * @return 如果成功关闭套接字，则返回false；否则返回true。
  */
@@ -426,6 +439,7 @@ bool Socket::close() {
 
 /**
  * 发送数据到连接的对端。
+ * 发送数据：单数据块
  *
  * @param buffer 要发送的数据缓冲区指针
  * @param length 要发送的数据长度
@@ -441,6 +455,7 @@ int Socket::send(const void* buffer, size_t length, int flags) {
 
 /**
  * 发送数据到连接的对端，支持多个数据缓冲区。
+ * 发送数据：多数据块
  *
  * @param buffers  要发送的数据缓冲区数组指针
  * @param length   要发送的数据缓冲区个数
@@ -460,6 +475,7 @@ int Socket::send(const iovec* buffers, size_t length, int flags) {
 
 /**
  * 发送数据到指定地址。
+ * 指定地址发送数据：单数据块
  *
  * @param buffer 要发送的数据缓冲区指针
  * @param length 要发送的数据长度
@@ -476,6 +492,7 @@ int Socket::sendTo(const void* buffer, size_t length, const Address::ptr to, int
 
 /**
  * 发送数据到指定地址，支持多个数据缓冲区。
+ * 指定地址发送数据：多数据块
  *
  * @param buffers 要发送的数据缓冲区数组指针
  * @param length  要发送的数据缓冲区个数
@@ -499,6 +516,7 @@ int Socket::sendTo(const iovec* buffers, size_t length, const Address::ptr to, i
 
 /**
  * 接收数据从连接的对端。
+ * 接收数据：单数据块
  *
  * @param buffer 要接收数据的缓冲区指针
  * @param length 要接收数据的长度
@@ -514,6 +532,7 @@ int Socket::recv(void* buffer, size_t length, int flags) {
 
 /**
  * 接收数据从连接的对端，支持多个数据缓冲区。
+ * 接收数据：多数据块
  *
  * @param buffers 要接收数据的缓冲区数组指针
  * @param length  要接收数据的缓冲区个数
@@ -533,6 +552,7 @@ int Socket::recv(iovec* buffers, size_t length, int flags) {
 
 /**
  * 接收数据从指定地址。
+ * 指定地址接收数据：单数据块
  *
  * @param buffer 要接收数据的缓冲区指针
  * @param length 要接收数据的长度
@@ -550,6 +570,7 @@ int Socket::recvFrom(void* buffer, size_t length, Address::ptr from, int flags) 
 
 /**
  * 接收数据从指定地址，支持多个数据缓冲区。
+ * 指定地址接收数据：多数据块
  *
  * @param buffers 要接收数据的缓冲区数组指针
  * @param length  要接收数据的缓冲区个数
@@ -572,6 +593,7 @@ int Socket::recvFrom(iovec* buffers, size_t length, Address::ptr from, int flags
 
 /**
  * 获取连接的远程地址。
+ * 返回远端地址
  *
  * @return 如果成功获取远程地址，则返回远程地址对象指针；否则返回空指针。
  */
@@ -596,6 +618,7 @@ Address::ptr Socket::getRemoteAddress() {
             break;
     }
     socklen_t addrlen = result->getAddrLen();
+    // 获取一个已连接套接字的远程地址信息
     if (getpeername(m_sock, result->getAddr(), &addrlen)) {
         // 获取远程地址失败时返回未知地址对象
         return Address::ptr(new UnknownAddress(m_family));
@@ -610,6 +633,7 @@ Address::ptr Socket::getRemoteAddress() {
 
 /**
  * 获取套接字的本地地址。
+ * 返回本地地址
  *
  * @return 如果成功获取本地地址，则返回本地地址对象指针；否则返回空指针。
  */
@@ -634,6 +658,7 @@ Address::ptr Socket::getLocalAddress() {
             break;
     }
     socklen_t addrlen = result->getAddrLen();
+    // 获取一个套接字的本地地址信息
     if (getsockname(m_sock, result->getAddr(), &addrlen)) {
         // 获取本地地址失败时记录错误日志并返回未知地址对象
         WEBSERVER_LOG_ERROR(g_logger) << "getsockname error sock=" << m_sock
@@ -709,6 +734,7 @@ std::string Socket::toString() const {
 
 /**
  * 取消套接字的读事件监听。
+ * 取消读事件
  *
  * @return 如果成功取消读事件监听，则返回true；否则返回false。
  */
@@ -718,6 +744,7 @@ bool Socket::cancelRead() {
 
 /**
  * 取消套接字的写事件监听。
+ * 取消写事件
  *
  * @return 如果成功取消写事件监听，则返回true；否则返回false。
  */
@@ -727,6 +754,7 @@ bool Socket::cancelWrite() {
 
 /**
  * 取消套接字的接收事件监听。
+ * 取消accept
  *
  * @return 如果成功取消接收事件监听，则返回true；否则返回false。
  */
@@ -736,6 +764,7 @@ bool Socket::cancelAccept() {
 
 /**
  * 取消套接字的所有事件监听。
+ * 取消所有事件
  *
  * @return 如果成功取消所有事件监听，则返回true；否则返回false。
  */
@@ -745,17 +774,22 @@ bool Socket::cancelAll() {
 
 /**
  * 初始化套接字选项。
+ * 初始化socketfd
  */
 void Socket::initSock() {
     int val = 1;
+    // SO_REUSEADDR 打开或关闭地址复用功能 option_value不等于0时，打开
     setOption(SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));  // 设置SO_REUSEADDR选项
     if (m_type == SOCK_STREAM) {
+        // Nagle算法通过将小数据块合并成更大的数据块来减少网络传输的次数，提高网络传输的效率。
+        // 禁用Nagle算法，减小延迟
         setOption(IPPROTO_TCP, TCP_NODELAY, &val, sizeof(val));  // 设置TCP_NODELAY选项
     }
 }
 
 /**
  * 创建新的套接字并初始化。
+ * 创建socketfd
  */
 void Socket::newSock() {
     m_sock = socket(m_family, m_type, m_protocol);  // 创建新的套接字

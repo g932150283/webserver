@@ -342,6 +342,7 @@ void on_request_http_field(void *data, const char *field, size_t flen, const cha
 
 /**
  * HttpRequestParser构造函数
+ * 当解析到时调用回调函数，将对应的数据保存到报文中
  * 
  * 此构造函数初始化HttpRequestParser对象，包括错误码、数据对象以及HTTP解析器。
  * 它还将解析器的各个回调函数关联到相应的处理函数，并设置解析器的数据上下文为当前对象。
@@ -393,6 +394,7 @@ uint64_t HttpRequestParser::getContentLength() {
 size_t HttpRequestParser::execute(char* data, size_t len) {
     // 执行HTTP解析，并返回处理的字节数
     size_t offset = http_parser_execute(&m_parser, data, len, 0);
+    // 解析完将剩余数据移动到起始地址
     // 移动未处理的数据至缓冲区头部
     memmove(data, data + offset, (len - offset));
     return offset;

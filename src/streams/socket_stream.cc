@@ -24,6 +24,7 @@ SocketStream::SocketStream(Socket::ptr sock, bool owner)
  * 析构函数
  * 功能：清理SocketStream对象
  * 说明：如果对象拥有套接字并且套接字不为空，则关闭套接字。
+ * 若自己控制则关闭socket。
  */
 SocketStream::~SocketStream() {
     if(m_owner && m_socket) { // 如果拥有套接字且套接字不为空
@@ -46,6 +47,7 @@ bool SocketStream::isConnected() const {
  *   - length: size_t类型，表示要读取的数据长度
  * 返回值：int类型，表示读取的字节数，-1表示读取失败
  * 说明：如果套接字未连接，则返回-1；否则从套接字读取数据到缓冲区。
+ * read（读数据，读取到内存）
  */
 int SocketStream::read(void* buffer, size_t length) {
     if(!isConnected()) { // 如果套接字未连接
@@ -61,15 +63,19 @@ int SocketStream::read(void* buffer, size_t length) {
  *   - length: size_t类型，表示要读取的数据长度
  * 返回值：int类型，表示读取的字节数，-1表示读取失败
  * 说明：如果套接字未连接，则返回-1；否则从套接字读取数据到ByteArray对象。
+ * read（读数据，读取到ByteArray）
  */
 int SocketStream::read(ByteArray::ptr ba, size_t length) {
     if(!isConnected()) { // 如果套接字未连接
         return -1; // 返回读取失败
     }
     std::vector<iovec> iovs; // 创建iovec结构的向量
+    // 获取可写内存，将数据写到ByteArray中
     ba->getWriteBuffers(iovs, length); // 获取ByteArray对象的写入缓冲区
+    // 读取数据，放到第一个元素中
     int rt = m_socket->recv(&iovs[0], iovs.size()); // 从套接字读取数据到缓冲区
     if(rt > 0) { // 如果成功读取数据
+        // 写入成功，设置position
         ba->setPosition(ba->getPosition() + rt); // 更新ByteArray对象的位置
     }
     return rt; // 返回读取的字节数
@@ -82,6 +88,7 @@ int SocketStream::read(ByteArray::ptr ba, size_t length) {
  *   - length: size_t类型，表示要写入的数据长度
  * 返回值：int类型，表示写入的字节数，-1表示写入失败
  * 说明：如果套接字未连接，则返回-1；否则将数据从缓冲区写入到套接字。
+ * write（写数据，从内存写）
  */
 int SocketStream::write(const void* buffer, size_t length) {
     if(!isConnected()) { // 如果套接字未连接
@@ -97,13 +104,16 @@ int SocketStream::write(const void* buffer, size_t length) {
  *   - length: size_t类型，表示要写入的数据长度
  * 返回值：int类型，表示写入的字节数，-1表示写入失败
  * 说明：如果套接字未连接，则返回-1；否则将数据从ByteArray对象的读取缓冲区写入到套接字。
+ * write（写数据，从ByteArray写）
  */
 int SocketStream::write(ByteArray::ptr ba, size_t length) {
     if(!isConnected()) { // 如果套接字未连接
         return -1; // 返回写入失败
     }
     std::vector<iovec> iovs; // 创建iovec结构的向量
+    // 获取可读内存，从ByteArray读数据
     ba->getReadBuffers(iovs, length); // 获取ByteArray对象的读取缓冲区
+    // 发送数据，将第一个元素iovec发送
     int rt = m_socket->send(&iovs[0], iovs.size()); // 将数据从缓冲区写入到套接字
     if(rt > 0) { // 如果成功写入数据
         ba->setPosition(ba->getPosition() + rt); // 更新ByteArray对象的位置

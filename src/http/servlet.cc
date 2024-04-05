@@ -68,6 +68,8 @@ int32_t ServletDispatch::handle(webserver::http::HttpRequest::ptr request
 
 /**
  * 描述：添加指定URI的Servlet
+ * 添加精准Servlet，智能指针
+ * 
  * 参数：
  *   - uri: const std::string&类型，表示要添加的URI。
  *   - slt: Servlet::ptr类型，表示要添加的Servlet。
@@ -118,6 +120,8 @@ void ServletDispatch::addGlobServletCreator(const std::string& uri, IServletCrea
 
 /**
  * 构造函数
+ * 
+ * 添加精准Servlet，回调函数
  * 参数：
  *   - cb: FunctionServlet::callback类型的回调函数
  * 详细描述：
@@ -132,6 +136,8 @@ void ServletDispatch::addServlet(const std::string& uri
 
 /**
  * 添加全局Servlet
+ * 添加模糊Servlet，智能指针
+ * 
  * 参数：
  *   - uri: 表示要匹配的URI
  *   - slt: 指向Servlet对象的智能指针
@@ -154,6 +160,8 @@ void ServletDispatch::addGlobServlet(const std::string& uri
 
 /**
  * 添加全局FunctionServlet
+ * 添加模糊Servlet，回调函数
+ * 
  * 参数：
  *   - uri: 表示要匹配的URI
  *   - cb: FunctionServlet::callback类型的回调函数
@@ -167,6 +175,8 @@ void ServletDispatch::addGlobServlet(const std::string& uri
 
 /**
  * 删除指定URI的Servlet
+ * 删除精准Servlet
+ * 
  * 参数：
  *   - uri: 表示要删除的URI
  * 详细描述：
@@ -179,6 +189,8 @@ void ServletDispatch::delServlet(const std::string& uri) {
 
 /**
  * 删除指定URI的全局Servlet
+ * 删除模糊Servlet
+ * 
  * 参数：
  *   - uri: 表示要删除的URI
  * 详细描述：

@@ -18,6 +18,10 @@
 #include "config.h"
 
 namespace webserver {
+    /*
+    TcpServer模块概述
+    封装了一个TCP服务器，然后基于TcpServer实现了一个EchoServer
+    */
 
 struct TcpServerConf {
     typedef std::shared_ptr<TcpServerConf> ptr;
@@ -209,6 +213,7 @@ protected:
     virtual void startAccept(Socket::ptr sock);
 protected:
     /// 监听Socket数组
+    // 多监听，多网卡
     std::vector<Socket::ptr> m_socks;
     /// 新连接的Socket工作的调度器
     IOManager* m_worker;

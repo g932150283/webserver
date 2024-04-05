@@ -78,6 +78,7 @@ void HttpServer::handleClient(Socket::ptr client) {
     WEBSERVER_LOG_DEBUG(g_logger) << "handleClient " << *client; // 记录处理客户端连接的日志
     HttpSession::ptr session(new HttpSession(client)); // 创建HttpSession对象处理HTTP会话
     do {
+        // 接收请求报文
         auto req = session->recvRequest(); // 接收HTTP请求
         if(!req) { // 如果接收失败
             WEBSERVER_LOG_DEBUG(g_logger) << "recv http request fail, errno="
@@ -86,14 +87,19 @@ void HttpServer::handleClient(Socket::ptr client) {
             break;
         }
 
+        // 创建响应报文
         // 创建HTTP响应对象
         HttpResponse::ptr rsp(new HttpResponse(req->getVersion()
                             ,req->isClose() || !m_isKeepalive));
+        // 设置Server名Head
         rsp->setHeader("Server", getName()); // 设置响应头中的Server字段
+        // 执行操作
         m_dispatch->handle(req, rsp, session); // 调用ServletDispatch处理HTTP请求
+        // 发送响应报文
         session->sendResponse(rsp); // 发送HTTP响应
 
         // 如果不再保持长连接或请求要求关闭连接，则跳出循环
+        // 若不支持长连接，关闭
         if(!m_isKeepalive || req->isClose()) {
             break;
         }

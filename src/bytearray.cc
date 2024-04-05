@@ -110,6 +110,7 @@ void ByteArray::writeFuint8(uint8_t value) {
  * @param value 要写入的int16_t数据
  */
 void ByteArray::writeFint16(int16_t value) {
+    // 两个字节需要判断字节序
     if (m_endian != WEBSERVER_BYTE_ORDER) {
         value = byteswap(value);  // 如果字节序不匹配，进行字节序转换
     }
@@ -237,6 +238,7 @@ void ByteArray::writeInt32(int32_t value) {
 
 /**
  * 将uint32_t类型的整数写入字节数组。
+ * 写Uint32：不固定长度
  *
  * @param value 要写入的uint32_t整数
  */
@@ -591,6 +593,7 @@ void ByteArray::clear() {
 
 /**
  * @brief 向字节数组中写入数据
+ * write（写操作，改变position）
  * 
  * @param buf 要写入的数据缓冲区的指针
  * @param size 要写入的数据大小
@@ -604,36 +607,53 @@ void ByteArray::write(const void* buf, size_t size) {
     addCapacity(size);
 
     // 计算当前节点内的偏移量、剩余容量和写入缓冲区的偏移量
+    // 在当前Node的位置
     size_t npos = m_position % m_baseSize;
+    // 当前Node剩余容量
     size_t ncap = m_cur->size - npos;
+    // buf写到哪了
     size_t bpos = 0;
 
     // 循环写入数据
     while(size > 0) {
+        // 该节点剩余的位置比写入的数据多
         if(ncap >= size) {
+            // 在当前位置将所有数据都写入
             // 当前节点容量足够，直接写入数据
             memcpy(m_cur->ptr + npos, (const char*)buf + bpos, size);
+            // 若正好写满了这个节点，则跳到下一个节点
             // 如果写入后当前节点满了，则切换到下一个节点
             if(m_cur->size == (npos + size)) {
                 m_cur = m_cur->next;
             }
+            // 更新当前操作的位置
             // 更新位置、缓冲区偏移量和剩余大小
             m_position += size;
+            // 更新数据写到哪个位置
             bpos += size;
+            // 数据写完了
             size = 0;
         } else {
             // 当前节点容量不够，先写入当前节点剩余空间，然后切换到下一个节点
+            // 将数据写入这个节点的剩余位置
             memcpy(m_cur->ptr + npos, (const char*)buf + bpos, ncap);
+            // 更新当前操作位置
             m_position += ncap;
+            // 更新buf写到哪了
             bpos += ncap;
+            // 更新剩余数据
             size -= ncap;
+            // 指向下一个节点
             m_cur = m_cur->next;
+            // 剩余大小为base大小
             ncap = m_cur->size;
+            // 更新在当前节点的位置
             npos = 0;
         }
     }
 
     // 更新实际大小
+    // 更新size
     if(m_position > m_size) {
         m_size = m_position;
     }
@@ -642,49 +662,67 @@ void ByteArray::write(const void* buf, size_t size) {
 
 /**
  * @brief 从字节数组中读取数据
+ * read（读操作，改变position）
  * 
  * @param buf 目标缓冲区的指针，用于存储读取的数据
  * @param size 要读取的数据大小
  */
 void ByteArray::read(void* buf, size_t size) {
     // 如果要读取的大小大于可读取的大小，则抛出异常
+    // size比当前操作位置后的数据还多
     if(size > getReadSize()) {
         throw std::out_of_range("not enough len");
     }
 
     // 计算当前节点内的偏移量、剩余容量和目标缓冲区的偏移量
+    // 当前节点的位置
     size_t npos = m_position % m_baseSize;
+    // 当前节点剩余容量
     size_t ncap = m_cur->size - npos;
+    // buf读到哪了
     size_t bpos = 0;
 
     // 循环读取数据
     while(size > 0) {
+        // 该节点剩余的位置比要读的数据多
         if(ncap >= size) {
+            // 将剩余的数据都读到buf中
             // 当前节点容量足够，直接读取数据
             memcpy((char*)buf + bpos, m_cur->ptr + npos, size);
             // 如果读取后当前节点满了，则切换到下一个节点
+            // 若正好读完这个节点，则跳到下一个节点
             if(m_cur->size == (npos + size)) {
                 m_cur = m_cur->next;
             }
             // 更新位置、缓冲区偏移量和剩余大小
+            // 更新当前操作位置
             m_position += size;
+            // 更新当前读到哪了
             bpos += size;
             size = 0;
         } else {
+            // 将该节点剩余的容量都读到buf中
             // 当前节点容量不够，先读取当前节点剩余空间，然后切换到下一个节点
             memcpy((char*)buf + bpos, m_cur->ptr + npos, ncap);
+            // 更新当前操作位置
             m_position += ncap;
+            // 更新读到哪了
             bpos += ncap;
+            // 更新剩余多少数据没读
             size -= ncap;
+            // 指向下一个节点
             m_cur = m_cur->next;
+            // 剩余大小为base大小
             ncap = m_cur->size;
+            // 更新在当前节点的位置
             npos = 0;
         }
     }
 }
 
 /**
- * @brief 从字节数组中指定位置读取数据
+ * @brief 从字节数组中指定位置读取数据.
+ * read（读操作，不改变position）
  * 
  * @param buf 目标缓冲区的指针，用于存储读取的数据
  * @param size 要读取的数据大小
@@ -731,20 +769,25 @@ void ByteArray::read(void* buf, size_t size, size_t position) const {
 
 /**
  * @brief 设置字节数组的当前位置
+ * setPosition（设置当前位置）
  * 
  * @param v 要设置的位置值
  */
 void ByteArray::setPosition(size_t v) {
+    // 比容量还大，抛出异常
     // 如果设置的位置超出了容量范围，则抛出异常
     if(v > m_capacity) {
         throw std::out_of_range("set_position out of range");
     }
+    // 设置当前位置
     // 设置当前位置值
     m_position = v;
     // 如果当前位置超过了实际大小，则更新实际大小
+    // 若当前位置比数据大小还大
     if(m_position > m_size) {
         m_size = m_position;
     }
+    // 链表遍历到当前位置
     // 将当前节点指针重置为根节点
     m_cur = m_root;
     // 找到包含设置位置的节点
@@ -823,6 +866,7 @@ bool ByteArray::readFromFile(const std::string& name) {
 
 /**
  * @brief 增加字节数组的容量
+ * addCapacity（增加容量）
  * 
  * @param size 要增加的容量大小
  */
@@ -831,6 +875,7 @@ void ByteArray::addCapacity(size_t size) {
     if(size == 0) {
         return;
     }
+    // 剩余容量
     // 获取当前容量
     size_t old_cap = getCapacity();
     // 如果当前容量已经大于等于要增加的大小，则无需增加，直接返回
@@ -838,11 +883,14 @@ void ByteArray::addCapacity(size_t size) {
         return;
     }
 
+    // 需要扩充多少字节数据
     // 计算实际需要增加的大小
     size = size - old_cap;
+    // 需要扩充多少节点
     // 计算需要增加的节点数量
     size_t count = ceil(1.0 * size / m_baseSize);
     // 找到链表的末尾节点
+    // 遍历到链表的末尾
     Node* tmp = m_root;
     while(tmp->next) {
         tmp = tmp->next;
@@ -858,7 +906,7 @@ void ByteArray::addCapacity(size_t size) {
         tmp = tmp->next;
         m_capacity += m_baseSize;
     }
-
+    // 若剩余容量为0，则跳到下一个节点
     // 如果原始容量为0，则将当前节点指针指向第一个新节点
     if(old_cap == 0) {
         m_cur = first;
@@ -911,6 +959,7 @@ std::string ByteArray::toHexString() const {
 
 /**
  * @brief 获取可读取的数据缓冲区列表
+ * getReadBuffers（获取可读缓存，iovec数组，不改变position）
  * 
  * @param buffers 存储可读取的数据缓冲区列表的向量
  * @param len 要获取的数据长度
@@ -956,6 +1005,7 @@ uint64_t ByteArray::getReadBuffers(std::vector<iovec>& buffers, uint64_t len) co
 
 /**
  * @brief 获取可读取的数据缓冲区列表
+ * getWriteBuffers（获取可写缓存,iovec数组，不改变position）
  * 
  * @param buffers 存储可读取的数据缓冲区列表的向量
  * @param len 要获取的数据长度

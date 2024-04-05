@@ -73,6 +73,8 @@ void TcpServer::setConf(const TcpServerConf& v) {
 
 /**
  * @brief 尝试绑定到一个单一地址。
+ * bind（绑定地址以及监听）
+ * 可以获取绑定失败的地址
  * 
  * 创建一个新的socket并尝试将其绑定到提供的地址上。如果ssl为true，则创建一个SSL socket。
  * 
@@ -81,6 +83,7 @@ void TcpServer::setConf(const TcpServerConf& v) {
  * @return 绑定成功返回true，失败返回false。
  */
 bool TcpServer::bind(webserver::Address::ptr addr, bool ssl) {
+    // 绑定单个地址
     std::vector<Address::ptr> addrs;  // 创建一个地址向量。
     std::vector<Address::ptr> fails;  // 创建一个用于存储绑定失败地址的向量。
     addrs.push_back(addr);  // 将地址添加到地址向量中。
@@ -98,17 +101,22 @@ bool TcpServer::bind(webserver::Address::ptr addr, bool ssl) {
  * @return 所有地址绑定成功返回true，任一失败返回false。
  */
 bool TcpServer::bind(const std::vector<Address::ptr>& addrs, std::vector<Address::ptr>& fails, bool ssl) {
+    // 绑定多个地址
     m_ssl = ssl;  // 设置SSL标志。
     for (auto& addr : addrs) {  // 遍历所有地址。
         // 根据ssl标志创建TCP或SSL socket。
+        // 创建TCPsocket
         Socket::ptr sock = ssl ? SSLSocket::CreateTCP(addr) : Socket::CreateTCP(addr);
+        // bind
         if (!sock->bind(addr)) {  // 尝试绑定地址。
             // 记录绑定失败日志。
             WEBSERVER_LOG_ERROR(g_logger) << "bind fail errno=" << errno << " errstr=" << strerror(errno)
                                           << " addr=[" << addr->toString() << "]";
+            // bind失败放入失败数组
             fails.push_back(addr);  // 添加到失败列表。
             continue;
         }
+        // 监听
         if (!sock->listen()) {  // 尝试监听地址。
             // 记录监听失败日志。
             WEBSERVER_LOG_ERROR(g_logger) << "listen fail errno=" << errno << " errstr=" << strerror(errno)
@@ -120,6 +128,7 @@ bool TcpServer::bind(const std::vector<Address::ptr>& addrs, std::vector<Address
     }
 
     // 检查是否有失败的绑定。
+    // 有绑定失败的地址，清空监听socket数组
     if (!fails.empty()) {
         m_socks.clear();  // 清空socket列表并返回失败。
         return false;
@@ -144,9 +153,11 @@ void TcpServer::startAccept(Socket::ptr sock) {
     while(!m_isStop) {
         // 接受客户端连接
         Socket::ptr client = sock->accept();
+        // 连接成功
         if(client) {
             // 设置客户端接收超时时间
             client->setRecvTimeout(m_recvTimeout);
+            // handleClient 结束之前， TcpServer不能结束，shared_from_this，把自己传进去
             // 将客户端处理任务加入到IO工作线程池中
             m_ioWorker->schedule(std::bind(&TcpServer::handleClient,
                         shared_from_this(), client));
@@ -171,6 +182,7 @@ bool TcpServer::start() {
     }
     // 标记服务器开始运行
     m_isStop = false;
+    // 每个socket接收连接任务放入任务队列中
     // 遍历服务器监听套接字，为每一个套接字分配一个接受客户端连接的任务
     for(auto& sock : m_socks) {
         m_acceptWorker->schedule(std::bind(&TcpServer::startAccept,
@@ -188,6 +200,7 @@ void TcpServer::stop() {
     m_isStop = true;
     // 获取当前对象的shared_ptr
     auto self = shared_from_this();
+    // 将this和self作为参数传递给异步任务的lambda函数，以确保异步任务执行期间当前对象的shared_ptr一直有效
     // 在接受连接的工作线程中执行关闭套接字的操作
     m_acceptWorker->schedule([this, self]() {
         for(auto& sock : m_socks) {

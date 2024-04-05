@@ -62,6 +62,7 @@ HttpConnection::~HttpConnection() {
 HttpResponse::ptr HttpConnection::recvResponse() {
     HttpResponseParser::ptr parser(new HttpResponseParser); // 创建HttpResponseParser对象，用于解析HTTP响应
     uint64_t buff_size = HttpRequestParser::GetHttpRequestBufferSize(); // 获取HTTP请求缓冲区大小
+    // 智能指针接管
     std::shared_ptr<char> buffer(
             new char[buff_size + 1], [](char* ptr){
                 delete[] ptr;
@@ -69,43 +70,57 @@ HttpResponse::ptr HttpConnection::recvResponse() {
     char* data = buffer.get(); // 获取buffer指针
     int offset = 0; // 偏移量初始化为0
     do {
+        // 在offset后面接着读数据
         int len = read(data + offset, buff_size - offset); // 从套接字中读取数据
         if(len <= 0) { // 如果读取失败或者连接关闭
             close(); // 关闭连接
             return nullptr; // 返回空指针
         }
+        // 当前已经读取的数据长度
         len += offset; // 计算读取的数据长度
         data[len] = '\0'; // 设置字符串结尾
+        // 解析缓冲区data中的数据
+        // execute会将data向前移动nparse个字节，nparse为已经成功解析的字节数
         size_t nparse = parser->execute(data, len, false); // 执行解析操作
         if(parser->hasError()) { // 如果解析过程出错
             close(); // 关闭连接
             return nullptr; // 返回空指针
         }
+        // 此时data还剩下len - nparse个字节
         offset = len - nparse; // 更新偏移量
+        // 缓冲区满了还没解析完
         if(offset == (int)buff_size) { // 如果偏移量达到缓冲区大小
             close(); // 关闭连接
             return nullptr; // 返回空指针
         }
+        // 解析结束
         if(parser->isFinished()) { // 如果解析完成
             break; // 跳出循环
         }
     } while(true); // 循环直到解析完成
+    // 这里返回引用
     auto& client_parser = parser->getParser(); // 获取解析器对象的引用
+    // 是否为chunk
     std::string body; // 声明存储HTTP响应体的字符串
     if(client_parser.chunked) { // 如果使用分块编码
+        // 缓冲区剩余数据
         int len = offset; // 初始化长度为偏移量
         do {
             bool begin = true; // 是否为开始标志
             do {
+                // 继续读数据
                 if(!begin || len == 0) { // 如果不是开始或者长度为0
                     int rt = read(data + len, buff_size - len); // 读取数据
                     if(rt <= 0) { // 如果读取失败或连接关闭
                         close(); // 关闭连接
                         return nullptr; // 返回空指针
                     }
+                    // 更新缓冲区数据数量
                     len += rt; // 更新长度
                 }
+                // 再末尾添加
                 data[len] = '\0'; // 设置字符串结尾
+                // 解析报文，重新初始化parser
                 size_t nparse = parser->execute(data, len, true); // 执行解析操作
                 if(parser->hasError()) { // 如果解析过程出错
                     close(); // 关闭连接
@@ -118,20 +133,28 @@ HttpResponse::ptr HttpConnection::recvResponse() {
                 }
                 begin = false; // 设置为非开始
             } while(!parser->isFinished()); // 循环直到解析完成
+            // body小于缓冲区的数据
             if(client_parser.content_len + 2 <= len) { // 如果内容长度小于等于长度
+                // 将body数据加进来
                 body.append(data, client_parser.content_len); // 添加数据到body中
+                // 移动data
                 memmove(data, data + client_parser.content_len + 2
                         , len - client_parser.content_len - 2); // 移动数据
+                // 缓冲区剩余数据数
                 len -= client_parser.content_len + 2; // 更新长度
             } else { // 如果内容长度大于长度
+                // 将缓冲区全部数据加进来
                 body.append(data, len); // 添加数据到body中
+                // 还剩多少body数据
                 int left = client_parser.content_len - len + 2; // 计算剩余长度
                 while(left > 0) { // 循环直到剩余长度为0
+                    // 读最多缓冲区大小的数据
                     int rt = read(data, left > (int)buff_size ? (int)buff_size : left); // 读取数据
                     if(rt <= 0) { // 如果读取失败或连接关闭
                         close(); // 关闭连接
                         return nullptr; // 返回空指针
                     }
+                    // 加到body
                     body.append(data, rt); // 添加数据到body中
                     left -= rt; // 更新剩余长度
                 }
@@ -140,19 +163,23 @@ HttpResponse::ptr HttpConnection::recvResponse() {
             }
         } while(!client_parser.chunks_done); // 循环直到分块完成
     } else { // 如果不使用分块编码
+        // 获得body的长度
         int64_t length = parser->getContentLength(); // 获取内容长度
         if(length > 0) { // 如果内容长度大于0
             body.resize(length); // 调整body的大小
 
             int len = 0; // 初始化长度为0
+            // 如果长度比缓冲区剩余的还大，将缓冲区全部加进来
             if(length >= offset) { // 如果内容长度大于等于偏移量
                 memcpy(&body[0], data, offset); // 复制数据到body中
                 len = offset; // 更新长度
             } else { // 如果内容长度小于偏移量
+                // 否则将取length
                 memcpy(&body[0], data, length); // 复制数据到body中
                 len = length; // 更新长度
             }
             length -= offset; // 更新长度
+            // 缓冲区里的数据也不够，继续读取直到满足length
             if(length > 0) { // 如果剩余长度大于0
                 if(readFixSize(&body[len], length) <= 0) { // 读取剩余数据
                     close(); // 关闭连接
@@ -178,6 +205,7 @@ HttpResponse::ptr HttpConnection::recvResponse() {
         }
         parser->getData()->setBody(body); // 设置HTTP响应体
     }
+    //返回解析完的HttpResponse
     return parser->getData(); // 返回解析得到的HTTP响应
 }
 
@@ -258,6 +286,9 @@ HttpResult::ptr HttpConnection::DoRequest(HttpMethod method
 
 /**
  * 发送HTTP请求
+ * 最后所有的请求都是由这个方法实现的
+ * 
+ * 
  * 参数：
  *   - method: 请求方法
  *   - uri: 目标URI
@@ -274,11 +305,17 @@ HttpResult::ptr HttpConnection::DoRequest(HttpMethod method
                             , uint64_t timeout_ms
                             , const std::map<std::string, std::string>& headers
                             , const std::string& body) {
+    // 创建http请求报文
     HttpRequest::ptr req = std::make_shared<HttpRequest>(); // 创建HttpRequest对象
+    // 设置path
     req->setPath(uri->getPath()); // 设置请求路径
+    // 设置qurey
     req->setQuery(uri->getQuery()); // 设置查询参数
+    // 设置fragment
     req->setFragment(uri->getFragment()); // 设置片段
+    // 设置请求方法
     req->setMethod(method); // 设置请求方法
+    // 是否有主机号
     bool has_host = false; // 是否包含Host字段
     for(auto& i : headers) { // 遍历请求头部信息
         if(strcasecmp(i.first.c_str(), "connection") == 0) { // 如果是Connection字段
@@ -287,16 +324,18 @@ HttpResult::ptr HttpConnection::DoRequest(HttpMethod method
             }
             continue; // 继续下一次循环
         }
-
+        // 看有没有设置host
         if(!has_host && strcasecmp(i.first.c_str(), "host") == 0) { // 如果还没有Host字段且是Host字段
             has_host = !i.second.empty(); // 设置是否包含Host字段
         }
-
+        // 设置header
         req->setHeader(i.first, i.second); // 设置请求头部信息
     }
+    //若没有host，则用uri的host
     if(!has_host) { // 如果没有Host字段
         req->setHeader("Host", uri->getHost()); // 设置Host字段
     }
+    // 设置body
     req->setBody(body); // 设置请求体信息
     return DoRequest(req, uri, timeout_ms); // 调用DoRequest(HttpRequest::ptr, ...)函数发送HTTP请求
 }
@@ -322,11 +361,13 @@ HttpResult::ptr HttpConnection::DoRequest(HttpRequest::ptr req
                             , Uri::ptr uri
                             , uint64_t timeout_ms) {
     bool is_ssl = uri->getScheme() == "https"; // 判断是否为HTTPS
+    // 通过uri创建address
     Address::ptr addr = uri->createAddress(); // 创建目标地址
     if(!addr) { // 如果地址为空
         return std::make_shared<HttpResult>((int)HttpResult::Error::INVALID_HOST
                 , nullptr, "invalid host: " + uri->getHost()); // 返回无效主机的HttpResult对象
     }
+    // 创建TCPsocket
     Socket::ptr sock = is_ssl ? SSLSocket::CreateTCP(addr) : Socket::CreateTCP(addr); // 创建TCP套接字
     if(!sock) { // 如果套接字为空
         return std::make_shared<HttpResult>((int)HttpResult::Error::CREATE_SOCKET_ERROR
@@ -334,28 +375,36 @@ HttpResult::ptr HttpConnection::DoRequest(HttpRequest::ptr req
                         + " errno=" + std::to_string(errno)
                         + " errstr=" + std::string(strerror(errno))); // 返回创建套接字失败的HttpResult对象
     }
+    // 发起请求连接
     if(!sock->connect(addr)) { // 连接目标地址
         return std::make_shared<HttpResult>((int)HttpResult::Error::CONNECT_FAIL
                 , nullptr, "connect fail: " + addr->toString()); // 返回连接失败的HttpResult对象
     }
+    // 设置接收超时时间
     sock->setRecvTimeout(timeout_ms); // 设置接收超时时间
+    // 创建httpconnection
     HttpConnection::ptr conn = std::make_shared<HttpConnection>(sock); // 创建HttpConnection对象
+    // 发送请求报文
     int rt = conn->sendRequest(req); // 发送请求
+    // 若为0，则表示远端关闭连接
     if(rt == 0) { // 如果发送被对端关闭
         return std::make_shared<HttpResult>((int)HttpResult::Error::SEND_CLOSE_BY_PEER
                 , nullptr, "send request closed by peer: " + addr->toString()); // 返回发送关闭的HttpResult对象
     }
+    // 小于0，失败
     if(rt < 0) { // 如果发送出错
         return std::make_shared<HttpResult>((int)HttpResult::Error::SEND_SOCKET_ERROR
                     , nullptr, "send request socket error errno=" + std::to_string(errno)
                     + " errstr=" + std::string(strerror(errno))); // 返回发送套接字错误的HttpResult对象
     }
+    // 接收响应报文
     auto rsp = conn->recvResponse(); // 接收响应
     if(!rsp) { // 如果接收超时
         return std::make_shared<HttpResult>((int)HttpResult::Error::TIMEOUT
                     , nullptr, "recv response timeout: " + addr->toString()
                     + " timeout_ms:" + std::to_string(timeout_ms)); // 返回接收超时的HttpResult对象
     }
+    // 结果成功，返回响应报文
     return std::make_shared<HttpResult>((int)HttpResult::Error::OK, rsp, "ok"); // 返回成功的HttpResult对象
 }
 
@@ -424,20 +473,27 @@ HttpConnectionPool::HttpConnectionPool(const std::string& host
  */
 HttpConnection::ptr HttpConnectionPool::getConnection() {
     uint64_t now_ms = webserver::GetCurrentMS(); // 获取当前时间（毫秒）
+    // 非法的连接
     std::vector<HttpConnection*> invalid_conns; // 无效的连接列表
     HttpConnection* ptr = nullptr; // 指向选定的连接
     MutexType::Lock lock(m_mutex); // 加锁
+    // 若连接池不为空
     while(!m_conns.empty()) { // 遍历连接池中的连接
+        // 取出第一个connection
         auto conn = *m_conns.begin(); // 获取连接池中的第一个连接
+        // 弹掉
         m_conns.pop_front(); // 移除连接池中的第一个连接
+        // 不在连接状态，放入非法vec中
         if(!conn->isConnected()) { // 如果连接已断开
             invalid_conns.push_back(conn); // 将连接添加到无效连接列表中
             continue; // 继续下一次循环
         }
+        // 已经超过了最大连接时间，放入非法vec中
         if((conn->m_createTime + m_maxAliveTime) > now_ms) { // 如果连接的创建时间超过了最大存活时间
             invalid_conns.push_back(conn); // 将连接添加到无效连接列表中
             continue; // 继续下一次循环
         }
+        // 获得当前connection
         ptr = conn; // 找到可用的连接
         break; // 退出循环
     }
@@ -481,6 +537,7 @@ HttpConnection::ptr HttpConnectionPool::getConnection() {
  */
 void HttpConnectionPool::ReleasePtr(HttpConnection* ptr, HttpConnectionPool* pool) {
     ++ptr->m_request; // 增加连接的请求数量
+    // 已经关闭了链接，超时，超过最大请求数量
     if(!ptr->isConnected() // 如果连接已断开
             || ((ptr->m_createTime + pool->m_maxAliveTime) >= webserver::GetCurrentMS()) // 或者连接已经超过了最大存活时间
             || (ptr->m_request >= pool->m_maxRequest)) { // 或者连接已达到最大请求次数
@@ -489,6 +546,7 @@ void HttpConnectionPool::ReleasePtr(HttpConnection* ptr, HttpConnectionPool* poo
         return;
     }
     MutexType::Lock lock(pool->m_mutex); // 加锁
+    // 重新放入连接池中
     pool->m_conns.push_back(ptr); // 将连接放回连接池
 }
 
