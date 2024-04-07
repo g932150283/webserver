@@ -1,0 +1,465 @@
+\hypertarget{md_README_autotoc_md1}{}\doxysection{压测}\label{md_README_autotoc_md1}
+ab -\/n 1000000 -\/c 200 \char`\"{}http\+://172.\+30.\+72.\+21\+:8020/webserver\char`\"{}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Server Software:        nginx/1.18.0}
+\DoxyCodeLine{Server Hostname:        172.30.72.21}
+\DoxyCodeLine{Server Port:            80}
+\DoxyCodeLine{}
+\DoxyCodeLine{Document Path:          /webserver}
+\DoxyCodeLine{Document Length:        162 bytes}
+\DoxyCodeLine{}
+\DoxyCodeLine{Concurrency Level:      200}
+\DoxyCodeLine{Time taken for tests:   59.502 seconds}
+\DoxyCodeLine{Complete requests:      1000000}
+\DoxyCodeLine{Failed requests:        0}
+\DoxyCodeLine{Non-\/2xx responses:      1000000}
+\DoxyCodeLine{Total transferred:      321000000 bytes}
+\DoxyCodeLine{HTML transferred:       162000000 bytes}
+\DoxyCodeLine{Requests per second:    16806.23 [\#/sec] (mean)}
+\DoxyCodeLine{Time per request:       11.900 [ms] (mean)}
+\DoxyCodeLine{Time per request:       0.060 [ms] (mean, across all concurrent requests)}
+\DoxyCodeLine{Transfer rate:          5268.36 [Kbytes/sec] received}
+\DoxyCodeLine{}
+\DoxyCodeLine{Connection Times (ms)}
+\DoxyCodeLine{              min  mean[+/-\/sd] median   max}
+\DoxyCodeLine{Connect:        0    5   1.5      5      29}
+\DoxyCodeLine{Processing:     1    7   1.9      7      50}
+\DoxyCodeLine{Waiting:        0    5   1.8      5      45}
+\DoxyCodeLine{Total:          2   12   2.4     11      61}
+\DoxyCodeLine{}
+\DoxyCodeLine{Percentage of the requests served within a certain time (ms)}
+\DoxyCodeLine{  50\%     11}
+\DoxyCodeLine{  66\%     12}
+\DoxyCodeLine{  75\%     12}
+\DoxyCodeLine{  80\%     13}
+\DoxyCodeLine{  90\%     14}
+\DoxyCodeLine{  95\%     16}
+\DoxyCodeLine{  98\%     18}
+\DoxyCodeLine{  99\%     21}
+\DoxyCodeLine{ 100\%     61 (longest request)}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Server Software:        webserver/1.0.0}
+\DoxyCodeLine{Server Hostname:        172.30.72.21}
+\DoxyCodeLine{Server Port:            8020}
+\DoxyCodeLine{}
+\DoxyCodeLine{Document Path:          /webserver}
+\DoxyCodeLine{Document Length:        140 bytes}
+\DoxyCodeLine{}
+\DoxyCodeLine{Concurrency Level:      200}
+\DoxyCodeLine{Time taken for tests:   30.773 seconds}
+\DoxyCodeLine{Complete requests:      1000000}
+\DoxyCodeLine{Failed requests:        0}
+\DoxyCodeLine{Non-\/2xx responses:      1000000}
+\DoxyCodeLine{Total transferred:      256000000 bytes}
+\DoxyCodeLine{HTML transferred:       140000000 bytes}
+\DoxyCodeLine{Requests per second:    32496.27 [\#/sec] (mean)}
+\DoxyCodeLine{Time per request:       6.155 [ms] (mean)}
+\DoxyCodeLine{Time per request:       0.031 [ms] (mean, across all concurrent requests)}
+\DoxyCodeLine{Transfer rate:          8124.07 [Kbytes/sec] received}
+\DoxyCodeLine{}
+\DoxyCodeLine{Connection Times (ms)}
+\DoxyCodeLine{              min  mean[+/-\/sd] median   max}
+\DoxyCodeLine{Connect:        0    2   0.8      2      32}
+\DoxyCodeLine{Processing:     1    4   1.4      4      35}
+\DoxyCodeLine{Waiting:        0    3   1.2      3      34}
+\DoxyCodeLine{Total:          2    6   1.7      6      38}
+\DoxyCodeLine{}
+\DoxyCodeLine{Percentage of the requests served within a certain time (ms)}
+\DoxyCodeLine{  50\%      6}
+\DoxyCodeLine{  66\%      6}
+\DoxyCodeLine{  75\%      7}
+\DoxyCodeLine{  80\%      7}
+\DoxyCodeLine{  90\%      8}
+\DoxyCodeLine{  95\%      9}
+\DoxyCodeLine{  98\%     10}
+\DoxyCodeLine{  99\%     11}
+\DoxyCodeLine{ 100\%     38 (longest request)}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Server Software:        webserver/1.0.0}
+\DoxyCodeLine{Server Hostname:        172.30.72.21}
+\DoxyCodeLine{Server Port:            8020}
+\DoxyCodeLine{}
+\DoxyCodeLine{Document Path:          /webserver}
+\DoxyCodeLine{Document Length:        140 bytes}
+\DoxyCodeLine{}
+\DoxyCodeLine{Concurrency Level:      200}
+\DoxyCodeLine{Time taken for tests:   47.636 seconds}
+\DoxyCodeLine{Complete requests:      1000000}
+\DoxyCodeLine{Failed requests:        0}
+\DoxyCodeLine{Non-\/2xx responses:      1000000}
+\DoxyCodeLine{Total transferred:      256000000 bytes}
+\DoxyCodeLine{HTML transferred:       140000000 bytes}
+\DoxyCodeLine{Requests per second:    20992.63 [\#/sec] (mean)}
+\DoxyCodeLine{Time per request:       9.527 [ms] (mean)}
+\DoxyCodeLine{Time per request:       0.048 [ms] (mean, across all concurrent requests)}
+\DoxyCodeLine{Transfer rate:          5248.16 [Kbytes/sec] received}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md2}{}\doxysection{项目路径}\label{md_README_autotoc_md2}
+bin -- 二进制
+
+bulid -- 中间文件路径
+
+cmake -- cmake函数文件夹
+
+CMake\+List.\+txt -- cmake定义文件
+
+lib -- 库得输出路径
+
+Makefile --
+
+sylar -- 源代码路径
+
+tests -- 测试代码\hypertarget{md_README_autotoc_md3}{}\doxysection{日志系统}\label{md_README_autotoc_md3}
+服务器出问题、做统计
+
+1) Log4J
+
+\begin{DoxyVerb}Logger(定义日志类别)
+-Formatter(日志格式)
+
+Appender(日志输出地方)（控制台、文件、专门日志收集系统）
+
+
+框架级log用唯一标识区分，业务级用另外名称定义
+- 可控
+\end{DoxyVerb}
+\hypertarget{md_README_autotoc_md4}{}\doxysection{配置系统}\label{md_README_autotoc_md4}
+Config -\/-\/$>$ Yaml
+
+yamp-\/cpp
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{YAML::Node node = YAML::LoadFile(filename)}
+\DoxyCodeLine{node.IsMap()}
+\DoxyCodeLine{\textcolor{keywordflow}{for}(\textcolor{keyword}{auto} it = node.begin();}
+\DoxyCodeLine{        it != node.end(); it++)\{}
+\DoxyCodeLine{            it-\/>first, it-\/>seconde}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{node.IsSequence()}
+
+\end{DoxyCode}
+
+
+配置系统原则：约定优于配置
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<T, FromStr, ToStr>}
+\DoxyCodeLine{\textcolor{keyword}{class }ConfigVar;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{template}<F, T>}
+\DoxyCodeLine{LexicalCast;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//容器片特化 vector, list, set, map, unordered\_set, unordered\_map}}
+\DoxyCodeLine{\textcolor{comment}{// map、unordered\_map 需要支持 key = std::string}}
+\DoxyCodeLine{\textcolor{comment}{// Config::Lookup(key), key相同， 类型不同}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{容器偏特化（template specialization for containers）是C++模板编程中的一个概念。}}
+\DoxyCodeLine{\textcolor{comment}{它指的是对特定类型的模板进行特殊处理或定制，以满足特定的需求。}}
+\DoxyCodeLine{\textcolor{comment}{代码中，存在两个类模板的片特化：}}
+\DoxyCodeLine{\textcolor{comment}{}}
+\DoxyCodeLine{\textcolor{comment}{LexicalCast<std::string, std::vector<T>>：}}
+\DoxyCodeLine{\textcolor{comment}{这是对 LexicalCast 模板的特殊版本，用于将 YAML 格式的字符串转换为 std::vector<T> 类型的对象。}}
+\DoxyCodeLine{\textcolor{comment}{}}
+\DoxyCodeLine{\textcolor{comment}{LexicalCast<std::vector<T>, std::string>：}}
+\DoxyCodeLine{\textcolor{comment}{这是另一个 LexicalCast 模板的特殊版本，用于将 std::vector<T> 类型的对象转换为 YAML 格式的字符串。}}
+\DoxyCodeLine{\textcolor{comment}{}}
+\DoxyCodeLine{\textcolor{comment}{在这两种情况下，为了更好地处理特定的类型转换，对通用的 LexicalCast 模板进行了特殊化。}}
+\DoxyCodeLine{\textcolor{comment}{这使得可以为这两个特殊情况提供定制的实现，以满足程序的需求。}}
+\DoxyCodeLine{\textcolor{comment}{这种特殊化允许根据不同的类型执行不同的操作，提高了代码的灵活性和可读性。}}
+\DoxyCodeLine{\textcolor{comment}{*/}}
+
+\end{DoxyCode}
+
+
+自定义类型，需要实现webserver\+::\+Lexical\+Cast,偏特化 实现后，可以支持\+Config解析自定义类型 自定义类型可以和常规stl容器一起使用
+
+配置的事件机制 当一个配置项发生修改的时候，可以反向通知对应的代码，回调\hypertarget{md_README_autotoc_md5}{}\doxysubsection{日志系统整合配置系统}\label{md_README_autotoc_md5}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{logs:}
+\DoxyCodeLine{    -\/ name: root}
+\DoxyCodeLine{      level: (debug,,info, warn, error, fatal)}
+\DoxyCodeLine{      formatter: "{}\%d\%T\%p\%T\%t\%m\%n"{} }
+\DoxyCodeLine{      appender:}
+\DoxyCodeLine{            -\/ type: (StdoutLogAppender, FileLogAppender)}
+\DoxyCodeLine{              level: (debug, ...)}
+\DoxyCodeLine{              file: /logs/xxx.log}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{webserver::Logger g\_logger = webserver::LoggerMgr::GetInstance()-\/>getLogger(name);}
+\DoxyCodeLine{WEBSERVER\_LOG\_INFO(g\_logger) << \textcolor{stringliteral}{"{}xxxx log"{}};}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// 保证log唯一性}}
+\DoxyCodeLine{\textcolor{keyword}{static} Logger::ptr g\_log = WEBSERVER\_LOG\_NAME(\textcolor{stringliteral}{"{}system"{}});}
+\DoxyCodeLine{\textcolor{comment}{// m\_root, m\_system-\/>m\_root}}
+\DoxyCodeLine{\textcolor{comment}{// 当logger的appenders为空，使用root写logger}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// 定义LogDefine LogAppenderDefine，偏特化 LexicalCast}}
+\DoxyCodeLine{\textcolor{comment}{// 实现日志配置解析}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md6}{}\doxysection{线程库封装}\label{md_README_autotoc_md6}
+线程 C++11 互斥量 pthread线程库 既能用到新特性，又可以兼顾性能
+
+pthread实现pthread\+\_\+creatre 互斥量 mutex 信号量 semaphore C++11中的互斥量没有读写分离，高并发情况下，写少读多，将读写分离，提升性能
+
+信号量用在pthread生成线程中，在线程构造函数中，确保在出线程构造函数之前，要启动的线程就一定启动。
+
+与\+Log整合，\+Logger, Appender
+
+Spinlock替换\+Mutex 写文件，周期性，reopen
+
+与\+Config整合
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ps uax | grep thread}
+
+\end{DoxyCode}
+ 这个命令的意思是列出所有进程 (ps uax)，然后使用 grep 过滤输出，只显示包含单词 \char`\"{}thread\char`\"{} 的行。
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{top -\/H -\/p <进程ID>}
+
+\end{DoxyCode}
+ top 命令用于显示系统中运行的进程和系统资源的使用情况。-\/H 选项表示显示线程信息，-\/p 选项用于指定要监视的进程 ID。如果你想要监视特定进程的线程，你需要提供一个有效的进程 ID。例如：
+
+
+
+\hypertarget{md_README_autotoc_md7}{}\doxysection{协程库封装}\label{md_README_autotoc_md7}
+将异步操作封装成同步
+
+定义协程接口 ucontext\+\_\+t macro
+
+协程比线程更轻量级 用户态的线程，可创建的数量是线程的成千上万倍 轻量级，切换速度快，操作权掌握在用户手中
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Fiber::GetThis()}
+\DoxyCodeLine{thread-\/>main\_fiber <-\/-\/> sub\_fiber}
+\DoxyCodeLine{            ↑}
+\DoxyCodeLine{            |}
+\DoxyCodeLine{            ↓}
+\DoxyCodeLine{        sub\_fiber}
+
+\end{DoxyCode}
+
+
+协程调度模块scheduler 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{          1 -\/ N      1 -\/ M       }
+\DoxyCodeLine{scheduler  -\/-\/> thread -\/-\/> fiber}
+\DoxyCodeLine{}
+\DoxyCodeLine{1. 线程池， 分配一组线程}
+\DoxyCodeLine{2. 协程调度器，将协程指定到相应的线程上去执行}
+\DoxyCodeLine{}
+\DoxyCodeLine{m\_threads 线程池}
+\DoxyCodeLine{<function<void()>, fiber, threadid> m\_fibers  协程队列}
+\DoxyCodeLine{}
+\DoxyCodeLine{schedule(func/fiber)}
+\DoxyCodeLine{}
+\DoxyCodeLine{start()}
+\DoxyCodeLine{stop()  协程调度器所有任务结束后退出}
+\DoxyCodeLine{run()  核心 协程和线程}
+\DoxyCodeLine{}
+\DoxyCodeLine{run() }
+\DoxyCodeLine{1.设置当前线程的scheduler}
+\DoxyCodeLine{2.设置当前线程执行run方法的fiber}
+\DoxyCodeLine{3.协程调度循环while(true)}
+\DoxyCodeLine{    3.1 协程消息队列是否有 任务}
+\DoxyCodeLine{    3.2 无任务执行，执行idle}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md8}{}\doxysubsection{IO协程调度模块}\label{md_README_autotoc_md8}
+在协程调度模块的基础上，封装了epoll。支持对\+IO事件的调度功能，可以为socket句柄添加读事件(\+EPOLLIN)和写事件(\+EPOLLOUT)，并且支持删除事件功能。\+IOManager主要通过\+Fd\+Context结构体存储文件描述符fd, 注册的事件event，执行任务cb/fiber，其中fd和event用于epoll\+\_\+wait，cb/fiber用于执行任务。 当有任务时，使用管道pipe来唤醒epoll\+\_\+wait()先执行其他任务。
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{IOManager(epoll) -\/-\/-\/>Scheduler}
+\DoxyCodeLine{            |}
+\DoxyCodeLine{            |}
+\DoxyCodeLine{            ↓}
+\DoxyCodeLine{           idle(epoll\_wait)}
+\DoxyCodeLine{}
+\DoxyCodeLine{信号量}
+\DoxyCodeLine{PutMessage(msg, ) + 信号量1, single()}
+\DoxyCodeLine{message\_queue}
+\DoxyCodeLine{     |}
+\DoxyCodeLine{     | -\/-\/-\/-\/-\/ Thread}
+\DoxyCodeLine{     | -\/-\/-\/-\/-\/ Thread}
+\DoxyCodeLine{           wait()-\/信号量1, RecvMessage(msg, )}
+\DoxyCodeLine{}
+\DoxyCodeLine{异步IS，等待数据返回。 epoll\_wait}
+\DoxyCodeLine{}
+\DoxyCodeLine{epoll\_create, epoll\_ctl, epoll\_wait}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Timer -\/> addTimer() -\/-\/> cancel()}
+\DoxyCodeLine{获取当前的定时器触发离现在的时间差}
+\DoxyCodeLine{返回当前需要触发的定时器}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[Fiber]                   [Timer]}
+\DoxyCodeLine{   ↑N                       ↑}
+\DoxyCodeLine{   |                        |}
+\DoxyCodeLine{   |1                       |}
+\DoxyCodeLine{[Thread]               [TimerManager]}
+\DoxyCodeLine{   ↑M                       ↑}
+\DoxyCodeLine{   |                        |}
+\DoxyCodeLine{   |1                       |}
+\DoxyCodeLine{[Scheduledr] <-\/-\/-\/-\/  [IOManager(epoll)]}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md9}{}\doxysection{HOOK}\label{md_README_autotoc_md9}
+sleep usleep
+
+socket相关 \+: socket, connet, accept io相关 \+: read, wirte, send, recv fd相关 \+: fcntl, ioctl\hypertarget{md_README_autotoc_md10}{}\doxysection{socket函数库}\label{md_README_autotoc_md10}
+\begin{DoxyVerb}          [UnixAddress]
+                |
+            ---------                      | - [IPv4Address]
+            |Address|  --- [IPAddress] --- |
+            ---------                      | - [IPv6Address]
+                |
+                |
+            ---------
+             |Socket|
+            ---------
+\end{DoxyVerb}
+ connetc accept read/wirte/clses ~\newline
+\hypertarget{md_README_autotoc_md11}{}\doxysection{序列化bytearry}\label{md_README_autotoc_md11}
+write(int, float, ...) read(int, float, ...)\hypertarget{md_README_autotoc_md12}{}\doxysection{http协议开发}\label{md_README_autotoc_md12}
+主要封装\+HTTP请求（class Http\+Request）和\+HTTP响应报文（class Http\+Response）
+
+使用状态机解析报文格式，保存到请求和响应报文对象中。
+
+请求报文格式 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{GET / HTTP/1.1  \#请求行}
+\DoxyCodeLine{Host: www.baidu.com   \#主机地址}
+\DoxyCodeLine{Connection: keep-\/alive   \#表示TCP未断开}
+\DoxyCodeLine{Upgrade-\/Insecure-\/Requests: 1}
+\DoxyCodeLine{User-\/Agent: Mozilla/5.0 (Windows NT 10.0; Win64;x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36   \#产生请求的浏览器类型}
+\DoxyCodeLine{Sec-\/Fetch-\/Dest: document}
+\DoxyCodeLine{Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-\/exchange;v=b3;q=0.9}
+\DoxyCodeLine{Sec-\/Fetch-\/Site: none}
+\DoxyCodeLine{Sec-\/Fetch-\/Mode: navigate}
+\DoxyCodeLine{Sec-\/Fetch-\/User: ?1}
+\DoxyCodeLine{Accept-\/Encoding: gzip, deflate, br}
+\DoxyCodeLine{Accept-\/Language: zh-\/CN,zh;q=0.9}
+\DoxyCodeLine{Cookie: ......    \#用户安全凭证}
+
+\end{DoxyCode}
+
+
+应答报文格式
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{HTTP/1.1 200 OK}
+\DoxyCodeLine{Content-\/Type: text/html; charset=UTF-\/8}
+\DoxyCodeLine{Date: Mon, 05 Jun 2023 06:53:13 GMT}
+\DoxyCodeLine{Link: <http://www.sylar.top/blog/index.php?rest\_route=/>; rel="{}https://api.w.org/"{}}
+\DoxyCodeLine{Server: nginx/1.12.2}
+\DoxyCodeLine{Transfer-\/Encoding: chunked}
+\DoxyCodeLine{X-\/Powered-\/By: PHP/7.0.33}
+\DoxyCodeLine{Connection: close}
+\DoxyCodeLine{Content-\/length: 45383}
+\DoxyCodeLine{​}
+\DoxyCodeLine{<!DOCTYPE html>}
+\DoxyCodeLine{<html lang="{}zh-\/CN"{} class="{}no-\/js"{}>}
+\DoxyCodeLine{<head>}
+\DoxyCodeLine{<meta charset="{}UTF-\/8"{}>}
+
+\end{DoxyCode}
+ HTTP/1.\+1 -\/ API
+
+Http\+Request Http\+Response
+
+GET / HTTP/1.\+1 host\+: www.\+baidu.\+com
+
+HTTP/1.\+0 200 OK Pragma\+: no-\/cache Content-\/\+Type\+: text/html Content-\/\+Length\+: 14988 Connection\+: close
+
+url\+: \href{http://www.baidu.com:80/page/xxx?id=10&v=20\#fr}{\texttt{ http\+://www.\+baidu.\+com\+:80/page/xxx?id=10\&v=20\#fr}} 协议 \+: http host \+: www.\+baidu.\+com port \+: 80 path \+: xxx param \+: id=10\&v=20 fragment \+: fr
+
+ragel mongrel2\hypertarget{md_README_autotoc_md13}{}\doxysection{Tcp\+Server封装}\label{md_README_autotoc_md13}
+基于\+Tcp\+Server实现了一个\+Echo\+Sever\hypertarget{md_README_autotoc_md14}{}\doxysection{Stream 针对文件/socket封装}\label{md_README_autotoc_md14}
+read/write/read\+Fixe\+Size/write\+Fixe\+Size\hypertarget{md_README_autotoc_md15}{}\doxysection{Http\+Server模块}\label{md_README_autotoc_md15}
+Http\+Server模块概述 封装\+Http\+Session接收请求报文，发送响应报文，该类继承自\+Socket\+Stream。 封装\+Servlet,虚拟接口，当\+Server命中某个uri时，执行对应的\+Servlet。 封装\+Http\+Server服务器，继承自\+Tcp\+Server。
+
+Http\+Session/\+Http\+Connection Server accept socket -\/$>$ session client connect socket -\/$>$ connection
+
+Http\+Server \+: Tcp\+Server \begin{DoxyVerb}    Servlet <--- FunctionServlet
+       |
+       |
+       ↓
+ ServletDispatch
+\end{DoxyVerb}
+\hypertarget{md_README_autotoc_md16}{}\doxysection{Http\+Connection模块}\label{md_README_autotoc_md16}
+class Http\+Connection继承自class Socket\+Stream，发送请求报文，接收响应报文。 封装struct Http\+Result\+HTTP响应结果 实现连接池class Http\+Connection\+Pool，仅在长连接有效时使用。 封装class URI，使用状态机解析\+URI。
+
+URI格式
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{foo://user@example.com:8042/over/there?name=ferret\#nose}
+\DoxyCodeLine{\_/   \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_/\_\_\_\_\_\_\_\_\_/ \_\_\_\_\_\_\_\_\_/ \_\_/}
+\DoxyCodeLine{ |              |              |            |        |}
+\DoxyCodeLine{scheme      authority         path        query   fragment}
+\DoxyCodeLine{ |   \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_|\_\_}
+\DoxyCodeLine{/ \(\backslash\) /                             \(\backslash\)}
+\DoxyCodeLine{urn:example:animal:ferret:nose}
+\DoxyCodeLine{​}
+\DoxyCodeLine{authority   = [ userinfo "{}@"{} ] host [ "{}:"{} port ]}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{     foo://user@webserver.com:8042/over/there?name=ferret\#nose}
+\DoxyCodeLine{       \(\backslash\)\_/   \(\backslash\)\_\_\_\_\_\_\_\_\_\_\_\_\_\_/\(\backslash\)\_\_\_\_\_\_\_\_\_/ \(\backslash\)\_\_\_\_\_\_\_\_\_/ \(\backslash\)\_\_/}
+\DoxyCodeLine{        |           |            |            |        |}
+\DoxyCodeLine{     scheme     authority       path        query   fragment}
+
+\end{DoxyCode}
+ 
